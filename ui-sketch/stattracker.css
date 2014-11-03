@@ -1,0 +1,21 @@
+.soccer-field {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+.match-time {
+    font-size: 18pt;
+    padding-top: 8px;
+    display: block;
+    line-height: 0;
+}
+
+.match-period {
+    font-size: 12pt;
+}
+
+.soccerball {
+    width: 32px;
+    height: 32px;
+}

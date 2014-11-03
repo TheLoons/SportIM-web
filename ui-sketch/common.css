@@ -1,0 +1,22 @@
+.match-item {
+    width: 100%;
+    padding: 5px 0px;
+}
+.match-datetime, .match-team-alone {
+    border: 1px solid #999;
+}
+.match-team { 
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    height: 35px;
+}
+.match-teamlogo {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+}
+.match-container {
+    width: 80%;
+    margin: 0 auto;
+}
