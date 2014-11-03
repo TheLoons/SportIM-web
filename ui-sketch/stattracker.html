@@ -9,8 +9,20 @@
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
         <script>$(function() {
-            $( ".player" ).draggable();
-            $( ".soccerball" ).draggable();
+            $(".player").draggable();
+            $(".soccerball").draggable();
+
+            $(".player").click(function() {
+                if($(this).data('has-modal') != 'true') {
+                    var modaltop = $(this).offset().top - $("#player-modal").height() - 15;
+                    var modalleft = $(this).offset().left - ($("#player-modal").width() / 3);
+                    $("#player-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
+                    $(this).data('has-modal', 'true');
+                } else {
+                    $(this).data('has-modal', 'false');
+                    $("#player-modal").css('display', 'none');
+                }
+            });
           });</script>
     </head>
     <body>
@@ -33,12 +45,34 @@
                 <legend></legend>
             </form>
         </div>
-        <div style="text-align: center; font-size: 20pt;">
-            <div class="match-container">
-                <div class="pure-button pure-button-primary">
-                    <span class="match-time">15:23</span>
-                    <span class="match-period">first half</span>
+        <div class="pure-g" style="text-align: center; font-size: 20pt;">
+            <div class="pure-u-1-5">
+            </div>
+            <div class="pure-u-1-5">
+                <div class="match-container">
+                    <div class="pure-button pure-button-primary">
+                        <span class="match-time">2</span>
+                        <span class="match-period">Team 6</span>
+                    </div>
                 </div>
+            </div>
+            <div class="pure-u-1-5">
+                <div class="match-container">
+                    <div class="pure-button pure-button-primary">
+                        <span class="match-time">15:23</span>
+                        <span class="match-period">first half</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pure-u-1-5">
+                <div class="match-container">
+                    <div class="pure-button pure-button-primary">
+                        <span class="match-time">0</span>
+                        <span class="match-period">Team 3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pure-u-1-5">
             </div>
         </div>
         <div class="pure-g" style="margin-top:20px">
@@ -210,6 +244,11 @@
                     <img class="soccerball" src="soccerball.png" />
                 </div>
             </div>
+        </div>
+        <div id="player-modal">
+            <div class="pure-button"><span>Foul</span></div>
+            <div class="pure-button button-yellow"><span>Yellow</span></div>
+            <div class="pure-button button-red"><span>Red</span></div>
         </div>
     </body>
 </html>

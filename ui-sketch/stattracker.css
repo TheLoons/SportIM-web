@@ -19,3 +19,24 @@
     width: 32px;
     height: 32px;
 }
+#player-modal {
+    background-color: #ccc;
+    width: 255px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+}
+#player-modal .pure-button{
+    display: inline-block;
+    width: 50px;
+}
+#player-modal:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 120px;
+    border-top: 10px solid #ccc;
+    border-top-color: #ccc; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+}
