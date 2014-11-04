@@ -26,3 +26,66 @@
 .button-red {
     background-color: #ee3333;
 }
+.button-green {
+    background-color: #33ee33;
+}
+#calendar {
+    font-size: 16px;
+}
+#game-modal {
+    background-color: #ccc;
+    width: 260px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 100;
+}
+#game-modal .pure-button{
+    display: inline-block;
+    width: 50px;
+}
+#game-modal:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 120px;
+    border-top: 10px solid #ccc;
+    border-top-color: #ccc; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+}
+#game-modal-eventname {
+    text-align: center;
+}
+.fc-content {
+    font-size: 9pt;
+}
+.calendar-button {
+    font-size: 12pt;
+    margin-left: 5px;
+    float: right;
+}
+#tournament-modal {
+    background-color: #ccc;
+    width: 600px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 1000;
+    top: 25%;
+    left: 30%;
+    text-align: center;
+}
+#tournament-modal img{
+    padding: 5px;
+}
+
+#page-cover {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 999;
+    top: 0;
+    left: 0;
+}

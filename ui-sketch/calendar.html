@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>title</title>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+        <link rel="stylesheet" href="common.css">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.css">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.print.css" media="print">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.js"></script>
+        <script>$(function() {
+  
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: '2014-11-12',
+                selectable: true,
+                selectHelper: true,
+                aspectRatio: 1.5,
+                select: function(start, end) {
+                    var title = prompt('Event Title:');
+                    var eventData;
+                    if (title) {
+                        eventData = {
+                            title: title,
+                            start: start,
+                            end: end
+                        };
+                        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                    }
+                    $('#calendar').fullCalendar('unselect');
+                },
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                eventClick: function(calEvent, jsEvent, view) {
+                    var modaltop = $(this).offset().top - $("#player-modal").height() - 75;
+                    var modalleft = $(this).offset().left - ($("#player-modal").width() / 3) - 50;
+                    $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
+                    $("#game-modal-eventname").text(calEvent.title);
+                    jsEvent.stopPropagation();
+                },
+                events: [
+                    {
+                        title: 'Team 6 v. Team 3',
+                        start: '2014-11-03T16:00:00',
+                        end: '2014-11-03T18:00:00'
+                    },
+                    {
+                        title: 'Team 2 v. Team 1',
+                        start: '2014-11-08T16:00:00',
+                        end: '2014-11-08T18:00:00'
+                    },
+                    {
+                        title: 'Team 4 v. Team 8',
+                        start: '2014-11-08T16:00:00',
+                        end: '2014-11-08T18:00:00'
+                    },
+                    {
+                        title: 'Team 10 v. Team 11',
+                        start: '2014-11-08T12:00:00',
+                        end: '2014-11-08T14:00:00'
+                    },
+                    {
+                        title: 'Team 7 v. Team 5',
+                        start: '2014-11-08T18:00:00',
+                        end: '2014-11-08T20:00:00'
+                    },
+                    {
+                        title: 'Team 1 v. Team 3',
+                        start: '2014-11-05T16:00:00',
+                        end: '2014-11-05T18:00:00',
+                        color: '#cc2222'
+                    },
+                    {
+                        title: 'Team 2 Practice',
+                        start: '2014-11-11T20:00:00',
+                        end: '2014-11-11T21:00:00',
+                        color: '#22cc22'
+                    },
+                ]
+            });
+
+            $("#create-tournament").click(function(evt){
+                $("#page-cover").show();
+                $("#page-cover").css("opacity",0.6);
+                $("#tournament-modal").show();
+                evt.stopPropagation();
+            });
+
+            $(document).click(function() {
+                $("#game-modal").css('display', 'none');
+                $("#tournament-modal").hide();
+                $("#page-cover").hide();
+            });
+
+            $("#game-modal").css('display', 'none');
+            $("#tournament-modal").hide();
+            $("#page-cover").hide();
+
+          });</script>
+    </head>
+    <body>
+        <div class="pure-g">
+            <div class="pure-u-1-4"><img style="height: 100px;" src="soccerlogo.png"/></div>
+            <div class="pure-u-1-4"></div>
+            <div class="pure-u-1-4"></div>
+            <div class="pure-u-1-4">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal" style="text-align: right; padding-top:10%;">
+                    <ul>
+                        <li><a href="#">Calendar</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; font-size: 20pt;">
+            <form class="pure-form">
+                <legend></legend>
+            </form>
+        </div>
+        <div class="pure-g" style="text-align: center; font-size: 20pt;">
+            <div class="pure-u-1-8">
+            </div>
+            <div class="pure-u-3-4">
+                <div id="create-event" class="pure-button pure-button-primary calendar-button">Create Event</div>
+                <div id="create-tournament" class="pure-button pure-button-primary calendar-button">Create Tournament</div>
+                <div id="calendar"></div>
+            </div>
+            <div class="pure-u-1-8">
+            </div>
+        </div>
+        <div id="game-modal">
+            <div id="game-modal-eventname"></div>
+            <div class="pure-button"><span>Stats</span></div>
+            <div class="pure-button"><span>Edit</span></div>
+            <div class="pure-button button-red"><span>Delete</span></div>
+        </div>
+        <div id="tournament-modal">
+            <div>Create Tournament</div>
+            <div class="pure-g">
+                <div class="pure-u-1-2"><span><img src="prevBracket.png" />Bracket</span></div>
+                <div class="pure-u-1-2"><span><img src="prevRoundRobin.png" />Round Robin</span></div>
+                <div class="pure-u-1-2"><span><img src="prevBracketCons.png" />Bracket (Consolation)</span></div>
+                <div class="pure-u-1-2"><span><img src="prevGroups.png" />Groups</span></div>
+            </div>
+        </div>
+        <div id="page-cover"></div>
+    </body>
+</html>

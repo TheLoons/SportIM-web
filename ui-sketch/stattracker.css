@@ -21,7 +21,7 @@
 }
 #player-modal {
     background-color: #ccc;
-    width: 255px;
+    width: 345px;
     padding: 5px 5px 5px 5px;
     border-radius: 10px;
     position: absolute;
@@ -39,4 +39,16 @@
     border-top-color: #ccc; 
     border-left: 10px solid transparent;
     border-right: 10px solid transparent; 
+}
+
+.player {
+    font-size: 12pt;
+}
+
+.match-time-container {
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: -12px;
+    margin-right: 0px;
 }

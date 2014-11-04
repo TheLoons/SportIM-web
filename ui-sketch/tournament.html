@@ -3,9 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>Tournament</title>
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
         <link rel="stylesheet" href="common.css">
         <link rel="stylesheet" href="tournament.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script>$(function() {
+            $(".match-team-alone").draggable();
+          });</script>
     </head>
     <body>
         <div class="pure-g">
@@ -68,13 +73,13 @@
             <div class="pure-u-1-5">
                 <div class="match-container" style="margin-top:10%">
                     <div class="pure-button pure-button-primary match-item match-datetime">Quarterfinal - Jan 4th 2014</div>
-                    <div class="pure-button match-item match-team"><img style="visibility:hidden;" class="match-teamlogo"/></div>
-                    <div class="pure-button match-item match-team"></div>
+                    <div class="pure-button match-item match-team"><img src="team10.png" class="match-teamlogo"/><span>Team 10</span></div>
+                    <div class="pure-button match-item match-team"><img src="team11.png" class="match-teamlogo"/><span>Team 11</span></div>
                 </div>
                 <div class="match-container" style="margin-top:50%">
                     <div class="pure-button pure-button-primary match-item match-datetime">Quarterfinal - Jan 5th 2014</div>
-                    <div class="pure-button match-item match-team"><img style="visibility:hidden;" class="match-teamlogo"/></div>
-                    <div class="pure-button match-item match-team"></div>
+                    <div class="pure-button match-item match-team"><img src="team9.png" class="match-teamlogo"/><span>Team 9</span></div>
+                    <div class="pure-button match-item match-team"><img src="team12.png" class="match-teamlogo"/><span>Team 12</span></div>
                 </div>
             </div>
         </div>
@@ -97,28 +102,6 @@
             <div class="pure-u-1-5">
                 <div class="match-container" style="margin-top:10%">
                     <div class="pure-button match-item match-team-alone"><img src="team8.png" class="match-teamlogo"/><span>Team 8</span></div>
-                </div>
-            </div>
-            <div class="pure-u-1-5">
-                <div class="match-container" style="margin-top:10%">
-                    <div class="pure-button match-item match-team-alone"><img src="team9.png" class="match-teamlogo"/><span>Team 9</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="pure-g" style="margin-top:20px">
-            <div class="pure-u-1-5">
-                <div class="match-container" style="margin-top:10%">
-                    <div class="pure-button match-item match-team-alone"><img src="team10.png" class="match-teamlogo"/><span>Team 10</span></div>
-                </div>
-            </div>
-            <div class="pure-u-1-5">
-                <div class="match-container" style="margin-top:10%">
-                    <div class="pure-button match-item match-team-alone"><img src="team11.png" class="match-teamlogo"/><span>Team 11</span></div>
-                </div>
-            </div>
-            <div class="pure-u-1-5">
-                <div class="match-container" style="margin-top:10%">
-                    <div class="pure-button match-item match-team-alone"><img src="team12.png" class="match-teamlogo"/><span>Team 12</span></div>
                 </div>
             </div>
         </div>
