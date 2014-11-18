@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="testapp">
+    <head>
+        <meta charset="utf-8">
+        <title>Test App</title>
+        <link rel="stylesheet" href="common.css">
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="services.js"></script>
+        <script src="home.js"></script>
+    </head>
+    <body ng-controller="home">
+        <h2>Home Page</h2>
+        <h3>Colors</h3>
+        <ul ng-repeat="color in colors">
+            <li>{{color}}</li>
+        </ul>
+        <h3>Users</h3>
+        <ul ng-repeat="user in users">
+            <li>{{user.name}} - Age:{{user.age}} Password:{{user.password}} Id:{{user.id}}</li>
+        </ul>
+    </body>
+</html>
