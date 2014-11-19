@@ -3,6 +3,9 @@
   "spec_files": [
     "**/*[sS]pec.js"
   ],
+  "src_files": [
+    "app/**/*.js"
+  ],
   "helpers": [
     "helpers/**/*.js"
   ]

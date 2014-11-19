@@ -1,10 +1,13 @@
 SportIM-web
 ===========
 
-Frontend for SportIM.
+Frontend for the SportIM sports management app.
 
-To install dependencies, run:
+Node and npm are required for development, global npm installs are shown below but you may install locally as well.
+
+To install bower and bower dependencies, run:
 ```
+npm install -g bower
 bower install
 ```
 
@@ -14,8 +17,9 @@ npm install -g http-server
 http-server app -c-1 --cors
 ```
 
-Unit tests are run with jasmine:
+Unit tests are run with jasmine and karma: 
 ```
-npm install -g jasmine
-jasmine
+npm install -g karma jasmine karma-jasmine phantomjs karma-phantomjs-launcher
+karma start
 ```
+These tests are configured to run within PhantomJS, however you may also use chrome or any other browser with a karma launcher for that browser.
