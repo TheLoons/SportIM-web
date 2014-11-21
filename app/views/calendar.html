@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>title</title>
+        <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../bower_components/fullcalendar/fullcalendar.css">
+        <link rel="stylesheet" href="../bower_components/fullcalendar/fullcalendar.print.css" media="print">
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-route/angular-route.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script src="../bower_components/moment/min/moment.min.js"></script>
+        <script src="../bower_components/fullcalendar/fullcalendar.min.js"></script>
+        <script src="../bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="../js/services.js"></script>
+        <script src="../js/calendar.js"></script>
+    </head>
+    <body>
+        <div class="pure-g">
+            <div class="pure-u-1-4 logo"></div>
+            <div class="pure-u-1-4"></div>
+            <div class="pure-u-1-4"></div>
+            <div class="pure-u-1-4">
+                <div class="pure-menu pure-menu-open pure-menu-horizontal top-menu">
+                    <ul>
+                        <li><a href="#">Calendar</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <form class="pure-form">
+            <legend></legend>
+        </form>
+        <div class="pure-g top-container">
+            <div class="pure-u-1-8">
+            </div>
+            <div class="pure-u-3-4">
+                <div id="create-event" class="pure-button pure-button-primary calendar-button">Create Event</div>
+                <div id="create-tournament" class="pure-button pure-button-primary calendar-button">Create Tournament</div>
+                <div id="calendar"></div>
+            </div>
+            <div class="pure-u-1-8">
+            </div>
+        </div>
+        <div id="game-modal">
+            <div id="game-modal-eventname"></div>
+            <div class="pure-button"><span>Stats</span></div>
+            <div class="pure-button"><span>Edit</span></div>
+            <div class="pure-button button-red"><span>Delete</span></div>
+        </div>
+        <div id="tournament-modal">
+            <div>Create Tournament</div>
+            <div class="pure-g">
+                <div class="pure-u-1-2"><span><img src="../images/prevBracket.png" />Bracket</span></div>
+                <div class="pure-u-1-2"><span><img src="../images/prevRoundRobin.png" />Round Robin</span></div>
+                <div class="pure-u-1-2"><span><img src="../images/prevBracketCons.png" />Bracket (Consolation)</span></div>
+                <div class="pure-u-1-2"><span><img src="../images/prevGroups.png" />Groups</span></div>
+            </div>
+        </div>
+        <div id="page-cover"></div>
+    </body>
+</html>
