@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>title</title>
+        <title>Calendar</title>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
         <link rel="stylesheet" href="common.css">
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.css">
@@ -103,28 +103,13 @@
             $("#tournament-modal").hide();
             $("#page-cover").hide();
 
+            $("#delete-event").click(function(evt){
+                $('#calendar').fullCalendar(evt, eventData, true); // stick? = true            
+            });
+
           });</script>
     </head>
     <body>
-        <div class="pure-g">
-            <div class="pure-u-1-4"><img style="height: 100px;" src="soccerlogo.png"/></div>
-            <div class="pure-u-1-4"></div>
-            <div class="pure-u-1-4"></div>
-            <div class="pure-u-1-4">
-                <div class="pure-menu pure-menu-open pure-menu-horizontal" style="text-align: right; padding-top:10%;">
-                    <ul>
-                        <li><a href="#">Calendar</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div style="text-align: center; font-size: 20pt;">
-            <form class="pure-form">
-                <legend></legend>
-            </form>
-        </div>
         <div class="pure-g" style="text-align: center; font-size: 20pt;">
             <div class="pure-u-1-8">
             </div>
@@ -140,7 +125,7 @@
             <div id="game-modal-eventname"></div>
             <div class="pure-button"><span>Stats</span></div>
             <div class="pure-button"><span>Edit</span></div>
-            <div class="pure-button button-red"><span>Delete</span></div>
+            <div id="delete-event" class="pure-button button-red"><span>Delete</span></div>
         </div>
         <div id="tournament-modal">
             <div>Create Tournament</div>
