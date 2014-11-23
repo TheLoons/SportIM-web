@@ -79,19 +79,9 @@
     margin-left: 5px;
     float: right;
 }
-#tournament-modal {
-    background-color: #ccc;
-    width: 600px;
-    padding: 5px 5px 5px 5px;
-    border-radius: 10px;
-    position: absolute;
-    z-index: 1000;
-    top: 25%;
-    left: 30%;
-    text-align: center;
-}
-#tournament-modal img{
-    padding: 5px;
+.go_home
+{
+
 }
 
 #page-cover {
