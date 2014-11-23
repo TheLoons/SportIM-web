@@ -3,40 +3,25 @@
     <head>
         <meta charset="utf-8">
         <title>title</title>
-        <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
-        <link rel="stylesheet" href="../css/common.css">
-        <link rel="stylesheet" href="../bower_components/fullcalendar/fullcalendar.css">
-        <link rel="stylesheet" href="../bower_components/fullcalendar/fullcalendar.print.css" media="print">
-        <script src="../bower_components/angular/angular.js"></script>
-        <script src="../bower_components/angular-route/angular-route.js"></script>
-        <script src="../bower_components/angular-resource/angular-resource.js"></script>
-        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-        <script src="../bower_components/moment/min/moment.min.js"></script>
-        <script src="../bower_components/fullcalendar/fullcalendar.min.js"></script>
-        <script src="../bower_components/angular-ui-calendar/src/calendar.js"></script>
-        <script src="../js/services.js"></script>
-        <script src="../js/calendar.js"></script>
+        <link rel="stylesheet" href="/bower_components/pure/pure-min.css">
+        <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.css">
+        <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.print.css" media="print">
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/calendar.css">
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-route/angular-route.js"></script>
+        <script src="/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script src="/bower_components/moment/min/moment.min.js"></script>
+        <script src="/bower_components/fullcalendar/fullcalendar.min.js"></script>
+        <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="/js/services.js"></script>
+        <script src="/js/calendar.js"></script>
     </head>
     <body>
-        <div class="pure-g">
-            <div class="pure-u-1-4 logo"></div>
-            <div class="pure-u-1-4"></div>
-            <div class="pure-u-1-4"></div>
-            <div class="pure-u-1-4">
-                <div class="pure-menu pure-menu-open pure-menu-horizontal top-menu">
-                    <ul>
-                        <li><a href="#">Calendar</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <form class="pure-form">
-            <legend></legend>
-        </form>
-        <div class="pure-g top-container">
+        <div ng-include src="'/partials/header.html'"></div>
+        <div class="pure-g calendar-container">
             <div class="pure-u-1-8">
             </div>
             <div class="pure-u-3-4">

@@ -24,52 +24,52 @@
         height: 500px;
     }
 
-    .feeds ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
+        .feeds ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
 
-    .feeds li {
-        padding: 14px 15px;
-        font-size: 13px;
-        background-color: #33CCFF;
-        position: relative;
-        background: #FFFFFF url(images/right_sprtline.gif) repeat-x left bottom;
-    }
+        .feeds li {
+            padding: 14px 15px;
+            font-size: 13px;
+            background-color: #33CCFF;
+            position: relative;
+            background: #FFFFFF url(images/right_sprtline.gif) repeat-x left bottom;
+        }
 
-    .feeds li.odd {
-        background: #f7f7f7 url(images/right_sprtline.gif) repeat-x left bottom;
-    }
+            .feeds li.odd {
+                background: #f7f7f7 url(images/right_sprtline.gif) repeat-x left bottom;
+            }
 
-    .feeds li .feedtext {
-        width: 180px;
-        display: block;
-    }
+            .feeds li .feedtext {
+                width: 180px;
+                display: block;
+            }
 
-    .feeds li .iconAdd {
-        position: absolute;
-        right: 24px;
-        top: 25px;
-    }
+            .feeds li .iconAdd {
+                position: absolute;
+                right: 24px;
+                top: 25px;
+            }
 
-    .feeds li a {
-        color: #FFFFFF;
-    }
+            .feeds li a {
+                color: #FFFFFF;
+            }
 
-    .feeds .loading {
-        position: absolute;
-        left: 1px;
-        bottom: 1px;
-        padding: 5px 0;
-        background: #fafafa;
-        text-align: center;
-        width: 238px;
-        -webkit-border-radius: 0 0 5px 5px;
-        -moz-border-radius: 0 0 5px 5px;
-        border-radius: 0 0 5px 5px;
-        overflow: hidden;
-    }
+        .feeds .loading {
+            position: absolute;
+            left: 1px;
+            bottom: 1px;
+            padding: 5px 0;
+            background: #fafafa;
+            text-align: center;
+            width: 238px;
+            -webkit-border-radius: 0 0 5px 5px;
+            -moz-border-radius: 0 0 5px 5px;
+            border-radius: 0 0 5px 5px;
+            overflow: hidden;
+        }
 
     .loading img, .loading span {
         display: none;
