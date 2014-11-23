@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="calendar">
+<<<<<<< HEAD
 <head>
     <meta charset="utf-8">
     <title>title</title>
@@ -38,6 +39,39 @@
     </form>
     <div class="pure-g top-container">
         <div class="pure-u-1-8">
+=======
+    <head>
+        <meta charset="utf-8">
+        <title>title</title>
+        <link rel="stylesheet" href="/bower_components/pure/pure-min.css">
+        <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.css">
+        <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.print.css" media="print">
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/calendar.css">
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-route/angular-route.js"></script>
+        <script src="/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script src="/bower_components/moment/min/moment.min.js"></script>
+        <script src="/bower_components/fullcalendar/fullcalendar.min.js"></script>
+        <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="/js/services.js"></script>
+        <script src="/js/calendar.js"></script>
+    </head>
+    <body>
+        <div ng-include src="'/partials/header.html'"></div>
+        <div class="pure-g calendar-container">
+            <div class="pure-u-1-8">
+            </div>
+            <div class="pure-u-3-4">
+                <div id="create-event" class="pure-button pure-button-primary calendar-button">Create Event</div>
+                <div id="create-tournament" class="pure-button pure-button-primary calendar-button">Create Tournament</div>
+                <div id="calendar"></div>
+            </div>
+            <div class="pure-u-1-8">
+            </div>
+>>>>>>> 2b519f5f51783a6be3bc6039b175ce357267d666
         </div>
         <div class="pure-u-3-4">
             <div id="create-event" class="pure-button pure-button-primary calendar-button">Create Event</div>

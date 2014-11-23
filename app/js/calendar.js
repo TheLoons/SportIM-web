@@ -7,9 +7,9 @@ calendar.controller('files', function($scope, Dir) {
 $(function() {
     $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            left: 'prev,next today month,agendaWeek,agendaDay',
+            center: '',
+            right: 'title'
         },
         defaultDate: '2014-11-12',
         selectable: true,
