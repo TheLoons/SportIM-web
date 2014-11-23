@@ -15,7 +15,7 @@
     "postinstall": "node_modules/bower/bin/bower install",
 
     "prestart": "npm install",
-    "start": "node_modules/http-server/bin/http-server -c-1",
+    "start": "node_modules/http-server/bin/http-server app -c-1",
 
     "pretest": "npm install",
     "test": "node_modules/karma/bin/karma start"

@@ -4,9 +4,24 @@
     background-size: 233px 100px;
     background-image: url('../images/soccerlogo.png');
 }
+.header {
+    padding: .3em 0;
+    margin-bottom: .3em;
+    color: #333;
+    border-bottom: 1px solid #e5e5e5;
+}
 .top-menu {
     text-align: right;
     padding-top:10%;
+}
+.button-yellow {
+    background-color: #ffdd00;
+}
+.button-red {
+    background-color: #ee3333;
+}
+.button-green {
+    background-color: #33ee33;
 }
 .top-container {
     text-align: center;
@@ -34,56 +49,6 @@
     width: 80%;
     margin: 0 auto;
 }
-.button-yellow {
-    background-color: #ffdd00;
-}
-.button-red {
-    background-color: #ee3333;
-}
-.button-green {
-    background-color: #33ee33;
-}
-#calendar {
-    font-size: 16px;
-}
-#game-modal {
-    background-color: #ccc;
-    width: 260px;
-    padding: 5px 5px 5px 5px;
-    border-radius: 10px;
-    position: absolute;
-    z-index: 100;
-}
-#game-modal .pure-button{
-    display: inline-block;
-    width: 50px;
-}
-#game-modal:after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 120px;
-    border-top: 10px solid #ccc;
-    border-top-color: #ccc; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent; 
-}
-#game-modal-eventname {
-    text-align: center;
-}
-.fc-content {
-    font-size: 9pt;
-}
-.calendar-button {
-    font-size: 12pt;
-    margin-left: 5px;
-    float: right;
-}
-.go_home
-{
-
-}
-
 #page-cover {
     position: fixed;
     width: 100%;

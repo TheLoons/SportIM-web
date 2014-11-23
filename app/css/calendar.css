@@ -1,0 +1,39 @@
+#calendar {
+    font-size: 16px;
+}
+#calendar .fc-header{
+    width:55%!important;
+}
+#game-modal {
+    background-color: #ccc;
+    width: 260px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 100;
+}
+#game-modal .pure-button{
+    display: inline-block;
+    width: 50px;
+}
+#game-modal:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 120px;
+    border-top: 10px solid #ccc;
+    border-top-color: #ccc; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+}
+#game-modal-eventname {
+    text-align: center;
+}
+.fc-content {
+    font-size: 9pt;
+}
+.calendar-button {
+    font-size: 12pt;
+    margin-left: 5px;
+    float: right;
+}
