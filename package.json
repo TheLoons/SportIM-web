@@ -12,12 +12,12 @@
     "bower": "*"
   },
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "node_modules/bower/bin/bower install",
 
     "prestart": "npm install",
-    "start": "http-server -c-1",
+    "start": "node_modules/http-server/bin/http-server -c-1",
 
     "pretest": "npm install",
-    "test": "karma start"
+    "test": "node_modules/karma/bin/karma start"
   }
 }
