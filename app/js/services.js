@@ -9,3 +9,11 @@ services.factory('User', ['$resource',
         });
     }]
 );
+
+services.factory('Dir', ['$resource',
+    function($resource){
+        return $resource('http://cs4400-02.eng.utah.edu:9999/sportim/rest/'+'directory', {}, {
+            files: {method:'GET',isArray: false}
+        });
+    }]
+);

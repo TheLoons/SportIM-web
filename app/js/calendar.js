@@ -1,3 +1,9 @@
+var calendar = angular.module('calendar',['services']);
+
+calendar.controller('files', function($scope, Dir) {
+    $scope.files = Dir.files();
+});
+
 $(function() {
     $('#calendar').fullCalendar({
         header: {
