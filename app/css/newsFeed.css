@@ -3,7 +3,6 @@
         border-top: none;
         background-color: #33CCFF;
         height: 48px;
-        width: 500px;
         line-height: 48px;
         font-size: 17px;
         font-weight: normal;
@@ -14,11 +13,9 @@
     .main_container {
         margin: auto;
         font-family: 'avenir_bookregular';
-        width: 500px;
     }
 
     .feeds_container {
-        width: 500px;
         height: 540px;
     }
 
