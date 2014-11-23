@@ -1,9 +1,9 @@
 SportIM-web
 ===========
+[![Build Status](https://travis-ci.org/TheLoons/SportIM-web.svg?branch=master)](https://travis-ci.org/TheLoons/SportIM-web)
 
 Frontend for the SportIM sports management app.
-
-Node and npm are required for development, global npm installs are shown below but you may install locally as well.
+Node and npm are required for development.
 
 To install dependencies, run:
 ```
