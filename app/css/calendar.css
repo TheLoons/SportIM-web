@@ -37,3 +37,13 @@
     margin-left: 5px;
     float: right;
 }
+#input-modal{
+    background-color: #ccc;
+    width: 260px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    z-index: 100;
+}
