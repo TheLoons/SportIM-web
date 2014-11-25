@@ -3,17 +3,7 @@ var calendar = angular.module('calendar',['services','ui.calendar']);
 calendar.controller('maincalendar', function($scope, Events) {
     $scope.eventSources = Events.events();
     $scope.selectDate = function(start, end) {
-        var title = prompt('Event Title:');
-        var eventData;
-        if (title) {
-            eventData = {
-                title: title,
-                start: start,
-                end: end
-            };
-            $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-        }
-        $('#calendar').fullCalendar('unselect');
+        $('#input-modal').show();
     };
     $scope.eventClick = function(calEvent, jsEvent, view) {
         var modaltop = $(this).offset().top - $("#player-modal").height() - 75;
@@ -50,9 +40,11 @@ $(function() {
         $("#game-modal").css('display', 'none');
         $("#tournament-modal").hide();
         $("#page-cover").hide();
+        $('#input-modal').hide();
     });
 
     $("#game-modal").css('display', 'none');
     $("#tournament-modal").hide();
     $("#page-cover").hide();
+    $('#input-modal').hide();
 });
