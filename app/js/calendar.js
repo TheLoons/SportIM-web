@@ -16,17 +16,7 @@ $(function() {
         selectHelper: true,
         aspectRatio: 1.5,
         select: function(start, end) {
-            var title = prompt('Event Title:');
-            var eventData;
-            if (title) {
-                eventData = {
-                    title: title,
-                    start: start,
-                    end: end
-                };
-                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }
-            $('#calendar').fullCalendar('unselect');
+            $('#input-modal').show();
         },
         editable: true,
         eventLimit: true, // allow "more" link when too many events
@@ -89,10 +79,12 @@ $(function() {
         $("#game-modal").css('display', 'none');
         $("#tournament-modal").hide();
         $("#page-cover").hide();
+        $('#input-modal').hide();
     });
 
     $("#game-modal").css('display', 'none');
     $("#tournament-modal").hide();
     $("#page-cover").hide();
+    $('#input-modal').hide();
 
 });
