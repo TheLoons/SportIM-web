@@ -11,6 +11,7 @@
     border-radius: 10px;
     position: absolute;
     z-index: 100;
+    display: none;
 }
 #game-modal .pure-button{
     display: inline-block;
@@ -29,6 +30,21 @@
 #game-modal-eventname {
     text-align: center;
 }
+#tournament-modal {
+    background-color: #ccc;
+    width: 600px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 1000;
+    top: 25%;
+    left: 30%;
+    text-align: center;
+    display: none;
+}
+#tournament-modal img{
+    padding: 5px;
+}
 .fc-content {
     font-size: 9pt;
 }
@@ -45,7 +61,8 @@
     position: absolute;
     top: 30%;
     left: 30%;
-    z-index: 100;
+    z-index: 1000;
+    display: none;
 }
 .button-moreOptions{
     text-align: center;

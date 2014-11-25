@@ -3,6 +3,7 @@ var calendar = angular.module('calendar',['services','ui.calendar']);
 calendar.controller('maincalendar', function($scope, Events) {
     $scope.eventSources = Events.events();
     $scope.selectDate = function(start, end) {
+        $("#page-cover").show();
         $('#input-modal').show();
     };
     $scope.eventClick = function(calEvent, jsEvent, view) {
@@ -31,7 +32,6 @@ calendar.controller('maincalendar', function($scope, Events) {
 $(function() {
     $("#create-tournament").click(function(evt){
         $("#page-cover").show();
-        $("#page-cover").css("opacity",0.6);
         $("#tournament-modal").show();
         evt.stopPropagation();
     });
@@ -42,9 +42,4 @@ $(function() {
         $("#page-cover").hide();
         $('#input-modal').hide();
     });
-
-    $("#game-modal").css('display', 'none');
-    $("#tournament-modal").hide();
-    $("#page-cover").hide();
-    $('#input-modal').hide();
 });
