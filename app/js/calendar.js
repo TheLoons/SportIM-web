@@ -1,7 +1,7 @@
 var calendar = angular.module('calendar',['services','ui.calendar']);
 
 calendar.controller('maincalendar', function($scope, Events) {
-    $scope.eventSources = [Events.events()];
+    $scope.eventSources = [];
     $scope.selectDate = function(start, end) {
         $("#page-cover").show();
         $('#input-modal').show();
@@ -13,6 +13,11 @@ calendar.controller('maincalendar', function($scope, Events) {
         $("#game-modal-eventname").text(calEvent.title);
         jsEvent.stopPropagation();
     };
+    $scope.viewChange = function(view, element) {
+        var startDate = moment(view.start).format('YYYY-MM-DD HH:mm:ss');
+        var endDate = moment(view.end).format('YYYY-MM-DD HH:mm:ss');
+        $scope.eventSources[0] = {events: Events.events({start: startDate, end: endDate})};
+    };
     $scope.calendarOptions = {
         header: {
             left: 'prev,next today month,agendaWeek,agendaDay',
@@ -22,14 +27,17 @@ calendar.controller('maincalendar', function($scope, Events) {
         selectable: true,
         selectHelper: true,
         aspectRatio: 1.5,
-        select: $scope.selectDate,
         editable: true,
         eventLimit: true,
-        eventClick: $scope.eventClick
+        select: $scope.selectDate,
+        eventClick: $scope.eventClick,
+        viewRender: $scope.viewChange
     };
-    $scope.refreshCalendar = function() {
-        $scope.eventSources = Events.events();
-    };
+
+    // hack to get full calendar to render on start properly
+    setTimeout(function(){
+        $('#calendar').fullCalendar('render');
+    }, 100);
 });
 
 $(function() {

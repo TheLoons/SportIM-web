@@ -1,4 +1,4 @@
-var serviceUrl = 'http://localhost:3000';
+var serviceUrl = 'http://cs4400-02.eng.utah.edu:9999/sportim/rest/';
 
 var services = angular.module('services', ['ngResource']);
 
@@ -12,9 +12,15 @@ services.factory('User', ['$resource',
 
 services.factory('Dir', ['$resource',
     function($resource){
-        return $resource('http://cs4400-02.eng.utah.edu:9999/sportim/rest/'+'directory', {}, {
+        return $resource(serviceUrl+'directory', {}, {
             files: {method: 'GET', isArray: false}
         });
+    }]
+);
+
+services.factory('Event', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'event', {});
     }]
 );
 
