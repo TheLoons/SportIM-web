@@ -1,14 +1,14 @@
 var calendar = angular.module('calendar',['services','ui.calendar']);
 
 calendar.controller('maincalendar', function($scope, Events) {
-    $scope.eventSources = Events.events();
+    $scope.eventSources = [Events.events()];
     $scope.selectDate = function(start, end) {
         $("#page-cover").show();
         $('#input-modal').show();
     };
     $scope.eventClick = function(calEvent, jsEvent, view) {
-        var modaltop = $(this).offset().top - $("#player-modal").height() - 75;
-        var modalleft = $(this).offset().left - ($("#player-modal").width() / 3) - 50;
+        var modaltop = $(jsEvent.currentTarget).offset().top - $("#player-modal").height() - 75;
+        var modalleft = $(jsEvent.currentTarget).offset().left - ($("#player-modal").width() / 3) - 50;
         $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
         $("#game-modal-eventname").text(calEvent.title);
         jsEvent.stopPropagation();
@@ -26,6 +26,9 @@ calendar.controller('maincalendar', function($scope, Events) {
         editable: true,
         eventLimit: true,
         eventClick: $scope.eventClick
+    };
+    $scope.refreshCalendar = function() {
+        $scope.eventSources = Events.events();
     };
 });
 
