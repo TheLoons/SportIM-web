@@ -26,8 +26,8 @@ services.factory('Event', ['$resource',
 
 services.factory('Events', ['$resource',
     function($resource){
-        return $resource('/js/events.json', {}, {
-            events: {method: 'GET', isArray: true}
+        return $resource(serviceUrl+'events', {}, {
+            events: {method: 'GET'}
         });
     }]
 );
