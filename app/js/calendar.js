@@ -14,9 +14,11 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         jsEvent.stopPropagation();
     };
     $scope.viewChange = function(view, element) {
-        var startDate = moment(view.start).format('YYYY-MM-DD HH:mm:ss');
-        var endDate = moment(view.end).format('YYYY-MM-DD HH:mm:ss');
-        $scope.eventSources[0] = {events: Events.events({start: startDate, end: endDate})};
+        var startDate = moment(view.start).format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+        var endDate = moment(view.end).format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+        Events.events({start: startDate, end: endDate}).$promise.then(function(resp) {
+            $scope.eventSources[0] = resp;
+          });
     };
     $scope.calendarOptions = {
         header: {
