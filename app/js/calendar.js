@@ -1,6 +1,6 @@
 var calendar = angular.module('calendar',['services','ui.calendar']);
 
-calendar.controller('maincalendar', function($scope, Events) {
+calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.eventSources = [];
     $scope.selectDate = function(start, end) {
         $("#page-cover").show();
@@ -38,6 +38,12 @@ calendar.controller('maincalendar', function($scope, Events) {
     setTimeout(function(){
         $('#calendar').fullCalendar('render');
     }, 100);
+    $scope.submitEvent = function(){
+        var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss');
+        var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss');
+
+        Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
+    };
 });
 
 $(function() {
@@ -53,4 +59,8 @@ $(function() {
         $("#page-cover").hide();
         $('#input-modal').hide();
     });
+    $("#input-modal").click(function(evt){
+        evt.stopPropagation();
+    });
 });
+

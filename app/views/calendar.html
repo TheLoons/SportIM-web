@@ -52,33 +52,33 @@
         <div class="pure-button button-red"><span>Delete</span></div>
     </div>
     <div id="input-modal">
-        <form class="pure-form pure-form-aligned">
+        <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
             <fieldset>
                 <div class="pure-control-group">
                     <label for="name">Event Title</label>
-                    <input id="title" type="text" placeholder="Title">
+                    <input ng-model="eventTitle" type="text" placeholder="Title"/>
                 </div>
                 <div class="pure-control-group">
                     <label for="startDate">Start Date</label>
-                    <input id="startdatepicker" placeholder="Start Date">
+                    <input id="startdatepicker" ng-model="startDate" placeholder="Start Date"/>
                 </div>
                 <div class="pure-control-group">
                     <label for="startTime">Start Time</label>
-                    <input id="startTime" type="time">
+                    <input id="startTime" ng-model="startTime" type="time"/>
                 </div>
                 <div class="pure-control-group">
                     <label for="startDate">End Date</label>
-                    <input id="enddatepicker" placeholder="End Date">
+                    <input id="enddatepicker" ng-model="endDate" placeholder="End Date"/>
                 </div>
                 <div class="pure-control-group">
                     <label for="endTime">End Time</label>
-                    <input id="endTime" type="time">
+                    <input id="endTime" ng-model="endTime" type="time"/>
                 </div>
                 <button class="pure-button pure-u-1-4 button-moreOptions">More Options</button>
                 <div class="pure-u-1-5"></div>
                 <div class="pure-u-1-6"></div>
                 <button class="pure-button pure-u-1-8 button-cancel">Cancel</button>
-                <button type="submit" class="pure-button pure-button-primary pure-u-1-8">Save</button>
+                <input type="submit" value="Submit" class="pure-button pure-button-primary pure-u-1-8"/>
             </fieldset>
         </form>
     </div>
