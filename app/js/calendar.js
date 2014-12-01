@@ -61,8 +61,5 @@ $(function() {
         $("#page-cover").hide();
         $('#input-modal').hide();
     });
-    $("#input-modal").click(function(evt){
-        evt.stopPropagation();
-    });
 });
 

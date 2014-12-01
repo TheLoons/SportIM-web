@@ -47,11 +47,11 @@
     </div>
     <div id="game-modal">
         <div id="game-modal-eventname"></div>
-        <div class="pure-button"><span>Stats</span></div>
-        <div class="pure-button"><span>Edit</span></div>
-        <div class="pure-button button-red"><span>Delete</span></div>
+        <div class="pure-button" id="game-modal-stats"><span>Stats</span></div>
+        <div class="pure-button" id="game-modal-edit"><span>Edit</span></div>
+        <div class="pure-button button-red" id="game-modal-delete"><span>Delete</span></div>
     </div>
-    <div id="input-modal">
+    <div id="input-modal" ng-click="$event.stopPropagation();">
         <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
             <fieldset>
                 <div class="pure-control-group">
