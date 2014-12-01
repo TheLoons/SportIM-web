@@ -9,6 +9,9 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         var endDate = (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear();
         $scope.endDate = endDate;
         $scope.startDate = startDate;
+        var theStartDate = new Date();
+        $scope.startTime = start;
+        $scope.endTime = end;
     };
     $scope.eventClick = function(calEvent, jsEvent, view) {
         var modaltop = $(jsEvent.currentTarget).offset().top - $("#player-modal").height() - 75;
@@ -63,6 +66,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss');
 
         Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
+        debugger
     };
 });
 
