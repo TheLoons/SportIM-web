@@ -5,6 +5,10 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.selectDate = function(start, end) {
         $("#page-cover").show();
         $('#input-modal').show();
+        var startDate = (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear();
+        var endDate = (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear();
+        $scope.endDate = endDate;
+        $scope.startDate = startDate;
     };
     $scope.eventClick = function(calEvent, jsEvent, view) {
         var modaltop = $(jsEvent.currentTarget).offset().top - $("#player-modal").height() - 75;
@@ -19,6 +23,20 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         Events.events({start: startDate, end: endDate}).$promise.then(function(resp) {
             $scope.eventSources[0] = resp;
           });
+    };
+    $scope.createEvent = function(evt){
+        $("#page-cover").show();
+        $('#input-modal').show();
+        $scope.endDate = "";
+        $scope.startDate = "";
+        evt.stopPropagation();
+    };
+    $scope.cancelEvent = function(evt){
+        $("#page-cover").hide();
+        $('#input-modal').hide();
+        $scope.endDate = "";
+        $scope.startDate = "";
+        evt.stopPropagation();
     };
     $scope.calendarOptions = {
         header: {

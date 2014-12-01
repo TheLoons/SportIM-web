@@ -38,7 +38,7 @@
         <div class="pure-u-1-8">
         </div>
         <div class="pure-u-3-4">
-            <div id="create-event" class="pure-button pure-button-primary calendar-button">Create Event</div>
+            <div id="create-event" class="pure-button pure-button-primary calendar-button" ng-click="createEvent($event)">Create Event</div>
             <div id="create-tournament" class="pure-button pure-button-primary calendar-button">Create Tournament</div>
             <div id="calendar" ui-calendar="calendarOptions" ng-model="eventSources"></div>
         </div>
@@ -77,7 +77,7 @@
                 <button class="pure-button pure-u-1-4 button-moreOptions">More Options</button>
                 <div class="pure-u-1-5"></div>
                 <div class="pure-u-1-6"></div>
-                <button class="pure-button pure-u-1-8 button-cancel">Cancel</button>
+                <button class="pure-button pure-u-1-8 button-cancel" ng-click="cancelEvent($event)">Cancel</button>
                 <input type="submit" value="Submit" class="pure-button pure-button-primary pure-u-1-8"/>
             </fieldset>
         </form>
