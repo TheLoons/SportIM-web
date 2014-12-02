@@ -14,6 +14,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         $scope.endTime = end;
     };
     $scope.eventClick = function(calEvent, jsEvent, view) {
+        $scope.gameModal = true;
         var modaltop = $(jsEvent.currentTarget).offset().top - $("#player-modal").height() - 75;
         var modalleft = $(jsEvent.currentTarget).offset().left - ($("#player-modal").width() / 3) - 50;
         $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
@@ -43,6 +44,8 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
         var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
         Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
+        $scope.inputModal = false;
+        $('#calendar').fullCalendar('render');
     };
     $scope.calendarOptions = {
         header: {

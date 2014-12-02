@@ -43,7 +43,7 @@ describe("Services: ", function() {
 
         it("Should get events from date range correctly", inject(function(Events) {
             this.httpBackend.expect('GET', serviceUrl+'events').respond(
-                {"status":{"message":"","code":200},"events":[{"title":"Iron Man vs Captain America","start":"2014-12-31T12:00:00.000Z","end":"2014-12-31T14:00:00.000Z"},{"title":"Super Action Movie","start":"2015-03-14T12:45:00.000Z","end":"2015-03-14T14:00:00.000Z"},{"title":"Cool Movie","start":"2014-12-20T12:00:00.000Z","end":"2014-12-21T14:00:00.000Z"}]} 
+                {"status":{"message":"","code":200},"events":[{"id":1,"title":"Iron Man vs Captain America","start":"2014-12-31T12:00:00.000Z","end":"2014-12-31T14:00:00.000Z"},{"title":"Super Action Movie","start":"2015-03-14T12:45:00.000Z","end":"2015-03-14T14:00:00.000Z"},{"title":"Cool Movie","start":"2014-12-20T12:00:00.000Z","end":"2014-12-21T14:00:00.000Z"}]} 
             );
             var response = Events.get();
             this.httpBackend.flush();
@@ -52,6 +52,7 @@ describe("Services: ", function() {
             expect(Events).toBeDefined();
             expect(events).toBeDefined();
             expect(events.length).toBe(3);
+            expect(events[0].id).toBe(1);
             expect(events[0].title).toBe("Iron Man vs Captain America");
             expect(events[1].start).toBe("2015-03-14T12:45:00.000Z");
             expect(events[2].end).toBe("2014-12-21T14:00:00.000Z");

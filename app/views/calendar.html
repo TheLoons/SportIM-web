@@ -32,14 +32,14 @@
     });
     </script>
 </head>
-<body ng-controller="maincalendar">
+<body ng-controller="maincalendar" ng-click="tournamentModal=false; gameModal=false; inputModal=false">
     <div ng-include src="'/partials/header.html'"></div>
     <div class="pure-g calendar-container">
         <div class="pure-u-1-8">
         </div>
         <div class="pure-u-3-4">
             <div id="create-event" class="pure-button pure-button-primary calendar-button" ng-click="createEvent($event)">Create Event</div>
-            <div id="create-tournament" class="pure-button pure-button-primary calendar-button" ng-click="tournamentModal=true">Create Tournament</div>
+            <div id="create-tournament" class="pure-button pure-button-primary calendar-button" ng-click="tournamentModal=true; $event.stopPropagation()">Create Tournament</div>
             <div id="calendar" ui-calendar="calendarOptions" ng-model="eventSources"></div>
         </div>
         <div class="pure-u-1-8">
@@ -51,7 +51,7 @@
         <div class="pure-button" id="game-modal-edit"><span>Edit</span></div>
         <div class="pure-button button-red" id="game-modal-delete"><span>Delete</span></div>
     </div>
-    <div id="input-modal" ng-show="inputModal">
+    <div id="input-modal" ng-show="inputModal" ng-click="$event.stopPropagation()">
         <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
             <fieldset>
                 <div class="pure-control-group">
@@ -91,6 +91,6 @@
             <div class="pure-u-1-2"><span><img src="../images/prevGroups.png" />Groups</span></div>
         </div>
     </div>
-    <div id="page-cover" ng-show="gameModal || tournamentModal || inputModal"></div>
+    <div id="page-cover" ng-show="tournamentModal || inputModal"></div>
 </body>
 </html>
