@@ -2,14 +2,15 @@ var calendar = angular.module('calendar',['services','ui.calendar']);
 
 calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.eventSources = [];
+    $scope.seletedEvent = -1;
+
     $scope.selectDate = function(start, end) {
         $("#page-cover").show();
         $('#input-modal').show();
         var startDate = (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear();
         var endDate = (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear();
-        $scope.endDate = endDate;
         $scope.startDate = startDate;
-        var theStartDate = new Date();
+        $scope.endDate = endDate;
         $scope.startTime = start;
         $scope.endTime = end;
     };
@@ -23,7 +24,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.viewChange = function(view, element) {
         var startDate = moment(view.start).format(serviceDateFormat);
         var endDate = moment(view.end).format(serviceDateFormat);
-        Events.events({start: startDate, end: endDate}).$promise.then(function(resp) {
+        Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
             $scope.eventSources[0] = resp;
           });
     };

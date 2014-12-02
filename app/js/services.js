@@ -22,14 +22,12 @@ services.factory('Dir', ['$resource',
 
 services.factory('Event', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'event', {});
+        return $resource(serviceUrl+'event/:id', {});
     }]
 );
 
 services.factory('Events', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'events', {}, {
-            events: {method: 'GET'}
-        });
+        return $resource(serviceUrl+'events', {});
     }]
 );
