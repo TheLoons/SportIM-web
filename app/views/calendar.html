@@ -39,19 +39,19 @@
         </div>
         <div class="pure-u-3-4">
             <div id="create-event" class="pure-button pure-button-primary calendar-button" ng-click="createEvent($event)">Create Event</div>
-            <div id="create-tournament" class="pure-button pure-button-primary calendar-button">Create Tournament</div>
+            <div id="create-tournament" class="pure-button pure-button-primary calendar-button" ng-click="tournamentModal=true">Create Tournament</div>
             <div id="calendar" ui-calendar="calendarOptions" ng-model="eventSources"></div>
         </div>
         <div class="pure-u-1-8">
         </div>
     </div>
-    <div id="game-modal">
+    <div id="game-modal" ng-show="gameModal">
         <div id="game-modal-eventname"></div>
         <div class="pure-button" id="game-modal-stats"><span>Stats</span></div>
         <div class="pure-button" id="game-modal-edit"><span>Edit</span></div>
         <div class="pure-button button-red" id="game-modal-delete"><span>Delete</span></div>
     </div>
-    <div id="input-modal" ng-click="$event.stopPropagation();">
+    <div id="input-modal" ng-show="inputModal">
         <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
             <fieldset>
                 <div class="pure-control-group">
@@ -82,7 +82,7 @@
             </fieldset>
         </form>
     </div>
-    <div id="tournament-modal">
+    <div id="tournament-modal" ng-show="tournamentModal">
         <div>Create Tournament</div>
         <div class="pure-g">
             <div class="pure-u-1-2"><span><img src="../images/prevBracket.png" />Bracket</span></div>
@@ -91,6 +91,6 @@
             <div class="pure-u-1-2"><span><img src="../images/prevGroups.png" />Groups</span></div>
         </div>
     </div>
-    <div id="page-cover"></div>
+    <div id="page-cover" ng-show="gameModal || tournamentModal || inputModal"></div>
 </body>
 </html>

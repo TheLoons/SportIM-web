@@ -11,7 +11,6 @@
     border-radius: 10px;
     position: absolute;
     z-index: 100;
-    display: none;
 }
 #game-modal .pure-button{
     display: inline-block;
@@ -40,7 +39,6 @@
     top: 25%;
     left: 30%;
     text-align: center;
-    display: none;
 }
 #tournament-modal img{
     padding: 5px;
@@ -62,7 +60,6 @@
     top: 30%;
     left: 30%;
     z-index: 1000;
-    display: none;
 }
 .button-moreOptions{
     text-align: center;

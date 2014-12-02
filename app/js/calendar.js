@@ -5,8 +5,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.seletedEvent = -1;
 
     $scope.selectDate = function(start, end) {
-        $("#page-cover").show();
-        $('#input-modal').show();
+        $scope.inputModal = true;
         var startDate = (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear();
         var endDate = (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear();
         $scope.startDate = startDate;
@@ -29,18 +28,21 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
           });
     };
     $scope.createEvent = function(evt){
-        $("#page-cover").show();
-        $('#input-modal').show();
+        $scope.inputModal = true;
         $scope.endDate = "";
         $scope.startDate = "";
         evt.stopPropagation();
     };
     $scope.cancelEvent = function(evt){
-        $("#page-cover").hide();
-        $('#input-modal').hide();
+        $scope.inputModal = false;
         $scope.endDate = "";
         $scope.startDate = "";
         evt.stopPropagation();
+    };
+    $scope.submitEvent = function(){
+        var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
+        var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
+        Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
     };
     $scope.calendarOptions = {
         header: {
@@ -62,25 +64,4 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     setTimeout(function(){
         $('#calendar').fullCalendar('render');
     }, 100);
-    $scope.submitEvent = function(){
-        var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
-        var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
-        Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
-    };
 });
-
-$(function() {
-    $("#create-tournament").click(function(evt){
-        $("#page-cover").show();
-        $("#tournament-modal").show();
-        evt.stopPropagation();
-    });
-
-    $(document).click(function() {
-        $("#game-modal").css('display', 'none');
-        $("#tournament-modal").hide();
-        $("#page-cover").hide();
-        $('#input-modal').hide();
-    });
-});
-
