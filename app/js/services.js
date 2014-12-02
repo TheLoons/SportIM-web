@@ -1,5 +1,7 @@
 var serviceUrl = 'http://cs4400-02.eng.utah.edu:9999/sportim/rest/';
 
+var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
+
 var services = angular.module('services', ['ngResource']);
 
 services.factory('User', ['$resource',

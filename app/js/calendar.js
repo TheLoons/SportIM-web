@@ -21,8 +21,8 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         jsEvent.stopPropagation();
     };
     $scope.viewChange = function(view, element) {
-        var startDate = moment(view.start).format('YYYY-MM-DD[T]HH:mm:ss[Z]');
-        var endDate = moment(view.end).format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+        var startDate = moment(view.start).format(serviceDateFormat);
+        var endDate = moment(view.end).format(serviceDateFormat);
         Events.events({start: startDate, end: endDate}).$promise.then(function(resp) {
             $scope.eventSources[0] = resp;
           });
@@ -62,11 +62,9 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         $('#calendar').fullCalendar('render');
     }, 100);
     $scope.submitEvent = function(){
-        var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss');
-        var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format('YYYY-MM-DD HH:mm:ss');
-
+        var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
+        var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
         Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
-        debugger
     };
 });
 
