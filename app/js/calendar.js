@@ -2,7 +2,7 @@ var calendar = angular.module('calendar',['services','ui.calendar']);
 
 calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.eventSources = [];
-    $scope.seletedEvent = -1;
+    $scope.selectedEvent = -1;
 
     $scope.selectDate = function(start, end) {
         $scope.inputModal = true;
@@ -19,6 +19,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         var modalleft = $(jsEvent.currentTarget).offset().left - ($("#player-modal").width() / 3) - 50;
         $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
         $("#game-modal-eventname").text(calEvent.title);
+        $scope.selectedEvent = calEvent.id;
         jsEvent.stopPropagation();
     };
     $scope.viewChange = function(view, element) {
@@ -32,12 +33,30 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         $scope.inputModal = true;
         $scope.endDate = "";
         $scope.startDate = "";
+        $scope.endTime = "";
+        $scope.startTime = "";
+        $scope.eventTitle = "";
         evt.stopPropagation();
+    };
+    $scope.loadEvent = function(evt){
+        evt.stopPropagation();
+        Event.get({id: $scope.selectedEvent}).$promise.then(function(resp){
+            var evtobj = resp.events[0];
+            $scope.eventTitle = evtobj.title;
+            $scope.endDate = moment(evtobj.end).format("MM/DD/YYYY");
+            $scope.startDate = moment(evtobj.start).format("MM/DD/YYYY");
+            $scope.endTime = moment(evtobj.end).toDate();
+            $scope.startTime = moment(evtobj.start).toDate();
+            $scope.inputModal = true;
+        });
     };
     $scope.cancelEvent = function(evt){
         $scope.inputModal = false;
         $scope.endDate = "";
         $scope.startDate = "";
+        $scope.endTime = "";
+        $scope.startTime = "";
+        $scope.eventTitle = "";
         evt.stopPropagation();
     };
     $scope.submitEvent = function(){

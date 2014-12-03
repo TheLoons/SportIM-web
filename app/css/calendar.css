@@ -53,8 +53,7 @@
 }
 #input-modal{
     background-color: #ccc;
-    width: 40%;
-    height: 37%;
+    width: 600px;
     border-radius: 10px;
     position: absolute;
     top: 30%;
