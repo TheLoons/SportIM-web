@@ -49,7 +49,7 @@
         <div id="game-modal-eventname"></div>
         <div class="pure-button" id="game-modal-stats"><span>Stats</span></div>
         <div class="pure-button" id="game-modal-edit" ng-click="loadEvent($event);"><span>Edit</span></div>
-        <div class="pure-button button-red" id="game-modal-delete"><span>Delete</span></div>
+        <div class="pure-button button-red" id="game-modal-delete" ng-click="deleteEvent($event);"><span>Delete</span></div>
     </div>
     <div id="input-modal" ng-show="inputModal" ng-click="$event.stopPropagation()">
         <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >

@@ -29,6 +29,12 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
             $scope.eventSources[0] = resp;
           });
     };
+    $scope.deleteEvent = function(evt){
+        evt.stopPropagation();
+        Event.delete({id: $scope.selectedEvent});
+        $scope.inputModal = false;
+        $('#calendar').fullCalendar('render');
+    };
     $scope.createEvent = function(evt){
         $scope.inputModal = true;
         $scope.endDate = "";
