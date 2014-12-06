@@ -68,7 +68,12 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.submitEvent = function(){
         var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
         var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
-        Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
+        if ($scope.selectedEvent != -1) {
+            Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle});
+        }
+        else{
+            Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
+        }
         $scope.inputModal = false;
         $('#calendar').fullCalendar('render');
     };

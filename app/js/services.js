@@ -22,7 +22,9 @@ services.factory('Dir', ['$resource',
 
 services.factory('Event', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'event/:id', {id:'@id'});
+        return $resource(serviceUrl+'event/:id', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
     }]
 );
 
