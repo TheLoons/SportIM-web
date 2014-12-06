@@ -29,25 +29,31 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
             $scope.eventSources[0] = resp;
           });
     };
-    $scope.deleteEvent = function(evt){
-        evt.stopPropagation();
-        Event.delete({id: $scope.selectedEvent});
-        $scope.gameModal= false;
-        $('#calendar').fullCalendar('render');
-    };
-    $scope.createEvent = function(evt){
-        $scope.inputModal = true;
+    $scope.clearForm = function(){
         $scope.endDate = "";
         $scope.startDate = "";
         $scope.endTime = "";
         $scope.startTime = "";
         $scope.eventTitle = "";
+        $scope.selectedEvent = -1;
+    }
+    $scope.deleteEvent = function(evt){
+        evt.stopPropagation();
+        Event.delete({id: $scope.selectedEvent});
+        $scope.gameModal= false;
+        setTimeout(function(){
+            $('#calendar').fullCalendar('render');
+        }, 100);
+    };
+    $scope.createEvent = function(evt){
+        $scope.inputModal = true;
+        $scope.clearForm();
         evt.stopPropagation();
     };
     $scope.loadEvent = function(evt){
         evt.stopPropagation();
         Event.get({id: $scope.selectedEvent}).$promise.then(function(resp){
-            var evtobj = resp.events[0];
+            var evtobj = resp.event;
             $scope.eventTitle = evtobj.title;
             $scope.endDate = moment(evtobj.end).format("MM/DD/YYYY");
             $scope.startDate = moment(evtobj.start).format("MM/DD/YYYY");
@@ -57,13 +63,9 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         });
     };
     $scope.cancelEvent = function(evt){
-        $scope.inputModal = false;
-        $scope.endDate = "";
-        $scope.startDate = "";
-        $scope.endTime = "";
-        $scope.startTime = "";
-        $scope.eventTitle = "";
         evt.stopPropagation();
+        $scope.inputModal = false;
+        $scope.clearForm();
     };
     $scope.submitEvent = function(){
         var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
@@ -75,7 +77,10 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
             Event.save({start: startDate, end: endDate, title: $scope.eventTitle});
         }
         $scope.inputModal = false;
-        $('#calendar').fullCalendar('render');
+        $scope.gameModal = false;
+        setTimeout(function(){
+            $('#calendar').fullCalendar('render');
+        }, 100);
     };
     $scope.calendarOptions = {
         header: {
@@ -93,10 +98,9 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
         viewRender: $scope.viewChange
     };
 
-    // hack to get full calendar to render on start properly
     setTimeout(function(){
         $('#calendar').fullCalendar('render');
     }, 100);
-    $( "#startdatepicker" ).datepicker();
-    $( "#enddatepicker" ).datepicker();
+    $("#startdatepicker").datepicker();
+    $("#enddatepicker").datepicker();
 });
