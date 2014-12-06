@@ -1,0 +1,11 @@
+#tourn-title {
+    width: 300px;
+    font-size: 24px;
+    margin-left:35%;
+    margin-bottom:15px;
+    text-align: center;
+}
+
+.tourn-option {
+    width: 60%;
+}

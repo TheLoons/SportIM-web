@@ -32,7 +32,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.deleteEvent = function(evt){
         evt.stopPropagation();
         Event.delete({id: $scope.selectedEvent});
-        $scope.inputModal = false;
+        $scope.gameModal= false;
         $('#calendar').fullCalendar('render');
     };
     $scope.createEvent = function(evt){
@@ -92,4 +92,6 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     setTimeout(function(){
         $('#calendar').fullCalendar('render');
     }, 100);
+    $( "#startdatepicker" ).datepicker();
+    $( "#enddatepicker" ).datepicker();
 });

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="roundrobin">
+<head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="/bower_components/pure/pure-min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/roundrobin.css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="/bower_components/moment/min/moment.min.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/js/services.js"></script>
+    <script src="/js/roundrobin.js"></script>
+</head>
+<body ng-controller="roundrobinc">
+    <div ng-include src="'/partials/header.html'"></div>
+    <div class="pure-g">
+        <div class="pure-u-1-8">
+        </div>
+        <div class="pure-u-3-4">
+            <input id="tourn-title" ng-model="tournTitle" placeholder="Tournament Name"/>
+            <div class="pure-g">
+                <div class="pure-u-1-5">
+                    Number of Games
+                </div>
+                <div class="pure-u-1-5">
+                    Start Date
+                </div>
+                <div class="pure-u-1-5">
+                    Start Time
+                </div>
+                <div class="pure-u-1-5">
+                    End Date
+                </div>
+                <div class="pure-u-1-5">
+                    End Time
+                </div>
+            </div>
+            <div class="pure-g">
+                <div class="pure-u-1-5">
+                    <select class="tourn-option" ng-model="numGames" ng-options="numGamesSel.label for numGamesSel in numGamesSel"></select>
+                </div>
+                <div class="pure-u-1-5">
+                    <input class="tourn-option" ng-model="startDate" placeholder="Start Date" />
+                </div>
+                <div class="pure-u-1-5">
+                    <input class="tourn-option" ng-model="startTime" type="time" />
+                </div>
+                <div class="pure-u-1-5">
+                    <input class="tourn-option" ng-model="endDate" placeholder="End Date" />
+                </div>
+                <div class="pure-u-1-5">
+                    <input class="tourn-option" ng-model="endTime" type="time" />
+                </div>
+            </div>
+            <label for="tourn-teams">Select First Team</label>
+            <select id="tourn-teams" ng-model="teamList" ng-options="teamList.label for teamList in teamList"></select>
+        </div>
+        <div class="pure-u-1-8">
+        </div>
+    </div>
+</body>
+</html>
