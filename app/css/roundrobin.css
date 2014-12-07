@@ -9,3 +9,13 @@
 .tourn-option {
     width: 60%;
 }
+
+.options-container {
+    text-align: center;
+}
+
+.game-container {
+    margin: 10px;
+    width: 300px;
+    display: inline-block;
+}
