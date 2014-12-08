@@ -51,15 +51,6 @@
     margin-left: 5px;
     float: right;
 }
-#input-modal{
-    background-color: #ccc;
-    width: 600px;
-    border-radius: 10px;
-    position: absolute;
-    top: 30%;
-    left: 30%;
-    z-index: 1000;
-}
 .button-moreOptions{
     text-align: center;
     margin-left: 5px;

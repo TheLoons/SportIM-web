@@ -21,4 +21,7 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
                 $scope.teamData.push(value);
         });
     };
+    $("#startdatepicker").datepicker();
+    $("#enddatepicker").datepicker();
+    $scope.inputModal = true;
 });

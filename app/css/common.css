@@ -31,6 +31,15 @@
     width: 100%;
     padding: 5px 0px;
 }
+#input-modal{
+    background-color: #ccc;
+    width: 600px;
+    border-radius: 10px;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    z-index: 1000;
+}
 .match-datetime, .match-team-alone {
     border: 1px solid #999;
 }

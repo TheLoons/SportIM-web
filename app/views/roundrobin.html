@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="/bower_components/pure/pure-min.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/roundrobin.css">
+    <link rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script src="/bower_components/moment/min/moment.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
-    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>    
     <script src="/js/services.js"></script>
     <script src="/js/roundrobin.js"></script>
 </head>
@@ -44,13 +45,13 @@
                     <select class="tourn-option" ng-model="teamSelected" ng-options="teamList.name for teamList in teamList" ng-change="changeTeam()"></select>
                 </div>
                 <div class="pure-u-1-5">
-                    <input class="tourn-option" ng-model="startDate" placeholder="Start Date" />
+                    <input id="startdatepicker" class="tourn-option" ng-model="startDate" placeholder="Start Date" />
                 </div>
                 <div class="pure-u-1-5">
                     <input class="tourn-option" ng-model="startTime" type="time" />
                 </div>
                 <div class="pure-u-1-5">
-                    <input class="tourn-option" ng-model="endDate" placeholder="End Date" />
+                    <input id="enddatepicker" class="tourn-option" ng-model="endDate" placeholder="End Date" />
                 </div>
                 <div class="pure-u-1-5">
                     <input class="tourn-option" ng-model="endTime" type="time" />
@@ -66,5 +67,37 @@
         <div class="pure-u-1-8">
         </div>
     </div>
+        <div id="input-modal" ng-show="inputModal" ng-click="$event.stopPropagation()">
+        <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="name">Event Title</label>
+                    <input ng-model="eventTitle" type="text" placeholder="Title"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="startDate">Start Date</label>
+                    <input id="startdatepicker" ng-model="startDate" placeholder="Start Date"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="startTime">Start Time</label>
+                    <input id="startTime" ng-model="startTime" type="time"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="startDate">End Date</label>
+                    <input id="enddatepicker" ng-model="endDate" placeholder="End Date"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="endTime">End Time</label>
+                    <input id="endTime" ng-model="endTime" type="time"/>
+                </div>
+                <button class="pure-button pure-u-1-4 button-moreOptions">More Options</button>
+                <div class="pure-u-1-5"></div>
+                <div class="pure-u-1-6"></div>
+                <button class="pure-button pure-u-1-8 button-cancel" ng-click="cancelEvent($event)">Cancel</button>
+                <input type="submit" value="Submit" class="pure-button pure-button-primary pure-u-1-8"/>
+            </fieldset>
+        </form>
+    </div>
+    <div id="page-cover" ng-show="inputModal"></div>
 </body>
 </html>
