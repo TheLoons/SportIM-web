@@ -1,0 +1,55 @@
+.soccer-field {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+.match-time {
+    font-size: 18pt;
+    padding-top: 8px;
+    display: block;
+    line-height: 0;
+}
+
+.match-period {
+    font-size: 12pt;
+}
+
+.soccerball {
+    width: 32px;
+    height: 32px;
+}
+#player-modal {
+    background-color: #ccc;
+    width: 345px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: absolute;
+    display: none;
+}
+#player-modal .pure-button{
+    display: inline-block;
+    width: 50px;
+}
+#player-modal:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 120px;
+    border-top: 10px solid #ccc;
+    border-top-color: #ccc; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+}
+
+.player {
+    font-size: 12pt;
+}
+
+.match-time-container {
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: -12px;
+    margin-right: 0px;
+}
