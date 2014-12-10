@@ -12,6 +12,14 @@ services.factory('User', ['$resource',
     }]
 );
 
+services.factory('Team', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/:id', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
+
 services.factory('Dir', ['$resource',
     function($resource){
         return $resource(serviceUrl+'directory', {}, {

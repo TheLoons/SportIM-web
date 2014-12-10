@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="team">
+<head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="/bower_components/pure/pure-min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/roundrobin.css">
+    <link rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="/bower_components/moment/min/moment.min.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>    
+    <script src="/js/services.js"></script>
+    <script src="/js/team.js"></script>
+</head>
+<body ng-controller="teamc">
+    <div ng-include src="'/partials/header.html'"></div>
+    <div class="pure-g">
+        <div class="pure-u-1-8">
+        </div>
+        <div class="pure-u-3-4">
+        </div>
+        <div class="pure-u-1-8">
+        </div>
+    </div>
+    <div id="page-cover" ng-show="inputModal"></div>
+</body>
+</html>
