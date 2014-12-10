@@ -12,16 +12,26 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
         {name: "Team 8", id: 8}
     ];
 
+    $scope.eventData = [];
     $scope.teamData = [];
-
-    $scope.changeTeam = function () {
-        $scope.teamData = [];
-        angular.forEach($scope.teamList, function(value){
-            if(value.id != $scope.teamSelected.id)
-                $scope.teamData.push(value);
+    angular.forEach($scope.teamList, function(firstTeam){
+        $scope.eventData[firstTeam] = [];
+        angular.forEach($scope.teamList, function(secondTeam){
+            if(firstTeam.id != secondTeam.id){
+                $scope.eventData[firstTeam].push(secondTeam);
+            }
         });
+    });
+     
+    $scope.changeTeam = function () {
+        $scope.teamData = $scope.eventData[$scope.teamSelected];
     };
     $("#startdatepicker").datepicker();
     $("#enddatepicker").datepicker();
-    $scope.inputModal = true;
+
+    $scope.cancelEvent = function(evt){
+        evt.stopPropagation();
+        $scope.inputModal = false;
+        $scope.clearForm();
+    };
 });
