@@ -2,14 +2,14 @@ var calendar = angular.module('roundrobin',['services']);
 
 calendar.controller('roundrobinc', function($scope, Events, Event) {
     $scope.teamList = [
-        {name: "Team 1", id: 1},
-        {name: "Team 2", id: 2},
-        {name: "Team 3", id: 3},
-        {name: "Team 4", id: 4},
-        {name: "Team 5", id: 5},
-        {name: "Team 6", id: 6},
-        {name: "Team 7", id: 7},
-        {name: "Team 8", id: 8}
+        {name: "Team1", id: 1},
+        {name: "Team2", id: 2},
+        {name: "Team3", id: 3},
+        {name: "Team4", id: 4},
+        {name: "Team5", id: 5},
+        {name: "Team6", id: 6},
+        {name: "Team7", id: 7},
+        {name: "Team8", id: 8}
     ];
 
     $scope.eventData = [];
@@ -18,7 +18,7 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
         $scope.eventData[firstTeam.name] = [];
         angular.forEach($scope.teamList, function(secondTeam){
             if(firstTeam.id != secondTeam.id){
-                $scope.eventData[firstTeam.name][secondTeam.name] = {"teamIDs": [firstTeam.id, secondTeam.id]}
+                $scope.eventData[firstTeam.name].push({"teamIDs": [firstTeam.id, secondTeam.id]});
             }
         });
     });

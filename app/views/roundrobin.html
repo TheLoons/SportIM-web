@@ -57,10 +57,10 @@
                     <input class="tourn-option" ng-model="endTime" type="time" />
                 </div>
             </div>
-            <div class="game-container" ng-repeat="(teamName, eventObject) in teamData">
+            <div class="game-container" ng-repeat="eventObject in teamData">
                 <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, teamSelected.name, team.name)">Select Date</div>
                     <div class="pure-button match-item match-team">{{teamSelected.name}}</div>
-                    <div class="pure-button match-item match-team">{{team.name}}</div>
+                    <div class="pure-button match-item match-team">{{eventObject}}</div>
                 </div>
             </div>
         </div>
