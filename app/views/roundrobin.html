@@ -45,16 +45,16 @@
                     <select class="tourn-option" ng-model="teamSelected" ng-options="teamList.name for teamList in teamList" ng-change="changeTeam()"></select>
                 </div>
                 <div class="pure-u-1-5">
-                    <input id="startdatepicker" class="tourn-option" ng-model="startDate" placeholder="Start Date" />
+                    <input id="startdatepicker" class="tourn-option selectDate" ng-model="totalstartDate" placeholder="Start Date" />
                 </div>
                 <div class="pure-u-1-5">
-                    <input class="tourn-option" ng-model="startTime" type="time" />
+                    <input class="tourn-option" ng-model="totalstartTime" type="time" />
                 </div>
                 <div class="pure-u-1-5">
-                    <input id="enddatepicker" class="tourn-option" ng-model="endDate" placeholder="End Date" />
+                    <input id="enddatepicker" class="tourn-option selectDate" ng-model="totalendDate" placeholder="End Date" />
                 </div>
                 <div class="pure-u-1-5">
-                    <input class="tourn-option" ng-model="endTime" type="time" />
+                    <input class="tourn-option" ng-model="totalendTime" type="time" />
                 </div>
             </div>
             <div class="game-container" ng-repeat="eventObject in teamData">
@@ -76,7 +76,7 @@
                 </div>
                 <div class="pure-control-group">
                     <label for="startDate">Start Date</label>
-                    <input id="startdatepicker" ng-model="startDate" placeholder="Start Date"/>
+                    <input id="startmodaldatepicker" class="selectDate" ng-model="startDate" placeholder="Start Date"/>
                 </div>
                 <div class="pure-control-group">
                     <label for="startTime">Start Time</label>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="pure-control-group">
                     <label for="startDate">End Date</label>
-                    <input id="enddatepicker" ng-model="endDate" placeholder="End Date"/>
+                    <input id="endmodaldatepicker" ng-model="endDate" class="selectDate" placeholder="End Date"/>
                 </div>
                 <div class="pure-control-group">
                     <label for="endTime">End Time</label>

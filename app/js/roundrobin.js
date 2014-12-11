@@ -28,27 +28,70 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
     $scope.changeTeam = function () {
         $scope.teamData = $scope.eventData[$scope.teamSelected.name];
     };
-    $("#startdatepicker").datepicker();
-    $("#enddatepicker").datepicker();
+    $(".selectDate").datepicker()
 
     $scope.cancelEvent = function(evt){
         evt.stopPropagation();
         $scope.inputModal = false;
-        $scope.button = "boo";
+        $scope.clearForm();
     };
     $scope.selectDate = function(evt, index){
         evt.stopPropagation();
+        debugger
         $scope.index = index;
+        if ($scope.eventData[$scope.teamSelected.name][index].startDate) {
+            $scope.startDate = $scope.eventData[$scope.teamSelected.name][index].startDate;
+        }
+        else
+        {
+            $scope.startDate = $scope.totalstartDate;
+        }
+        if ($scope.eventData[$scope.teamSelected.name][index].endDate) {
+            $scope.endDate = $scope.eventData[$scope.teamSelected.name][index].endDate;
+        }
+        else
+        {
+            $scope.endDate = $scope.totalendDate;
+        }
+        if ($scope.eventData[$scope.teamSelected.name][index].startTime) {
+            $scope.startTime = $scope.eventData[$scope.teamSelected.name][index].startTime;
+        }
+        else
+        {
+
+        }
+        if ($scope.eventData[$scope.teamSelected.name][index].endTime) {
+            $scope.endTime = $scope.eventData[$scope.teamSelected.name][index].endTime;
+        }
+        else
+        {
+
+        }
+        if ($scope.eventData[$scope.teamSelected.name][index].eventTitle) {
+            $scope.eventTitle = $scope.eventData[$scope.teamSelected.name][index].eventTitle;
+        }
+        else
+        {
+
+        }
         $scope.inputModal = true;
         $scope.eventData[$scope.teamSelected.name][index];
     };
+    $scope.clearForm = function(){
+        $scope.endDate = "";
+        $scope.startDate = "";
+        $scope.endTime = "";
+        $scope.startTime = "";
+        $scope.eventTitle = "";
+    }
     $scope.submitEvent = function(){
         $scope.eventData[$scope.teamSelected.name][$scope.index].eventTitle = $scope.eventTitle;
         $scope.eventData[$scope.teamSelected.name][$scope.index].startDate = $scope.startDate;
         $scope.eventData[$scope.teamSelected.name][$scope.index].endDate = $scope.endDate;
         $scope.eventData[$scope.teamSelected.name][$scope.index].startTime = $scope.startTime;
         $scope.eventData[$scope.teamSelected.name][$scope.index].endTime = $scope.endTime;
-        $scope.eventData[$scope.teamSelected.name][$scope.index].date = $scope.startDate + " " + $scope.endDate;
+        $scope.eventData[$scope.teamSelected.name][$scope.index].date = $scope.startDate + " - " + $scope.endDate;
         $scope.inputModal = false;
+        $scope.clearForm();
     };
 });
