@@ -15,16 +15,16 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
     $scope.eventData = [];
     $scope.teamData = [];
     angular.forEach($scope.teamList, function(firstTeam){
-        $scope.eventData[firstTeam] = [];
+        $scope.eventData[firstTeam.name] = [];
         angular.forEach($scope.teamList, function(secondTeam){
             if(firstTeam.id != secondTeam.id){
-                $scope.eventData[firstTeam].push(secondTeam);
+                $scope.eventData[firstTeam.name].push(secondTeam);
             }
         });
     });
      
     $scope.changeTeam = function () {
-        $scope.teamData = $scope.eventData[$scope.teamSelected];
+        $scope.teamData = $scope.eventData[$scope.teamSelected.name];
     };
     $("#startdatepicker").datepicker();
     $("#enddatepicker").datepicker();
