@@ -34,4 +34,8 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
         $scope.inputModal = false;
         $scope.clearForm();
     };
+    $scope.selectDate = function(evt, team1, team2){
+        $scope.eventData[team1][team2].startDate = "blah";
+        
+    };
 });
