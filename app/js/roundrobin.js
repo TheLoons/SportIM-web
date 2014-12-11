@@ -14,11 +14,13 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
 
     $scope.eventData = [];
     $scope.teamData = [];
+    $scope.button = "Select Date";
+    $scope.index = -1;
     angular.forEach($scope.teamList, function(firstTeam){
         $scope.eventData[firstTeam.name] = [];
         angular.forEach($scope.teamList, function(secondTeam){
             if(firstTeam.id != secondTeam.id){
-                $scope.eventData[firstTeam.name].push({"teamIDs": [firstTeam.id, secondTeam.id]});
+                $scope.eventData[firstTeam.name].push({"teamIDs": [firstTeam.id, secondTeam.id], "opponent": secondTeam.name});
             }
         });
     });
@@ -32,10 +34,23 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
     $scope.cancelEvent = function(evt){
         evt.stopPropagation();
         $scope.inputModal = false;
-        $scope.clearForm();
+        $scope.button = "boo";
     };
-    $scope.selectDate = function(evt, team1, team2){
+    $scope.selectDate = function(evt, index){
+        debugger
+        evt.stopPropagation();
+        $scope.index = index;
+        $scope.inputModal = true;
+        $scope.eventData[$scope.teamSelected.name][index];
         
-        
+    };
+    $scope.submitEvent = function(){
+
+        $scope.eventData[$scope.teamSelected.name][$scope.index].eventTitle = $scope.eventTitle;
+        $scope.eventData[$scope.teamSelected.name][$scope.index].startDate = $scope.startDate;
+        $scope.eventData[$scope.teamSelected.name][$scope.index].endDate = $scope.endDate;
+        $scope.eventData[$scope.teamSelected.name][$scope.index].startTime = $scope.startTime;
+        $scope.eventData[$scope.teamSelected.name][$scope.index].endTime = $scope.endTime;
+        $scope.inputModal = false;
     };
 });
