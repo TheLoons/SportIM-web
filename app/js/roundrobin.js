@@ -18,7 +18,7 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
         $scope.eventData[firstTeam.name] = [];
         angular.forEach($scope.teamList, function(secondTeam){
             if(firstTeam.id != secondTeam.id){
-                $scope.eventData[firstTeam.name].push(secondTeam);
+                $scope.eventData[firstTeam.name][secondTeam.name] = {"teamIDs": [firstTeam.id, secondTeam.id]}
             }
         });
     });
@@ -35,7 +35,7 @@ calendar.controller('roundrobinc', function($scope, Events, Event) {
         $scope.clearForm();
     };
     $scope.selectDate = function(evt, team1, team2){
-        $scope.eventData[team1][team2].startDate = "blah";
+        
         
     };
 });
