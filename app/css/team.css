@@ -1,0 +1,36 @@
+#team-name {
+    text-align: center;
+    font-size: 26px;
+}
+
+#team-owner {
+    text-align: center;
+    font-size: 20px;
+}
+
+.odd {
+    background-color: #eee;
+}
+
+.chart rect {
+  fill: steelblue;
+}
+.chart rect:hover {
+  fill: #red;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+#passingChart {
+  font: 12px sans-serif;
+}
+
+.chord path {
+    fill-opacity: .67;
+    stroke: #000;
+    stroke-width: .5px;
+}
