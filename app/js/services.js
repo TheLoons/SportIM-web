@@ -20,6 +20,14 @@ services.factory('Team', ['$resource',
     }]
 );
 
+services.factory('Tournament', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'tournament/:id', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
+
 services.factory('Dir', ['$resource',
     function($resource){
         return $resource(serviceUrl+'directory', {}, {
