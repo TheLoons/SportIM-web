@@ -104,4 +104,7 @@ calendar.controller('maincalendar', function($scope, Events, Event) {
     }, 100);
     $("#startdatepicker").datepicker();
     $("#enddatepicker").datepicker();
+    $("#ui-datepicker-div").click( function(event) {
+        event.stopPropagation();
+    });
 });
