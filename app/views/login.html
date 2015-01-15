@@ -14,14 +14,14 @@
     <script src="../js/services.js"></script>
     <script src="../js/login.js"></script>
 </head>
-<body>
+<body ng-controller="login">
 	<form class="pure-form pure-form-aligned" ng-submit="loginEvent()">
 		<label>Username:</label></br>
 		<input type="text" name="username" ng-model="username"></br>
 		<label>Password:</label></br>
 		<input type="password" name="password" ng-model="password">
         </br></br>
-        <input type="submit" value="Submit" ng-click="loginEvent()">
+        <input type="submit" value="Submit">
 	</form>
 </body>
 </html>
