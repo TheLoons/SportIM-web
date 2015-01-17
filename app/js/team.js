@@ -6,6 +6,10 @@ team.config(['$routeProvider', function($routeProvider) {
             templateUrl: '../partials/teams.html',
             controller: 'teams'
         }).
+        when('/team/create', {
+            templateUrl: '../partials/teamedit.html',
+            controller: 'teamedit'
+        }).
         when('/team/:teamId', {
             templateUrl: '../partials/teamview.html',
             controller: 'teamview'
@@ -31,22 +35,33 @@ team.controller('teams', function($scope, Team) {
 });
 
 team.controller('teamview', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
-    console.log($routeParams);
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
     });
 }]);
 
 team.controller('teamedit', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
-    Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
-        $scope.team = resp.team;
-        $scope.teamName = resp.team.name;
-        $scope.teamOwner = resp.team.owner;
-    });
+    if($routeParams.teamId) {
+        Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+            $scope.team = resp.team;
+            $scope.teamName = resp.team.name;
+            $scope.teamOwner = resp.team.owner;
+        });
+    }
+    $scope.submitEdit = function(id) {
+        if(!angular.isUndefined($scope.team)) {
+            Team.update({id: $scope.team.id, name: $scope.teamName, owner: $scope.owner});
+        } else {
+            Team.save({name: $scope.teamName, owner: $scope.owner});
+        }
+    };
 }]);
 
 team.controller('teamdelete', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
     });
+    $scope.deleteTeam = function() {
+        Team.delete({id: $scope.team.id});
+    }
 }]);
