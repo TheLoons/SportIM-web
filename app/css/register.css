@@ -54,12 +54,11 @@ body{
     font-size: 35px;
     font-weight: 200;
 }
-
 .header div span{
     color: #5379fa !important;
 }
 
-.login{
+.register{
     position: absolute;
     top: calc(50% - 75px);
     left: calc(50% - 50px);
@@ -69,7 +68,7 @@ body{
     z-index: 2;
 }
 
-.login input[type=text]{
+.register input[type=text]{
     width: 250px;
     height: 30px;
     background: transparent;
@@ -82,7 +81,7 @@ body{
     padding: 4px;
 }
 
-.login input[type=password]{
+.register input[type=password]{
     width: 250px;
     height: 30px;
     background: transparent;
@@ -95,8 +94,11 @@ body{
     padding: 4px;
     margin-top: 10px;
 }
+.register input[type=text]{
+    margin-top: 10px;
+}
 
-.login input[type=submit]{
+.register input[type=submit]{
     width: 260px;
     height: 35px;
     background: #fff;
@@ -111,25 +113,25 @@ body{
     margin-top: 10px;
 }
 
-.login input[type=button]:hover{
+.register input[type=button]:hover{
     opacity: 0.8;
 }
 
-.login input[type=button]:active{
+.register input[type=button]:active{
     opacity: 0.6;
 }
 
-.login input[type=text]:focus{
+.register input[type=text]:focus{
     outline: none;
     border: 1px solid rgba(255,255,255,0.9);
 }
 
-.login input[type=password]:focus{
+.register input[type=password]:focus{
     outline: none;
     border: 1px solid rgba(255,255,255,0.9);
 }
 
-.login input[type=button]:focus{
+.register input[type=button]:focus{
     outline: none;
 }
 
