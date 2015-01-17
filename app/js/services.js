@@ -1,4 +1,4 @@
-var serviceUrl = 'http://cs4400-02.eng.utah.edu:9999/sportim/rest/';
+var serviceUrl = 'https://sportim.herokuapp.com/rest/';
 
 var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 

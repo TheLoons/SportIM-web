@@ -68,3 +68,11 @@
     left: 0;
     opacity: 0.6;
 }
+
+.table-header {
+    border-bottom: 1px solid #000;
+}
+.table-row {
+    min-height: 40px;
+    line-height: 40px;
+}
