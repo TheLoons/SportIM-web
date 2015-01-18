@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="register">
+<head>
+    <meta charset="utf-8">
+    <title>SportsIM</title>
+    <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../js/services.js"></script>
+    <script src="../js/register.js"></script>
+</head>
+<body ng-controller="register">
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>Sport<span>IM</span></div>
+    </div>
+    <br>
+    <div class="register">
+        <form ng-submit="registerEvent()">
+            <input type="text" placeholder="email" name="email" ng-model="email">
+            <input type="text" placeholder="first Name" name="firstname" ng-model="firstname">
+            <input type="text" placeholder="last Name" name="lastname" ng-model="lastname">
+            <input type="password" placeholder="password" name="password" ng-model="password">
+            <input type="submit" value="register">
+        </form>
+    </div>
+	<form class="pure-form pure-form-aligned" ng-submit="registerEvent()">
+		<label>Email:</label></br>
+		<input type="text" name="email" ng-model="email"></br>
+        <label>First Name:</label></br>
+        <input type="password" name="firstname" ng-model="firstname"></br>
+        <label>Last Name:</label></br>
+        <input type="password" name="lastname" ng-model="lastname"></br>
+		<label>Password:</label></br>
+		<input type="password" name="password" ng-model="password">
+        </br></br>
+        <input type="submit" value="Submit">
+	</form>
+</body>
+</html>

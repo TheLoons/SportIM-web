@@ -1,29 +1,37 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="home">
-<head>
-    <meta charset="utf-8">
-    <title>SportsIM</title>
-    <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/newsFeed.css">
-    <script src="../bower_components/angular/angular.js"></script>
-    <script src="../bower_components/angular-route/angular-route.js"></script>
-    <script src="../bower_components/angular-resource/angular-resource.js"></script>
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-    <script src="../bower_components/moment/min/moment.min.js"></script>
-    <script src="../js/services.js"></script>
-    <script src="../js/login.js"></script>
-</head>
-<body>
-	<form>
-		<label>Username:</label></br>
-		<input type="text" name="username">
-	</form>
-</br>
-	<form>
-		<label>Password:</label></br>
-		<input type="password" name="password">
-	</form>
+    <!DOCTYPE html>
+    <html lang="en" ng-app="login">
+
+    <head>
+        <meta charset="utf-8">
+        <title>SportsIM</title>
+        <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
+        <link rel="stylesheet" href="../css/login.css">
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-route/angular-route.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script src="../bower_components/moment/min/moment.min.js"></script>
+        <script src="../js/services.js"></script>
+        <script src="../js/login.js"></script>
+    </head>
+    <body ng-controller="login">
+      <div class="body"></div>
+      <div class="grad"></div>
+      <div class="header">
+        <div>Sport<span>IM</span></div>
+    </div>
+    <br>
+    <div class="login">
+        <form ng-submit="loginEvent()">
+            <input type="text" placeholder="email" name="email" ng-model="email"><br>
+            <input type="password" placeholder="password" name="password" ng-model="password"><br>
+            <input type="submit" value="Login"><br>
+            <a href="register.html" target="_blank">Sign up</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">Forgot Password?</a>
+        </form>
+    </div>
 </body>
+
 </html>
