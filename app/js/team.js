@@ -50,9 +50,9 @@ team.controller('teamedit', ['$scope', 'Team', '$routeParams', function($scope, 
     }
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.team)) {
-            Team.update({id: $scope.team.id, name: $scope.teamName, owner: $scope.owner});
+            Team.update({id: $scope.team.id, name: $scope.teamName, owner: $scope.teamOwner});
         } else {
-            Team.save({name: $scope.teamName, owner: $scope.owner});
+            Team.save({name: $scope.teamName, owner: $scope.teamOwner});
         }
     };
 }]);
