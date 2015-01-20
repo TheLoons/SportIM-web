@@ -14,20 +14,17 @@ describe("Services: ", function() {
         });
 
         it("Should pull user data correctly", inject(function(User) {
-            this.httpBackend.expect('GET', serviceUrl+'/users.json').respond(
-                [{"id":1,"name":"John Terry","age":34,"password":"test123",
-                "url":"http://localhost:3000/users/1.json"},
-                {"id":2,"name":"Jessica Oswald","age":26,"password":"fuwhfouw",
-                "url":"http://localhost:3000/users/2.json"}]
+            this.httpBackend.expect('GET', serviceUrl+'user/jterry@gmail.com').respond(
+                {"username":"jterry@gmail.com","firstName":"John", "lastName": "Terry", "password":"test123"}
             );
-            var users = User.users();
+            var user = User.get({email:"jterry@gmail.com"});
             this.httpBackend.flush();
 
             expect(User).toBeDefined();
-            expect(users).toBeDefined();
-            expect(users.length).toBe(2);
-            expect(users[0].name).toBe("John Terry");
-            expect(users[1].age).toBe(26);
+            expect(user).toBeDefined();
+            expect(user.firstName).toBe("John");
+            expect(user.lastName).toBe("Terry");
+            expect(user.password).toBe("test123");
         }));
     });
 
