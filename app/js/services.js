@@ -6,8 +6,8 @@ var services = angular.module('services', ['ngResource']);
 
 services.factory('User', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'/users.json', {}, {
-            users: {method: 'GET', isArray: true}
+        return $resource(serviceUrl+'user/:email', {email: '@email'}, {
+            "update":{method:"PUT"}
         });
     }]
 );
@@ -47,5 +47,11 @@ services.factory('Event', ['$resource',
 services.factory('Events', ['$resource',
     function($resource){
         return $resource(serviceUrl+'events', {});
+    }]
+);
+
+services.factory('Login', ['$resource',
+    function($resource){
+        return $resource(serviceUrl + 'login', {});
     }]
 );
