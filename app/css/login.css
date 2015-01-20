@@ -1,8 +1,3 @@
-
-    <style>
-@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
-
 body{
     margin: 0;
     padding: 0;
@@ -26,7 +21,7 @@ a:visited {
     bottom: -40px;
     width: auto;
     height: auto;
-    background-image: url(http://dynamicscorpwebsites.com/cityprepradio/wp-content/uploads/2014/01/spring-sports-prep-seattle-composite-web-1763x800.jpg);
+    background-color: #777;
     background-size: cover;
     -webkit-filter: blur(5px);
     z-index: 0;
@@ -40,8 +35,8 @@ a:visited {
     left: -20px;
     right: -40px;
     bottom: -40px;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
     z-index: 1;
     opacity: 0.7;
@@ -146,4 +141,3 @@ a:visited {
 ::-moz-input-placeholder{
    color: rgba(255,255,255,0.6);
 }
-</style>
