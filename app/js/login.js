@@ -1,10 +1,10 @@
-var login = angular.module('login',['services']);
+var login = angular.module('login',['services', 'ngCookies']);
 
-login.controller('login', function($scope, Login) {
+login.controller('login', function($scope, Login, $cookies) {
 	$scope.loginEvent = function(){
 		Login.save({login: $scope.email, password: $scope.password}).$promise.then(function(resp) {
 			if (resp.status.code == 200) {
-				console.log(resp.token);	
+                $cookies.session = resp.token;
 			}
 			else if (resp.status.code == 401) 
 			{
