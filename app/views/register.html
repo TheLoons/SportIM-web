@@ -25,23 +25,12 @@
     <div class="register">
         <form ng-submit="registerEvent()">
             <input type="text" placeholder="email" name="email" ng-model="email">
-            <input type="text" placeholder="first Name" name="firstname" ng-model="firstname">
-            <input type="text" placeholder="last Name" name="lastname" ng-model="lastname">
+            <input type="text" placeholder="First Name" name="firstName" ng-model="firstName">
+            <input type="text" placeholder="Last Name" name="lastName" ng-model="lastName">
+            <input type="text" placeholder="Phone Number" name="phone" ng-model="phone">
             <input type="password" placeholder="password" name="password" ng-model="password">
             <input type="submit" value="register">
         </form>
     </div>
-	<form class="pure-form pure-form-aligned" ng-submit="registerEvent()">
-		<label>Email:</label></br>
-		<input type="text" name="email" ng-model="email"></br>
-        <label>First Name:</label></br>
-        <input type="password" name="firstname" ng-model="firstname"></br>
-        <label>Last Name:</label></br>
-        <input type="password" name="lastname" ng-model="lastname"></br>
-		<label>Password:</label></br>
-		<input type="password" name="password" ng-model="password">
-        </br></br>
-        <input type="submit" value="Submit">
-	</form>
 </body>
 </html>

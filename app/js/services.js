@@ -52,6 +52,11 @@ services.factory('Events', ['$resource',
 
 services.factory('Login', ['$resource',
     function($resource){
-        return $resource(serviceUrl + 'login', {});
+            return $resource(serviceUrl + 'login', {});
+    }]
+);
+services.factory('Register', ['$resource',
+    function($resource){
+            return $resource(serviceUrl + 'user', {});
     }]
 );
