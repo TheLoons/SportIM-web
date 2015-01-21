@@ -31,7 +31,9 @@ a:visited {
     -webkit-filter: blur(5px);
     z-index: 0;
 }
-
+#errorMessage{
+    display: none;
+}
 .grad{
     position: absolute;
     top: -20px;
@@ -115,7 +117,6 @@ a:visited {
     padding: 6px;
     margin-top: 10px;
 }
-
 .login input[type=button]:hover{
     opacity: 0.8;
 }

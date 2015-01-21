@@ -8,7 +8,9 @@ login.controller('login', function($scope, Login) {
 			}
 			else if (resp.status.code == 401) 
 			{
-				console.log("login information wrong");
+				$('#email').css({'border': '1px solid rgba(255,0,0,0.6)'});
+				$('#password').css({'border': '1px solid rgba(255,0,0,0.6)'});
+				$('#errorMessage').show(600, $scope.callBack());
 			}
 			else
 			{
@@ -16,5 +18,7 @@ login.controller('login', function($scope, Login) {
 			}
         	
     	});
+    	$scope.callBack = function(){
+    	};
 	};
 });

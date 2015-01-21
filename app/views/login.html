@@ -24,8 +24,11 @@
     <br>
     <div class="login">
         <form ng-submit="loginEvent()">
-            <input type="text" placeholder="email" name="email" ng-model="email"><br>
-            <input type="password" placeholder="password" name="password" ng-model="password"><br>
+            <div id="errorMessage">
+                <font id="text" color="red">Invalid login Information</font>
+            </div>
+            <input id="email" type="text" placeholder="email" name="email" ng-model="email"><br>
+            <input id="password" type="password" placeholder="password" name="password" ng-model="password"><br>
             <input type="submit" value="Login"><br>
             <a href="register.html" target="_blank">Sign up</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
