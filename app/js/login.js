@@ -14,7 +14,8 @@ login.controller('login', function($scope, Login) {
 			}
 			else
 			{
-				console.log("can't login at this time");
+				$('#errorMessage').text("Server is unavailable at this time.");
+				$('#errorMessage').show(600, $scope.callBack());	
 			}
         	
     	});
