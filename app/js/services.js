@@ -5,7 +5,6 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 
 services.run(function($cookies, $http){
-    console.log("loaded session: "+$cookies.session);
     $http.defaults.headers.common['token'] = $cookies.session;
 });
 
