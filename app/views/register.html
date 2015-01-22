@@ -24,11 +24,14 @@
     <br>
     <div class="register">
         <form ng-submit="registerEvent()">
-            <input type="text" placeholder="email" name="email" ng-model="email">
-            <input type="text" placeholder="First Name" name="firstName" ng-model="firstName">
-            <input type="text" placeholder="Last Name" name="lastName" ng-model="lastName">
-            <input type="text" placeholder="Phone Number" name="phone" ng-model="phone">
-            <input type="password" placeholder="password" name="password" ng-model="password">
+            <div id="errorMessage">
+                <font id="text" color="red">Invalid registration Information</font>
+            </div>
+            <input id="email" type="text" placeholder="Email" name="email" ng-model="email">
+            <input id="firstName" type="text" placeholder="First Name" name="firstName" ng-model="firstName">
+            <input id="lastName" type="text" placeholder="Last Name" name="lastName" ng-model="lastName">
+            <input id="phone" type="text" placeholder="Phone Number" name="phone" ng-model="phone">
+            <input id="password" type="password" placeholder="Password" name="password" ng-model="password">
             <input type="submit" value="register">
         </form>
     </div>

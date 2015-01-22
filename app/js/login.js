@@ -15,6 +15,7 @@ login.controller('login', function($scope, Login) {
 			else
 			{
 				$('#errorMessage').text("Server is unavailable at this time.");
+				$('#errorMessage').css({'color': 'red'});
 				$('#errorMessage').show(600, $scope.callBack());	
 			}
         	
