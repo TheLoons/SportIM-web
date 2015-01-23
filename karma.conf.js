@@ -7,7 +7,7 @@ module.exports = function(config){
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/bower_components/jquery/jquery.min.js',
+      'app/bower_components/jquery/dist/jquery.min.js',
       'app/bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
       'app/bower_components/fullcalendar/fullcalendar.js',
       'app/bower_components/angular-ui-calendar/src/calendar.js',

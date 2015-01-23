@@ -5,6 +5,7 @@ login.controller('login', function($scope, Login, $cookies) {
 		Login.save({login: $scope.email, password: $scope.password}).$promise.then(function(resp) {
 			if (resp.status.code == 200) {
                 $cookies.session = resp.token;
+                window.location.href = "../views/home.html";
 			}
 			else if (resp.status.code == 401) 
 			{
