@@ -1,18 +1,33 @@
 .logo {
     height: 100px;
-    background-repeat: no-repeat;
-    background-size: 233px 100px;
-    background-image: url('../images/soccerlogo.png');
+}
+.sportim-logo {
+    color: #fff;
+    float: left;
+    font-family: 'Exo', sans-serif;
+    padding: 5%;
+}
+.sportim-logo span{
+    color: #5379fa !important;
 }
 .header {
     padding: .3em 0;
-    margin-bottom: .3em;
-    color: #333;
+    margin-bottom: 1em;
+    background-color: #444;
+    color: #ccc;
     border-bottom: 1px solid #e5e5e5;
 }
-.top-menu {
+#top-menu {
+    color: #ccc;
+    background-color: #444;
     text-align: right;
     padding-top:10%;
+}
+#top-menu.pure-menu li a:hover{
+    background-color: #555;
+}
+#top-menu.pure-menu a{
+    color: #ccc;
 }
 .button-yellow {
     background-color: #ffdd00;
@@ -22,6 +37,9 @@
 }
 .button-green {
     background-color: #33ee33;
+}
+.float-right {
+    float: right;
 }
 .top-container {
     text-align: center;

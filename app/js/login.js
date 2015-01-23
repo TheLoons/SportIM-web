@@ -5,16 +5,23 @@ login.controller('login', function($scope, Login, $cookies) {
 		Login.save({login: $scope.email, password: $scope.password}).$promise.then(function(resp) {
 			if (resp.status.code == 200) {
                 $cookies.session = resp.token;
+                window.location.href = "../views/home.html";
 			}
 			else if (resp.status.code == 401) 
 			{
-				console.log("login information wrong");
+				$('#email').css({'border': '1px solid rgba(255,0,0,0.6)'});
+				$('#password').css({'border': '1px solid rgba(255,0,0,0.6)'});
+				$('#errorMessage').show(600, $scope.callBack());
 			}
 			else
 			{
-				console.log("can't login at this time");
+				$('#errorMessage').text("Server is unavailable at this time.");
+				$('#errorMessage').css({'color': 'red'});
+				$('#errorMessage').show(600, $scope.callBack());	
 			}
         	
     	});
+    	$scope.callBack = function(){
+    	};
 	};
 });

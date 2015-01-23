@@ -1,10 +1,10 @@
-    <!DOCTYPE html>
-    <html lang="en" ng-app="login">
-
+<!DOCTYPE html>
+<html lang="en" ng-app="login">
     <head>
         <meta charset="utf-8">
         <title>SportsIM</title>
         <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
+        <link rel="stylesheet" href="../css/common.css">
         <link rel="stylesheet" href="../css/login.css">
         <script src="../bower_components/angular/angular.js"></script>
         <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -17,22 +17,22 @@
         <script src="../js/login.js"></script>
     </head>
     <body ng-controller="login">
-      <div class="body"></div>
-      <div class="grad"></div>
-      <div class="header">
-        <div>Sport<span>IM</span></div>
-    </div>
-    <br>
-    <div class="login">
-        <form ng-submit="loginEvent()">
-            <input type="text" placeholder="email" name="email" ng-model="email"><br>
-            <input type="password" placeholder="password" name="password" ng-model="password"><br>
-            <input type="submit" value="Login"><br>
-            <a href="register.html" target="_blank">Sign up</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
-            <a href="">Forgot Password?</a>
-        </form>
-    </div>
-</body>
+        <div class="login-header">
+            <div class="sportim-logo" style="font-size: 35px;">Sport<span>IM</span></div>
+        </div>
+        <br>
+        <div class="login">
+            <form ng-submit="loginEvent()">
+                <div id="errorMessage">
+                    <font id="text" color="red">Invalid login Information</font>
+                </div>
+                <input id="email" type="text" placeholder="email" name="email" ng-model="email"><br>
+                <input id="password" type="password" placeholder="password" name="password" ng-model="password"><br>
+                <input type="submit" value="Login"><br>
+                <a href="register.html">Sign up</a>
+                <a href="" class="float-right">Forgot Password?</a>
+            </form>
+        </div>
+    </body>
 
 </html>

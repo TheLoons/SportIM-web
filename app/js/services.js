@@ -5,7 +5,6 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 
 services.run(function($cookies, $http){
-    console.log("loaded session: "+$cookies.session);
     $http.defaults.headers.common['token'] = $cookies.session;
 });
 
@@ -57,6 +56,11 @@ services.factory('Events', ['$resource',
 
 services.factory('Login', ['$resource',
     function($resource){
-        return $resource(serviceUrl + 'login', {});
+            return $resource(serviceUrl + 'login', {});
+    }]
+);
+services.factory('Register', ['$resource',
+    function($resource){
+            return $resource(serviceUrl + 'user', {});
     }]
 );
