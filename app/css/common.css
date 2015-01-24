@@ -12,13 +12,11 @@
 }
 .header {
     padding: .3em 0;
-    margin-bottom: 1em;
     background-color: #444;
-    color: #ccc;
-    border-bottom: 1px solid #e5e5e5;
+    color: #fff;
 }
 #top-menu {
-    color: #ccc;
+    color: #fff;
     background-color: #444;
     text-align: right;
     padding-top:10%;
@@ -27,7 +25,25 @@
     background-color: #555;
 }
 #top-menu.pure-menu a{
-    color: #ccc;
+    color: #fff;
+}
+.context-header {
+    padding: .3em 0;
+    margin-bottom: 1em;
+    background-color: #777;
+    color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+#context-menu {
+    color: #fff;
+    background-color: #777;
+    text-align: right;
+}
+#context-menu.pure-menu li a:hover{
+    background-color: #999;
+}
+#context-menu.pure-menu a{
+    color: #fff;
 }
 .button-yellow {
     background-color: #ffdd00;

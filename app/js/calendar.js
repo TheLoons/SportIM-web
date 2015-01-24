@@ -1,5 +1,10 @@
-
 var calendar = angular.module('calendar',['services','ui.calendar']);
+
+calendar.controller('header', function($scope) {
+    $scope.contextItems = [
+        //{url: "team.html", label: "My Teams"},
+    ];
+});
 
 calendar.controller('maincalendar', function($scope, Events, Event) {
     $scope.eventSources = [];

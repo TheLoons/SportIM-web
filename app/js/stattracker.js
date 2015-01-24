@@ -1,5 +1,11 @@
 var calendar = angular.module('stattracker',['services']);
 
+calendar.controller('header', function($scope) {
+    $scope.contextItems = [
+        //{url: "team.html", label: "My Teams"},
+    ];
+});
+
 calendar.controller('stattrackerc', function($scope, Events, Event) {
     $(".player").draggable();
     $(".soccerball").draggable();

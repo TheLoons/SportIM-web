@@ -1,5 +1,11 @@
 var calendar = angular.module('roundrobin',['services']);
 
+calendar.controller('header', function($scope) {
+    $scope.contextItems = [
+        //{url: "team.html", label: "My Teams"},
+    ];
+});
+
 calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
     $(".selectDate").datepicker()
 
