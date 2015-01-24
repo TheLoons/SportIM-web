@@ -1,5 +1,12 @@
 var home = angular.module('home',['services']);
 
+home.controller('header', function($scope) {
+    $scope.contextItems = [
+        {url: "team.html", label: "My Teams"},
+        {url: "league.html", label: "My Leagues"}
+    ];
+});
+
 home.controller('feed', function($scope, Events) {
     var startDate = moment().format(serviceDateFormat);
     var endDate = moment().add(3,'M').format(serviceDateFormat);

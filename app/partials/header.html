@@ -1,15 +1,25 @@
-<div class="pure-g header">
-    <a href="../views/home.html" class="pure-u-1-4 logo">
-        <div class="sportim-logo" style="font-size: 48px;">Sport<span>IM</span></div>
-    </a>
-    <div class="pure-u-1-4"></div>
-    <div class="pure-u-1-4"></div>
-    <div class="pure-u-1-4">
-        <div id="top-menu" class="pure-menu pure-menu-open pure-menu-horizontal">
-            <u1>
+<div ng-controller="header">
+    <div class="pure-g header">
+        <a href="../views/home.html" class="pure-u-1-4 logo">
+            <div class="sportim-logo" style="font-size: 48px;">Sport<span>IM</span></div>
+        </a>
+        <div class="pure-u-1-4"></div>
+        <div class="pure-u-1-4"></div>
+        <div class="pure-u-1-4">
+            <div id="top-menu" class="pure-menu pure-menu-open pure-menu-horizontal">
+                <u1>
+                <li><a href="../views/home.html">Home</a></li>
                 <li><a href="../views/calendar.html">Calendar</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="../views/logout.html">Logout</a></li>
+                </u1>
+            </div>
+        </div>
+    </div>
+    <div class="context-header">
+        <div id="context-menu" class="pure-menu pure-menu-open pure-menu-horizontal">
+            <u1>
+            <li ng-repeat="item in contextItems"><a href="{{item.url}}">{{item.label}}</a></li>
             </u1>
         </div>
     </div>

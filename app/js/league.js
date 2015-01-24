@@ -1,5 +1,11 @@
 var league = angular.module('league',['ngRoute', 'services']);
 
+league.controller('header', function($scope) {
+    $scope.contextItems = [
+        //{url: "team.html", label: "My Teams"},
+    ];
+});
+
 league.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when('/league', {

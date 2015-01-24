@@ -1,5 +1,11 @@
 var team = angular.module('team',['ngRoute', 'services']);
 
+team.controller('header', function($scope) {
+    $scope.contextItems = [
+        //{url: "team.html", label: "My Teams"},
+    ];
+});
+
 team.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when('/team', {
