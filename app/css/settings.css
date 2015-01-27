@@ -1,0 +1,39 @@
+body {
+	background-color: #f1f1f1;
+	font-family: Helvetica,Arial,Verdana;
+
+}
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	padding: 10px;
+}
+.form{
+	margin: 10px;
+}
+.search-wrapper {
+	width: 500px;
+	margin: auto;
+	margin-top: 50px;
+}
+.search-box {
+	width: 10%;
+	border: 1px solid #ccc;
+  outline: 0;
+  color: #696969;
+}
+.search-box:focus {
+	box-shadow: 0 0 15px 5px #b0e0ee;
+	border: 2px solid #bebede;
+}
+#phoneNumber {
+	width: 22%;
+}
+#email {
+	width: 22%;
+}
+#password {
+	width: 22%;
+}
+.pure-button {
+	margin: 10px;
+}

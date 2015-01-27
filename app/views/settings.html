@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" href="../bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/settings.css">
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
@@ -18,6 +19,16 @@
 </head>
 <body ng-controller="settingsc" ng-click="tournamentModal=false; gameModal=false; inputModal=false">
     <div ng-include src="'../partials/header.html'"></div>
-    {{events}}
+    <form class="form">
+        <input id="email" ng-model="email" type="text" name="focus" required class="search-box" placeholder="Email" value={{email}} />
+    </form>
+    <form class="form">
+        <input ng-model="firstName" type="text" name="focus" required class="search-box" placeholder="First Name" value={{firstName}} />
+        <input ng-model="lastName" type="text" name="focus" required class="search-box" placeholder="Last Name" value={{lastName}} />
+    </form>
+    <form class="form">
+        <input id="phoneNumber" ng-model="phonenumber" type="text" name="focus" required class="search-box" placeholder="Phone Number" value={{phonenumber}} />
+    </form>
+    <input type="submit" value="Submit" ng-click="submitEvent()"class="pure-button pure-button-primary pure-u-1-8"/>
 </body>
 </html>
