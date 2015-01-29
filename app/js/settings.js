@@ -12,5 +12,6 @@ settings.controller('settingsc', function($scope, User) {
         $scope.email = user.login;
       });
     $scope.submitEvent = function(){
+    	User.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email});
     };
 });
