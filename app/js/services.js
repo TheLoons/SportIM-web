@@ -5,8 +5,31 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 
 services.run(function($cookies, $http){
+    // add the session token to all requests
     $http.defaults.headers.common['token'] = $cookies.session;
 });
+
+services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector) {  
+    var sessionRecoverer = {
+        response: function(response) {
+            // Session has expired
+            if (response.data.status && response.data.status.code != 200){
+                if(response.data.status.code == 401)
+                    window.location.href = '../views/login.html?error=NotAuthorized';
+                else {
+                    $("#errorHeader").show();
+                    $("#errorMessage").text(response.data.status.message+" Refresh and try again.");
+                }
+            }
+            return response;
+        }
+    };
+    return sessionRecoverer;
+}]);
+
+services.config(['$httpProvider', function($httpProvider) {  
+    $httpProvider.interceptors.push('sessionRecoverer');
+}]);
 
 services.factory('User', ['$resource',
     function($resource){

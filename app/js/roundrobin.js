@@ -8,6 +8,7 @@ calendar.controller('header', function($scope) {
 
 calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
     $(".selectDate").datepicker()
+    $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
     $scope.teamList = [
         {name: "Team 1", id: 1},
@@ -89,8 +90,8 @@ calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
         $scope.eventTitle = "";
     };
     $scope.submitEvent = function(){
-        var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss");
-        var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss");
+        var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A");
+        var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A");
         var eventIndex = $scope.currentIndex;
 
         $scope.eventData[eventIndex].title = $scope.eventTitle;
@@ -106,28 +107,27 @@ calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
         $scope.clearForm();
     };
     $scope.updateDefaultDates = function(){
-        if($scope.totalstartDate == "" || $scope.totalstartTime === undefined || $scope.totalendDate == "" || $scope.totalendTime === undefined)
+        if($scope.totalstartDate == "" || $scope.totalstartTime == "" || $scope.totalendDate == "" || $scope.totalendTime == "")
             return;
 
-        var currentStartDate = moment($scope.totalstartDate + " " + $scope.totalstartTime.toTimeString(), "MM/DD/YYYY HH:mm:ss");
-        var currentEndDate = moment($scope.totalstartDate + " " + $scope.totalendTime.toTimeString(), "MM/DD/YYYY HH:mm:ss");
-        var endDate = moment($scope.totalendDate + " " + $scope.totalendTime.toTimeString(), "MM/DD/YYYY HH:mm:ss");
+        var currentStartDate = moment($scope.totalstartDate + " " + $scope.totalstartTime, "MM/DD/YYYY h:mm A");
+        var currentEndDate = moment($scope.totalstartDate + " " + $scope.totalendTime, "MM/DD/YYYY h:mm A");
+        var endDate = moment($scope.totalendDate + " " + $scope.totalendTime, "MM/DD/YYYY h:mm A");
 
         var currentDate = currentStartDate.clone();
-        currentEndDate.subtract(1, 'm');
 
         angular.forEach($scope.eventData, function(eventObject, key) {
             eventObject.startDate = currentDate.format("MM/DD/YYYY");
-            eventObject.startTime = currentDate.clone().toDate();
+            eventObject.startTime = currentDate.format("h:mm A");
             eventObject.endDate = currentDate.format("MM/DD/YYYY");
             eventObject.start = currentDate.format(serviceDateFormat);
 
             currentDate.add(2, 'h');
-            eventObject.endTime = currentDate.clone().toDate();
+            eventObject.endTime = currentDate.format("h:mm A");
             eventObject.end = currentDate.format(serviceDateFormat);
-            eventObject.dateLabel = eventObject.startDate + "  " + moment(eventObject.startTime.toTimeString(), "HH:mm:ss").format("h:mm a") + " - " + moment(eventObject.endTime.toTimeString(), "HH:mm:ss").format("h:mm a");
+            eventObject.dateLabel = eventObject.startDate + "  " + eventObject.startTime + " - " + eventObject.endTime;
 
-            if(currentDate.isAfter(currentEndDate))
+            if(currentDate.clone().add(2, 'h').isAfter(currentEndDate))
             {
                 currentStartDate.add(1, 'd');
                 currentEndDate.add(1, 'd');

@@ -16,8 +16,8 @@
             var endDate = (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear();
             $scope.startDate = startDate;
             $scope.endDate = endDate;
-            $scope.startTime = start;
-            $scope.endTime = end;
+            $scope.startTime = moment(start).format("h:mm A");
+            $scope.endTime = moment(end).format("h:mm A");
         };
         $scope.eventClick = function(calEvent, jsEvent, view) {
             $scope.gameModal = true;
@@ -63,8 +63,8 @@
                 $scope.eventTitle = evtobj.title;
                 $scope.endDate = moment(evtobj.end).format("MM/DD/YYYY");
                 $scope.startDate = moment(evtobj.start).format("MM/DD/YYYY");
-                $scope.endTime = moment(evtobj.end).toDate();
-                $scope.startTime = moment(evtobj.start).toDate();
+                $scope.endTime = moment(evtobj.end).format("h:mm A");
+                $scope.startTime = moment(evtobj.start).format("h:mm A");
                 if (evtobj.teams && evtobj.teams[0]) {
                     $scope.team1 = evtobj.teams[0].id;
                 }
@@ -80,8 +80,8 @@
             $scope.clearForm();
         };
         $scope.submitEvent = function(){
-            var startDate = moment($scope.startDate + " " + $scope.startTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
-            var endDate = moment($scope.endDate + " " + $scope.endTime.toTimeString(), "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
+            var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
+            var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
             if (!$scope.team1 || !$scope.team2) {
                 console.log("you sucks");
                 return;
@@ -121,6 +121,8 @@
         }, 100);
         $("#startdatepicker").datepicker();
         $("#enddatepicker").datepicker();
+        $("#startTime").timepicker({timeFormat: "h:mm TT"});
+        $("#endTime").timepicker({timeFormat: "h:mm TT"});
         $("#ui-datepicker-div").click( function(event) {
             event.stopPropagation();
         });

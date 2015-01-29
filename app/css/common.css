@@ -45,6 +45,17 @@
 #context-menu.pure-menu a{
     color: #fff;
 }
+.error-header {
+    display: none;
+    font-family: 'Exo', sans-serif;
+    font-size: 20pt;
+    text-align: center;
+    padding: .3em 0;
+    margin-bottom: 1em;
+    background-color: #ee3333;
+    color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
 .button-yellow {
     background-color: #ffdd00;
 }
@@ -109,4 +120,8 @@
 .table-row {
     min-height: 40px;
     line-height: 40px;
+}
+.ui-timepicker-wrapper {
+    z-index: 1001;
+    background-color: #fff;
 }
