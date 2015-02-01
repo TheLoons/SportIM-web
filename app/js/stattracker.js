@@ -1,4 +1,10 @@
-var calendar = angular.module('stattracker',['services']);
+var calendar = angular.module('stattracker',['services', 'timer'])
+    .config(['$locationProvider',
+        function ($locationProvider) {
+            // note we do not require base as we are only using it to parse parameters
+            $locationProvider.html5Mode({enabled: true, requireBase: false});
+        }
+    ]);
 
 calendar.controller('header', function($scope) {
     $scope.contextItems = [
@@ -6,7 +12,29 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Events, Event) {
+calendar.controller('stattrackerc', function($scope, Events, Event, $location) {
+    if($location.search().event) {
+        Event.get({id: $location.search().event}).$promise.then(function(resp) {
+            $scope.event = resp.event;
+        });
+    }
+
+    $scope.timerRunning = false;
+    $scope.timerStarted = false;
+    $scope.time = "";
+
+    $scope.toggleTimer = function() {
+        if(!$scope.timerRunning && !$scope.timerStarted)
+            $scope.$broadcast('timer-start');
+        else if(!$scope.timerRunning)
+            $scope.$broadcast('timer-resume');
+        else
+            $scope.$broadcast('timer-stop');
+        $scope.timerStarted = true;
+        $scope.timerRunning = !$scope.timerRunning;
+        console.log($("#timer").text());
+    };
+
     $(".player").draggable();
     $(".soccerball").draggable();
 
