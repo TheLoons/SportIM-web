@@ -41,6 +41,13 @@ services.factory('User', ['$resource',
         });
     }]
 );
+services.factory('UserAlert', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'user/alert :email', {email: '@email'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
 
 services.factory('Team', ['$resource',
     function($resource){
