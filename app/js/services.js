@@ -7,6 +7,7 @@ var services = angular.module('services', ['ngResource', 'ngCookies']);
 services.run(function($cookies, $http){
     // add the session token to all requests
     $http.defaults.headers.common['token'] = $cookies.session;
+    $http.defaults.headers.common['session'] = $cookies.soccersession;
 });
 
 services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector) {  
@@ -68,6 +69,12 @@ services.factory('Event', ['$resource',
         return $resource(serviceUrl+'event/:id', {id:'@id'}, {
             "update":{method:"PUT"}
         });
+    }]
+);
+
+services.factory('Session', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'soccer/session/:id', {id:'@id'}, {});
     }]
 );
 

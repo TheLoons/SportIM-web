@@ -1,4 +1,4 @@
-var calendar = angular.module('stattracker',['services', 'timer'])
+var calendar = angular.module('stattracker',['services', 'timer', 'ngCookies'])
     .config(['$locationProvider',
         function ($locationProvider) {
             // note we do not require base as we are only using it to parse parameters
@@ -12,27 +12,34 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Events, Event, $location) {
+calendar.controller('stattrackerc', function($scope, Events, Event, Session, $cookies, $location) {
     if($location.search().event) {
         Event.get({id: $location.search().event}).$promise.then(function(resp) {
             $scope.event = resp.event;
         });
     }
 
+    $scope.startSession = function(){
+        Session.get({id: $scope.event.id}).$promise.then(function(resp) {
+            $cookies.soccersession = resp.token;
+            $scope.$broadcast('timer-start');
+        });
+    };
+
+    $scope.stopSession = function(){
+        $scope.$broadcast('timer-stop');
+        console.log($("#timer").text());
+    };
+
     $scope.timerRunning = false;
-    $scope.timerStarted = false;
-    $scope.time = "";
 
     $scope.toggleTimer = function() {
-        if(!$scope.timerRunning && !$scope.timerStarted)
-            $scope.$broadcast('timer-start');
-        else if(!$scope.timerRunning)
-            $scope.$broadcast('timer-resume');
+        if(!$scope.timerRunning)
+            $scope.startSession();
         else
-            $scope.$broadcast('timer-stop');
-        $scope.timerStarted = true;
+            $scope.stopSession();
+
         $scope.timerRunning = !$scope.timerRunning;
-        console.log($("#timer").text());
     };
 
     $(".player").draggable();
