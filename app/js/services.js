@@ -43,7 +43,7 @@ services.factory('User', ['$resource',
 );
 services.factory('UserAlert', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'user/alert :email', {email: '@email'}, {
+        return $resource(serviceUrl+'user/alert/:email', {email: '@email'}, {
             "update":{method:"PUT"}
         });
     }]

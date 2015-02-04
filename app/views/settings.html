@@ -29,6 +29,22 @@
     <form class="form">
         <input id="phoneNumber" ng-model="phonenumber" type="text" name="focus" required class="search-box" placeholder="Phone Number" value={{phonenumber}} />
     </form>
+    <label> Alert Hours Before Game</label>
+    <form class="form">
+        <input id="gameAlert" ng-model="gameAlert" type="text" name="focus" required class="search-box" placeholder="Hours Before" value={{phonenumber}} />
+    </form>
+    <label> Alert Hours Before Practice</label>
+    <form class="form">
+        <input id="practiceAlert" ng-model="practiceAlert" type="text" name="focus" required class="search-box" placeholder="Hours Before" value={{phonenumber}} />
+    </form>
+    <label> Alert Hours Before Meeting</label>
+    <form class="form">
+        <input id="meetingAlert" ng-model="meetingAlert" type="text" name="focus" required class="search-box" placeholder="Hours Before" value={{phonenumber}} />
+    </form>
+    <label> Alert Hours Before Other</label>
+    <form class="form">
+        <input id="otherAlert" ng-model="otherAlert" type="text" name="focus" required class="search-box" placeholder="Hours Before" value={{phonenumber}} />
+    </form>
     <input type="submit" value="Submit" ng-click="submitEvent()"class="pure-button pure-button-primary pure-u-1-8"/>
 </body>
 </html>
