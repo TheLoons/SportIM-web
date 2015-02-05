@@ -4,7 +4,7 @@ settings.controller('header', function($scope) {
 });
 
 settings.controller('settingsc', function($scope, UserAlert) {
-    UserAlert.get({email:"stevendburnett@gmail.com"}).$promise.then(function(resp) {
+    UserAlert.get().$promise.then(function(resp) {
         var user = resp.user;
         $scope.firstName = user.firstName;
         $scope.lastName = user.lastName;

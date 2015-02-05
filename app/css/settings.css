@@ -1,39 +1,45 @@
 body {
-	background-color: #f1f1f1;
-	font-family: Helvetica,Arial,Verdana;
+    background-color: #f1f1f1;
+    font-family: Helvetica,Arial,Verdana;
 
 }
-.search-box,.close-icon,.search-wrapper {
-	position: relative;
-	padding: 10px;
+.settings-form label {
+    margin-left: 30%;
 }
-.form{
-	margin: 10px;
+.settings-form .pure-button {
+    margin-left: 30%;
+}
+.settings-input,.close-icon,.search-wrapper {
+    position: relative;
+    padding: 10px;
 }
 .search-wrapper {
-	width: 500px;
-	margin: auto;
-	margin-top: 50px;
+    width: 500px;
+    margin: auto;
+    margin-top: 50px;
 }
-.search-box {
-	width: 10%;
-	border: 1px solid #ccc;
-  outline: 0;
-  color: #696969;
+.settings-input {
+    width: 10%;
+    border: 1px solid #ccc;
+    outline: 0;
+    color: #696969;
+    display: block;
+    margin-left: 30%;
+    margin-bottom: 15px;
 }
-.search-box:focus {
-	box-shadow: 0 0 15px 5px #b0e0ee;
-	border: 2px solid #bebede;
+.settings-input:focus {
+    box-shadow: 0 0 15px 5px #b0e0ee;
+    border: 2px solid #bebede;
 }
 #phoneNumber {
-	width: 22%;
+    width: 22%;
 }
 #email {
-	width: 22%;
+    width: 22%;
 }
 #password {
-	width: 22%;
+    width: 22%;
 }
 .pure-button {
-	margin: 10px;
+    margin: 10px;
 }
