@@ -1,6 +1,6 @@
 {
   "name": "fullcalendar",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "dependencies": {
     "jquery": "~1.10.2"
   },
@@ -45,11 +45,11 @@
     "!/*.css",
     "!/bower.json"
   ],
-  "_release": "1.6.6",
+  "_release": "1.6.7",
   "_resolution": {
     "type": "version",
-    "tag": "v1.6.6",
-    "commit": "671dc5e0833705315f71ed1aa8c21656f93cad23"
+    "tag": "v1.6.7",
+    "commit": "9dcc4cf33d067c30e6ed1db01d1bc270e31befb9"
   },
   "_source": "git://github.com/arshaw/fullcalendar.git",
   "_target": "~1.x",
