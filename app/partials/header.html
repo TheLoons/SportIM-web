@@ -10,7 +10,7 @@
                 <u1>
                 <li><a href="../views/home.html">Home</a></li>
                 <li><a href="../views/calendar.html">Calendar</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="../views/settings.html">Settings</a></li>
                 <li><a href="../views/logout.html">Logout</a></li>
                 </u1>
             </div>
@@ -22,5 +22,8 @@
             <li ng-repeat="item in contextItems"><a href="{{item.url}}">{{item.label}}</a></li>
             </u1>
         </div>
+    </div>
+    <div id="errorHeader" class="error-header">
+        <div id="errorMessage"></div>
     </div>
 </div>

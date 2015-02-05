@@ -12,12 +12,13 @@
     "angular-ui": "~0.4.0",
     "angular-ui-calendar": "~0.8.1",
     "moment": "~2.8.4",
-    "bootstrap-timepicker": "~0.2.6",
     "d3": "~3.5",
-    "selectize": "~0.11.x"
+    "selectize": "~0.11.x",
+    "jqueryui-timepicker-addon": "~1.5.x",
+    "angular-timer":"~1.2.x"
   },
   "resolutions": {
     "angular": "~1.3.0",
-    "jquery": "~2.x"
+    "jquery": "~2.1.x"
   }
 }

@@ -13,6 +13,7 @@
     <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../bower_components/angular-timer/dist/angular-timer.min.js"></script>
     <script src="../js/services.js"></script>
     <script src="../js/stattracker.js"></script>
 </head>
@@ -25,16 +26,16 @@
         </div>
         <div class="pure-u-1-5">
             <div class="pure-button pure-button-primary match-time-container">
-                <span class="match-time">2</span>
-                <span class="match-period">Team 6</span>
+                <span class="match-time">0</span>
+                <span class="match-period">{{team1.name}}</span>
             </div>
-            <div class="pure-button pure-button-primary match-time-container">
-                <span class="match-time">15:23</span>
-                <span class="match-period">1H</span>
+            <div class="pure-button pure-button-primary match-time-container" ng-click="toggleTimer()">
+                <timer id="timer" class="match-time" autostart="false">{{mminutes}}:{{sseconds}}</timer>
+                <span class="match-period"></span>
             </div>
             <div class="pure-button pure-button-primary match-time-container">
                 <span class="match-time">0</span>
-                <span class="match-period">Team 3</span>
+                <span class="match-period">{{team2.name}}</span>
             </div>
         </div>
         <div class="pure-u-1-5">
@@ -45,82 +46,12 @@
     <div class="pure-g" style="margin-top:20px">
         <div class="pure-u-1-5">
             <div class="match-container" style="margin-top:10%">
-                <div class="pure-button match-item match-team-alone"><img src="../images/team6.png" class="match-teamlogo"/><span>Team 6</span></div>
+                <div class="pure-button darker-blue match-item match-team-alone"><img src="../images/team6.png" class="match-teamlogo"/><span>{{team1.name}}</span></div>
             </div>
             <div class="pure-g" style="margin-top:20px">
-                <div class="pure-u-1-2">
+                <div ng-repeat="player in team1.players" class="pure-u-1-2">
                     <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
+                        <div class="pure-button darker-blue match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>{{player.firstName + " " + player.lastName}}</span></div>
                     </div>
                 </div>
             </div>
@@ -130,82 +61,12 @@
         </div>
         <div class="pure-u-1-5">
             <div class="match-container" style="margin-top:10%">
-                <div class="pure-button match-item match-team-alone"><img src="../images/team3.png" class="match-teamlogo"/><span>Team 3</span></div>
+                <div class="pure-button lighter-blue match-item match-team-alone"><img src="../images/team3.png" class="match-teamlogo"/><span>{{team2.name}}</span></div>
             </div>
             <div class="pure-g" style="margin-top:20px">
-                <div class="pure-u-1-2">
+                <div ng-repeat="player in team2.players" class="pure-u-1-2">
                     <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/playerblue.png" class="match-teamlogo"/><span>Player</span></div>
-                    </div>
-                </div>
-                <div class="pure-u-1-2">
-                    <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button match-item match-team-alone"><img src="../images/playergreen.png" class="match-teamlogo"/><span>Player</span></div>
+                        <div class="pure-button lighter-blue match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>{{player.firstName + " " + player.lastName}}</span></div>
                     </div>
                 </div>
                 <img class="soccerball" src="../images/soccerball.png" />
@@ -214,7 +75,7 @@
     </div>
     <div id="player-modal">
         <div class="pure-button button-green"><span>Goal</span></div>
-        <div class="pure-button"><span>Foul</span></div>
+        <div class="pure-button" ng-click="foul()"><span>Foul</span></div>
         <div class="pure-button button-yellow"><span>Yellow</span></div>
         <div class="pure-button button-red"><span>Red</span></div>
     </div>

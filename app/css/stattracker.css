@@ -12,6 +12,7 @@
 }
 
 .match-period {
+    padding-right: 5px;
     font-size: 12pt;
 }
 
@@ -52,4 +53,17 @@
     padding-right: 2px;
     margin-left: -12px;
     margin-right: 0px;
+    min-width: 90px;
+}
+
+.darker-blue {
+    background-color: #004A8C;
+    color: #FFF;
+    font-weight: bolder;
+}
+
+.lighter-blue {
+    background-color: #7AC0FF;
+    color: #000;
+    font-weight: bolder;
 }
