@@ -19,7 +19,7 @@
     color: #fff;
     background-color: #444;
     text-align: right;
-    padding-top:10%;
+    padding-top:5%;
 }
 #top-menu.pure-menu li a:hover{
     background-color: #555;
@@ -115,6 +115,7 @@
 }
 
 .table-header {
+    margin-top: 10px;
     border-bottom: 1px solid #000;
 }
 .table-row {

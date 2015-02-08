@@ -1,44 +1,14 @@
-body {
-    background-color: #f1f1f1;
-    font-family: Helvetica,Arial,Verdana;
-
-}
-.settings-form label {
+.settings-form {
     margin-left: 30%;
-}
-.settings-form .pure-button {
-    margin-left: 30%;
-}
-.settings-input,.close-icon,.search-wrapper {
-    position: relative;
-    padding: 10px;
-}
-.search-wrapper {
-    width: 500px;
-    margin: auto;
-    margin-top: 50px;
+    width: 30%;
 }
 .settings-input {
-    width: 10%;
+    width: 100%;
     border: 1px solid #ccc;
     outline: 0;
     color: #696969;
     display: block;
-    margin-left: 30%;
     margin-bottom: 15px;
-}
-.settings-input:focus {
-    box-shadow: 0 0 15px 5px #b0e0ee;
-    border: 2px solid #bebede;
-}
-#phoneNumber {
-    width: 22%;
-}
-#email {
-    width: 22%;
-}
-#password {
-    width: 22%;
 }
 .pure-button {
     margin: 10px;

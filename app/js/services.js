@@ -57,6 +57,14 @@ services.factory('Team', ['$resource',
     }]
 );
 
+services.factory('League', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league/:id', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
+
 services.factory('Tournament', ['$resource',
     function($resource){
         return $resource(serviceUrl+'tournament/:id', {id:'@id'}, {

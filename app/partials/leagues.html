@@ -2,17 +2,19 @@
     <div class="pure-u-1-4">
     </div>
     <div class="pure-u-1-2">
-        <h2>leagues</h2>
+        <h2>Leagues</h2>
         <a class="pure-button pure-button-primary" href="#/league/create">Create league</a>
         <div class="pure-g table-header">
-            <div class="pure-u-1-3">Name</div>
-            <div class="pure-u-1-3">Owner</div>
+            <div class="pure-u-1-4">Name</div>
+            <div class="pure-u-1-4">Owner</div>
         </div>
         <div ng-repeat="league in leagues">
             <div class="pure-g table-row" ng-class-odd="'odd'">
-                <div class="pure-u-1-3">{{league.name}}</div>
-                <div class="pure-u-1-3">{{league.owner}}</div>
-                <a class="pure-u-1-3" href ng-href="#/league/{{league.id}}">Edit</a>
+                <div class="pure-u-1-4">{{league.name}}</div>
+                <div class="pure-u-1-4">{{league.owner}}</div>
+                <a class="pure-u-1-6" href ng-href="#/league/{{league.id}}">View</a>
+                <a class="pure-u-1-6" href ng-href="#/league/{{league.id}}/edit">Edit</a>
+                <a class="pure-u-1-6" href ng-href="#/league/{{league.id}}/delete">Delete</a>
             </div>
         </div>
     </div>

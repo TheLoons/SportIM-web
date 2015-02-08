@@ -16,6 +16,9 @@ home.controller('feed', function($scope, Events) {
             events[key].start = moment(value.start).format("MM/DD/YYYY h:mm:ssa");
             events[key].end = moment(value.end).format("MM/DD/YYYY h:mm:ssa");
         }); 
-        $scope.events = events;
-      });
+        if(events.length == 0)
+            $scope.noevents = "No Upcoming Events";
+        else
+            $scope.events = events;
+    });
 });

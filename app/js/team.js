@@ -2,7 +2,8 @@ var team = angular.module('team',['ngRoute', 'services']);
 
 team.controller('header', function($scope) {
     $scope.contextItems = [
-        //{url: "team.html", label: "My Teams"},
+        {url: "team.html#/teams", label: "My Teams"},
+        {url: "league.html", label: "My Leagues"}
     ];
 });
 
@@ -34,9 +35,10 @@ team.config(['$routeProvider', function($routeProvider) {
 }]);
 
 team.controller('teams', function($scope, Team) {
-    $scope.teams = [{"id": 3, "name": "test1", "owner":"jeff"},{"name":"test2","owner":"jeff"},{"name": "test1", "owner":"jeff"},{"name":"test2","owner":"jeff"}];
     Team.get().$promise.then(function(resp) {
-        $scope.teams = resp;
+        $scope.teams = resp.teams;
+        if($scope.teams.length == 0)
+            $scope.teams = [{name:"No Teams"}];
     });
 });
 
