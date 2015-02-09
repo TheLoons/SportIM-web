@@ -34,8 +34,8 @@ team.config(['$routeProvider', function($routeProvider) {
         });
 }]);
 
-team.controller('teams', function($scope, Team) {
-    Team.get().$promise.then(function(resp) {
+team.controller('teams', function($scope, TeamEdit) {
+    TeamEdit.get().$promise.then(function(resp) {
         $scope.teams = resp.teams;
         if($scope.teams.length == 0)
             $scope.teams = [{name:"No Teams"}];

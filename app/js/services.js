@@ -57,6 +57,18 @@ services.factory('Team', ['$resource',
     }]
 );
 
+services.factory('TeamView', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/view', {});
+    }]
+);
+
+services.factory('TeamEdit', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/edit', {});
+    }]
+);
+
 services.factory('League', ['$resource',
     function($resource){
         return $resource(serviceUrl+'league/:id', {id:'@id'}, {
