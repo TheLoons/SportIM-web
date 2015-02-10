@@ -41,6 +41,13 @@ services.factory('User', ['$resource',
         });
     }]
 );
+
+services.factory('UserView', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'user/view', {});
+    }]
+);
+
 services.factory('UserAlert', ['$resource',
     function($resource){
         return $resource(serviceUrl+'user/alert', {}, {
