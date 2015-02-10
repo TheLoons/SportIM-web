@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="settings">
+<html lang="en" ng-app="editevent">
 <head>
     <meta charset="utf-8">
-    <title>Setting</title>
+    <title>Edit Event</title>
     <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
     <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" href="../css/common.css">
@@ -14,14 +14,14 @@
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
     <script src="../bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script src="../js/services.js"></script>
-    <script src="../js/settings.js"></script>
+    <script src="../js/editevent.js"></script>
 </head>
-<body ng-controller="settingsc" ng-click="tournamentModal=false; gameModal=false; inputModal=false">
+<body ng-controller="editevent" ng-click="tournamentModal=false; gameModal=false; inputModal=false">
     <div ng-include src="'../partials/header.html'"></div>
     <form class="settings-form pure-form pure-form-aligned">
         <div class="pure-u-11-12">
             <label>Email Address</label>
-            <input id="email" ng-model="email" type="text" name="focus" required class="settings-input" placeholder="Email" value={{email}} />
+            <input id="title" ng-model="title" type="text" name="focus" required class="settings-input" placeholder="Event Title" value={{email}} />
         </div>
         <div class="pure-g">
             <div class="pure-u-5-12">
@@ -65,5 +65,8 @@
         </div>
         <input type="submit" value="Submit" ng-click="submitEvent()" class="pure-button pure-button-primary"/>
     </form>
+    <div ng-repeat="user in searchUsers">
+        {{user.firstName + " " + user.lastName}}
+    </div>
 </body>
 </html>
