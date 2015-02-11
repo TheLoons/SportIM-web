@@ -77,7 +77,21 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         });
     };
 
-    $(".soccerball").draggable();
+    $(".soccerball").draggable({
+        start: function(event, ui) {
+            $(".goal-area").css("background-color", "#00cc00");
+        },
+        stop: function(event, ui) {
+            $(".goal-area").css("background-color", "transparent");
+        }
+    });
+    $(".goal-area").droppable({
+        drop: function(event, ui) {
+        },
+        over: function(event, ui) {
+            $(this).css("background-color", "#00ff00");
+        }
+    });
 
     $(document).click(function() {
         $("#player-modal").css('display', 'none');
