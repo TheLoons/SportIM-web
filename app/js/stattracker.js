@@ -80,16 +80,33 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     $(".soccerball").draggable({
         start: function(event, ui) {
             $(".goal-area").css("background-color", "#00cc00");
+            $(".corner-area").css("background-color", "#0000cc");
         },
         stop: function(event, ui) {
             $(".goal-area").css("background-color", "transparent");
+            $(".corner-area").css("background-color", "transparent");
         }
     });
     $(".goal-area").droppable({
+        accept: ".soccerball",
         drop: function(event, ui) {
         },
         over: function(event, ui) {
             $(this).css("background-color", "#00ff00");
+        },
+        out: function(event, ui) {
+            $(this).css("background-color", "#00cc00");
+        }
+    });
+    $(".corner-area").droppable({
+        accept: ".soccerball",
+        drop: function(event, ui) {
+        },
+        over: function(event, ui) {
+            $(this).css("background-color", "#0000ff");
+        },
+        out: function(event, ui) {
+            $(this).css("background-color", "#0000cc");
         }
     });
 

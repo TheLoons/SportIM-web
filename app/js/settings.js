@@ -1,6 +1,10 @@
 var settings = angular.module('settings',['services']);
 
 settings.controller('header', function($scope) {
+    $scope.contextItems = [
+        {url: "team.html", label: "My Teams"},
+        {url: "league.html", label: "My Leagues"}
+    ];
 });
 
 settings.controller('settingsc', function($scope, UserAlert) {

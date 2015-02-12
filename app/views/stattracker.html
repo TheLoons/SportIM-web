@@ -22,9 +22,7 @@
     <div class="pure-g" style="text-align: center; font-size: 20pt;">
         <div class="pure-u-1-5">
         </div>
-        <div class="pure-u-1-5">
-        </div>
-        <div class="pure-u-1-5">
+        <div class="pure-u-3-5">
             <div class="pure-button pure-button-primary match-time-container">
                 <span class="match-time">0</span>
                 <span class="match-period">{{team1.name}}</span>
@@ -40,8 +38,6 @@
         </div>
         <div class="pure-u-1-5">
         </div>
-        <div class="pure-u-1-5">
-        </div>
     </div>
     <div class="pure-g" style="margin-top:20px">
         <div class="pure-u-1-5">
@@ -51,7 +47,7 @@
             <div class="pure-g" style="margin-top:20px">
                 <div ng-repeat="player in team1.players" class="pure-u-1-2">
                     <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button darker-blue match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>{{player.firstName + " " + player.lastName}}</span></div>
+                        <div class="pure-button darker-blue match-item match-team-alone player-name"><img src="../images/player.png" class="match-teamlogo"/><span>{{player.firstName.substr(0,1) + ". " + player.lastName}}</span></div>
                     </div>
                 </div>
             </div>
@@ -70,7 +66,7 @@
             <div class="pure-g" style="margin-top:20px">
                 <div ng-repeat="player in team2.players" class="pure-u-1-2">
                     <div class="match-container player" style="margin-top:10%">
-                        <div class="pure-button lighter-blue match-item match-team-alone"><img src="../images/player.png" class="match-teamlogo"/><span>{{player.firstName + " " + player.lastName}}</span></div>
+                        <div class="pure-button lighter-blue match-item match-team-alone player-name"><img src="../images/player.png" class="match-teamlogo"/><span>{{player.firstName.substr(0,1) + ". " + player.lastName}}</span></div>
                     </div>
                 </div>
                 <img class="soccerball" src="../images/soccerball.png" />

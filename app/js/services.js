@@ -19,8 +19,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector)
                 if(response.data.status.code == 401)
                     window.location.href = '../views/login.html?error=NotAuthorized';
                 else {
-                    $("#errorHeader").show();
-                    $("#errorMessage").text(response.data.status.message+" Refresh and try again.");
+                    $("#errorHeader").show().find("#errorMessage").text("Saved Team Changes");
                 }
             }
             return response;

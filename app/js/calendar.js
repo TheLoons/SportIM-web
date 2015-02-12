@@ -2,7 +2,8 @@
 
     calendar.controller('header', function($scope) {
         $scope.contextItems = [
-            //{url: "team.html", label: "My Teams"},
+                {url: "team.html", label: "My Teams"},
+                {url: "league.html", label: "My Leagues"}
             ];
         });
 

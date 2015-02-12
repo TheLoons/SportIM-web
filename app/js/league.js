@@ -39,12 +39,14 @@ league.controller('leagues', function($scope, League) {
         $scope.leagues = resp.leagues;
         if($scope.leagues.length == 0)
             $scope.leagues = [{name:"No Leagues"}];
+        $("#successHeader").hide();
     });
 });
 
 league.controller('leagueview', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
     League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
+        $("#successHeader").hide();
     });
 }]);
 
@@ -53,14 +55,18 @@ league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($s
         League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
             $scope.league = resp.league;
             $scope.leagueName = resp.league.name;
-            $scope.leagueOwner = resp.league.owner;
+            $scope.sport = resp.league.sport;
         });
     }
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.league)) {
-            League.update({id: $scope.league.id, name: $scope.leagueName, owner: $scope.leagueOwner});
+            League.update({id: $scope.league.id, name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){
+                $("#successHeader").show().find("#successMessage").text("Saved League Changes");
+            });
         } else {
-            League.save({name: $scope.leagueName, owner: $scope.leagueOwner});
+            League.save({name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){
+                $("#successHeader").show().find("#successMessage").text("Saved League Changes");
+            });
         }
     };
 }]);
@@ -70,6 +76,8 @@ league.controller('leaguedelete', ['$scope', 'League', '$routeParams', function(
         $scope.league = resp.league;
     });
     $scope.deleteleague = function() {
-        League.delete({id: $scope.league.id});
+        League.delete({id: $scope.league.id}).$promise.then(function(){
+            $("#successHeader").show().find("#successMessage").text("League is Deleted");
+        });
     }
 }]);

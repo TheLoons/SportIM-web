@@ -10,8 +10,11 @@
                     <input ng-model="teamName" type="text" placeholder="Name"/>
                 </div>
                 <div class="pure-u-1-2">
-                    <label for="owner">Team Owner</label>
-                    <input ng-model="teamOwner" type="text" placeholder="Owner"/>
+                    <label for="sport">Sport</label>
+                    <select ng-model="sport" type="text" placeholder="Sport">
+                        <option value="soccer">Soccer</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
             </div>
             <a class="pure-button pure-u-1-8 button-cancel" href="#/team/{{team.id}}">Cancel</a>
