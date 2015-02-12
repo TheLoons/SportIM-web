@@ -13,6 +13,16 @@ calendar.controller('header', function($scope) {
 });
 
 calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, $cookies, $location) {
+    $(".soccer-field").height(function(){
+        return $(this).width()*(1530/2048);
+    });
+
+    $(window).resize(function() {
+        $(".soccer-field").height(function(){
+            return $(this).width()*(1530/2048);
+        });
+    });
+
     $scope.bindPlayers = function(){
         $(".player").draggable();
 
