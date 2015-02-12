@@ -139,7 +139,7 @@ calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
         $scope.changeTeam();
     };
     $scope.saveTournament = function(){
-        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: 1}).$promise.then(function(resp) {
+        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: 21}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {
                     eventObject.tournamentID = resp.id;
