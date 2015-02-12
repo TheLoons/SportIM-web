@@ -39,7 +39,7 @@
     </div>
     <div id="game-modal" ng-show="gameModal">
         <div id="game-modal-eventname"></div>
-        <a href="stattracker.html?event={{selectedEvent}}"><div class="pure-button" id="game-modal-stats"><span>Stats</span></div></a>
+        <a href="stattracker.html#/?event={{selectedEvent}}"><div class="pure-button" id="game-modal-stats"><span>Stats</span></div></a>
         <div class="pure-button" id="game-modal-edit" ng-click="loadEvent($event);"><span>Edit</span></div>
         <div class="pure-button button-red" id="game-modal-delete" ng-click="deleteEvent($event);"><span>Delete</span></div>
     </div>
@@ -74,7 +74,7 @@
                     <label for="team2">Team 2</label>
                     <input id="team2" ng-model="team2"/>
                 </div>
-                <a href="editevent.html?event={{selectedEvent}}" class="pure-button pure-u-1-5 button-moreOptions" ng-click="$event.stopPropagation();">More Options</a>
+                <a href="editevent.html#/?event={{selectedEvent}}" class="pure-button pure-u-1-5 button-moreOptions" ng-click="$event.stopPropagation();">More Options</a>
                 <div class="pure-u-1-4"></div>
                 <button class="pure-button pure-u-1-5 button-cancel" ng-click="cancelEvent($event)">Cancel</button>
                 <input type="submit" value="Submit" class="pure-button pure-button-primary pure-u-1-5"/>

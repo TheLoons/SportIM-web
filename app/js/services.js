@@ -17,7 +17,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector)
             // Session has expired
             if (response.data.status && response.data.status.code != 200){
                 if(response.data.status.code == 401)
-                    window.location.href = '../views/login.html?error=NotAuthorized';
+                    window.location.href = '../views/login.html#/?error=NotAuthorized';
                 else {
                     $("#errorHeader").show().find("#errorMessage").text("Saved Team Changes");
                 }
