@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="editevent">
+<head>
+    <meta charset="utf-8">
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
+    <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/settings.css">
+    <link rel="stylesheet" href="../css/editevent.css">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="../js/services.js"></script>
+    <script src="../js/editevent.js"></script>
+</head>
+<body ng-controller="editevent" ng-click="tournamentModal=false; gameModal=false; inputModal=false">
+    <div ng-include src="'../partials/header.html'"></div>
+    <form class="settings-form pure-form pure-form-aligned">
+        <div class="pure-u-11-12">
+            <label>Event Title</label>
+            <input id="title" ng-model="title" type="text" name="focus" required class="settings-input" placeholder="Event Title"/>
+        </div>
+        <div class="pure-u-11-12">
+            <label>Event Description</label>
+            <textarea id="description" ng-model="eventDescription" rows="4" cols="50" placeholder="Event Description" type="text" name="focus" required class="settings-input"></textarea>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-5-12">
+                <label>Start Date/Time</label>
+                <input id="startTime" ng-model="startTime" type="text" name="focus" required class="settings-input" placeholder="Start Date/Time"/>
+            </div>
+            <div class="pure-u-1-12">
+            </div>
+            <div class="pure-u-5-12">
+                <label>End Date/Time</label>
+                <input id="endTime"ng-model="endTime" type="text" name="focus" required class="settings-input" placeholder="End Date/Time"/>
+            </div>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-5-12">
+                <label id="homeLabel">Home Team</label>
+                <input id="homeTeam" ng-model="homeTeam" type="text" name="focus" required class="settings-input" placeholder="Home Team"/>
+            </div>
+            <div class="pure-u-1-12">
+            </div>
+            <div class="pure-u-5-12">
+                <label id="awayLabel">Away Team</label>
+                <input id="awayTeam" ng-model="awayTeam" type="text" name="focus" required class="settings-input" placeholder="Away Team"/>
+            </div>
+        </div>
+        <div class="pure-u-11-12">
+        <label>Participants</label>
+            </br><div ng-repeat="user in searchUsers">
+                </br><li>
+                    {{user.firstName + " " + user.lastName}}
+                </li>
+            </div>
+        </div>
+        <input id="submit" type="submit" value="Submit" ng-click="submitEvent()" class="pure-button pure-button-primary"/>
+    </form>
+</body>
+</html>

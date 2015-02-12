@@ -19,8 +19,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector)
                 if(response.data.status.code == 401)
                     window.location.href = '../views/login.html?error=NotAuthorized';
                 else {
-                    $("#errorHeader").show();
-                    $("#errorMessage").text(response.data.status.message+" Refresh and try again.");
+                    $("#errorHeader").show().find("#errorMessage").text("Saved Team Changes");
                 }
             }
             return response;
@@ -41,6 +40,13 @@ services.factory('User', ['$resource',
         });
     }]
 );
+
+services.factory('UserView', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'user/view', {});
+    }]
+);
+
 services.factory('UserAlert', ['$resource',
     function($resource){
         return $resource(serviceUrl+'user/alert', {}, {
@@ -52,6 +58,26 @@ services.factory('UserAlert', ['$resource',
 services.factory('Team', ['$resource',
     function($resource){
         return $resource(serviceUrl+'team/:id', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
+
+services.factory('TeamView', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/view', {});
+    }]
+);
+
+services.factory('TeamEdit', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/edit', {});
+    }]
+);
+
+services.factory('League', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league/:id', {id:'@id'}, {
             "update":{method:"PUT"}
         });
     }]

@@ -2,7 +2,7 @@
 <html lang="en" ng-app="settings">
 <head>
     <meta charset="utf-8">
-    <title>Edit Event</title>
+    <title>Setting</title>
     <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
     <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" href="../css/common.css">
@@ -18,24 +18,52 @@
 </head>
 <body ng-controller="settingsc" ng-click="tournamentModal=false; gameModal=false; inputModal=false">
     <div ng-include src="'../partials/header.html'"></div>
-    <form class="settings-form">
-        <label>Email Address</label>
-        <input id="email" ng-model="email" type="text" name="focus" required class="settings-input" placeholder="Email" value={{email}} />
-        <label>First Name</label>
-        <input ng-model="firstName" type="text" name="focus" required class="settings-input" placeholder="First Name" value={{firstName}} />
-        <label>Last Name</label>
-        <input ng-model="lastName" type="text" name="focus" required class="settings-input" placeholder="Last Name" value={{lastName}} />
-        <label>Phone Number</label>
-        <input id="phoneNumber" ng-model="phonenumber" type="text" name="focus" required class="settings-input" placeholder="Phone Number" value={{phonenumber}} />
-        <label> Alert Hours Before Game</label>
-        <input id="gameAlert" ng-model="gameAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
-        <label> Alert Hours Before Practice</label>
-        <input id="practiceAlert" ng-model="practiceAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
-        <label> Alert Hours Before Meeting</label>
-        <input id="meetingAlert" ng-model="meetingAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
-        <label> Alert Hours Before Other</label>
-        <input id="otherAlert" ng-model="otherAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
-        <input type="submit" value="Submit" ng-click="submitEvent()" class="pure-button pure-button-primary pure-u-1-8"/>
+    <form class="settings-form pure-form pure-form-aligned">
+        <div class="pure-u-11-12">
+            <label>Email Address</label>
+            <input id="email" ng-model="email" type="text" name="focus" required class="settings-input" placeholder="Email" value={{email}} />
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-5-12">
+                <label>First Name</label>
+                <input ng-model="firstName" type="text" name="focus" required class="settings-input" placeholder="First Name" value={{firstName}} />
+            </div>
+            <div class="pure-u-1-12">
+            </div>
+            <div class="pure-u-5-12">
+                <label>Last Name</label>
+                <input ng-model="lastName" type="text" name="focus" required class="settings-input" placeholder="Last Name" value={{lastName}} />
+            </div>
+        </div>
+        <div class="pure-u-5-12">
+            <label>Phone Number</label>
+            <input id="phoneNumber" ng-model="phonenumber" type="text" name="focus" required class="settings-input" placeholder="Phone Number" value={{phonenumber}} />
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-5-12">
+                <label> Alert Hours Before Game</label>
+                <input id="gameAlert" ng-model="gameAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
+            </div>
+            <div class="pure-u-1-12">
+            </div>
+            <div class="pure-u-5-12">
+                <label> Alert Hours Before Practice</label>
+                <input id="practiceAlert" ng-model="practiceAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
+            </div>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-5-12">
+                <label> Alert Hours Before Meeting</label>
+                <input id="meetingAlert" ng-model="meetingAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
+            </div>
+            <div class="pure-u-1-12">
+            </div>
+            <div class="pure-u-5-12">
+                <label> Alert Hours Before Other</label>
+                <input id="otherAlert" ng-model="otherAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
+            </div>
+        </div>
+        <input type="submit" value="Submit" ng-click="submitEvent()" class="pure-button pure-button-primary"/>
     </form>
 </body>
 </html>

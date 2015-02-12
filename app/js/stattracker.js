@@ -13,6 +13,16 @@ calendar.controller('header', function($scope) {
 });
 
 calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, $cookies, $location) {
+    $(".soccer-field").height(function(){
+        return $(this).width()*(1530/2048);
+    });
+
+    $(window).resize(function() {
+        $(".soccer-field").height(function(){
+            return $(this).width()*(1530/2048);
+        });
+    });
+
     $scope.bindPlayers = function(){
         $(".player").draggable();
 
@@ -77,7 +87,38 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         });
     };
 
-    $(".soccerball").draggable();
+    $(".soccerball").draggable({
+        start: function(event, ui) {
+            $(".goal-area").css("background-color", "#00cc00");
+            $(".corner-area").css("background-color", "#0000cc");
+        },
+        stop: function(event, ui) {
+            $(".goal-area").css("background-color", "transparent");
+            $(".corner-area").css("background-color", "transparent");
+        }
+    });
+    $(".goal-area").droppable({
+        accept: ".soccerball",
+        drop: function(event, ui) {
+        },
+        over: function(event, ui) {
+            $(this).css("background-color", "#00ff00");
+        },
+        out: function(event, ui) {
+            $(this).css("background-color", "#00cc00");
+        }
+    });
+    $(".corner-area").droppable({
+        accept: ".soccerball",
+        drop: function(event, ui) {
+        },
+        over: function(event, ui) {
+            $(this).css("background-color", "#0000ff");
+        },
+        out: function(event, ui) {
+            $(this).css("background-color", "#0000cc");
+        }
+    });
 
     $(document).click(function() {
         $("#player-modal").css('display', 'none');

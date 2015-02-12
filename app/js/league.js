@@ -2,7 +2,8 @@ var league = angular.module('league',['ngRoute', 'services']);
 
 league.controller('header', function($scope) {
     $scope.contextItems = [
-        //{url: "team.html", label: "My Teams"},
+        {url: "team.html", label: "My Teams"},
+        {url: "league.html#/leagues", label: "My Leagues"}
     ];
 });
 
@@ -33,41 +34,50 @@ league.config(['$routeProvider', function($routeProvider) {
         });
 }]);
 
-league.controller('leagues', function($scope, league) {
-    $scope.leagues = [{"id": 3, "name": "test1", "owner":"jeff"},{"name":"test2","owner":"jeff"},{"name": "test1", "owner":"jeff"},{"name":"test2","owner":"jeff"}];
-    league.get().$promise.then(function(resp) {
-        $scope.leagues = resp;
+league.controller('leagues', function($scope, League) {
+    League.get().$promise.then(function(resp) {
+        $scope.leagues = resp.leagues;
+        if($scope.leagues.length == 0)
+            $scope.leagues = [{name:"No Leagues"}];
+        $("#successHeader").hide();
     });
 });
 
-league.controller('leagueview', ['$scope', 'league', '$routeParams', function($scope, league, $routeParams) {
-    league.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+league.controller('leagueview', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
+    League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
+        $("#successHeader").hide();
     });
 }]);
 
-league.controller('leagueedit', ['$scope', 'league', '$routeParams', function($scope, league, $routeParams) {
+league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
     if($routeParams.leagueId) {
-        league.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+        League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
             $scope.league = resp.league;
             $scope.leagueName = resp.league.name;
-            $scope.leagueOwner = resp.league.owner;
+            $scope.sport = resp.league.sport;
         });
     }
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.league)) {
-            league.update({id: $scope.league.id, name: $scope.leagueName, owner: $scope.leagueOwner});
+            League.update({id: $scope.league.id, name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){
+                $("#successHeader").show().find("#successMessage").text("Saved League Changes");
+            });
         } else {
-            league.save({name: $scope.leagueName, owner: $scope.leagueOwner});
+            League.save({name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){
+                $("#successHeader").show().find("#successMessage").text("Saved League Changes");
+            });
         }
     };
 }]);
 
-league.controller('leaguedelete', ['$scope', 'league', '$routeParams', function($scope, league, $routeParams) {
-    league.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+league.controller('leaguedelete', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
+    League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
     });
     $scope.deleteleague = function() {
-        league.delete({id: $scope.league.id});
+        League.delete({id: $scope.league.id}).$promise.then(function(){
+            $("#successHeader").show().find("#successMessage").text("League is Deleted");
+        });
     }
 }]);

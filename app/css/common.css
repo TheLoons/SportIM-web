@@ -19,7 +19,7 @@
     color: #fff;
     background-color: #444;
     text-align: right;
-    padding-top:10%;
+    padding-top:5%;
 }
 #top-menu.pure-menu li a:hover{
     background-color: #555;
@@ -45,14 +45,19 @@
 #context-menu.pure-menu a{
     color: #fff;
 }
-.error-header {
+#errorHeader {
+    background-color: #ee3333;
+}
+#successHeader {
+    background-color: #33cc33;
+}
+.message-header {
     display: none;
     font-family: 'Exo', sans-serif;
     font-size: 20pt;
     text-align: center;
     padding: .3em 0;
     margin-bottom: 1em;
-    background-color: #ee3333;
     color: #fff;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -61,6 +66,7 @@
 }
 .button-red {
     background-color: #ee3333;
+    color: #fff;
 }
 .button-green {
     background-color: #33ee33;
@@ -102,6 +108,7 @@
 .match-container {
     width: 80%;
     margin: 0 auto;
+    overflow: hidden;
 }
 #page-cover {
     position: fixed;
@@ -115,6 +122,7 @@
 }
 
 .table-header {
+    margin-top: 10px;
     border-bottom: 1px solid #000;
 }
 .table-row {

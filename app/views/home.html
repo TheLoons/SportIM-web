@@ -24,6 +24,7 @@
             <h3 class="feed-head">Upcoming Games and Events</h3>
             <div class="feeds">
                 <ul>
+                    <li ng-hide="!noevents" class="odd"><span class="feed-event-title">{{noevents}}</span></li>
                     <li ng-class-odd="'odd'" ng-repeat="event in events"><span class="feed-event-title">{{event.title}}</span> ({{event.start}} - {{event.end}})</li>
                 </ul>
             </div>

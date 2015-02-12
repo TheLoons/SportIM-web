@@ -1,7 +1,9 @@
 .soccer-field {
     max-width: 100%;
-    height: auto;
-    width: auto\9; /* ie8 */
+    height: 2000px;
+    background-image: url('../images/soccerfield.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .match-time {
@@ -38,13 +40,14 @@
     top: 100%;
     left: 120px;
     border-top: 10px solid #ccc;
-    border-top-color: #ccc; 
+    border-top-color: #ccc;
     border-left: 10px solid transparent;
-    border-right: 10px solid transparent; 
+    border-right: 10px solid transparent;
 }
 
-.player {
-    font-size: 12pt;
+.player-name {
+    font-size: 10pt;
+    text-align: left;
 }
 
 .match-time-container {
@@ -66,4 +69,19 @@
     background-color: #7AC0FF;
     color: #000;
     font-weight: bolder;
+}
+
+.corner-area {
+    width: 10%;
+    height: 10%;
+    opacity: 0.8;
+}
+.space-area {
+    width: 10%;
+    height: 30%;
+}
+.goal-area {
+    width: 10%;
+    height: 20%;
+    opacity: 0.8;
 }
