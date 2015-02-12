@@ -1,10 +1,4 @@
-var login = angular.module('login',['services', 'ngCookies'])
-    .config(['$locationProvider',
-        function ($locationProvider) {
-            // note we do not require base as we are only using it to parse parameters
-            $locationProvider.html5Mode({enabled: true, requireBase: false});
-        }
-    ]);
+var login = angular.module('login',['services', 'ngCookies']);
 
 login.controller('login', function($scope, Login, $cookies, $location) {
     if($location.search().error) {

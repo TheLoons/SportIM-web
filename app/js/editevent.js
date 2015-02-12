@@ -1,10 +1,4 @@
-var editevent = angular.module('editevent',['services'])
-.config(['$locationProvider',
-        function ($locationProvider) {
-            // note we do not require base as we are only using it to parse parameters
-            $locationProvider.html5Mode({enabled: true, requireBase: false});
-        }
-    ]);
+var editevent = angular.module('editevent',['services']);
 
 editevent.controller('header', function($scope) {
 });

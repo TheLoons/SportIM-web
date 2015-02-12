@@ -1,10 +1,4 @@
-var calendar = angular.module('stattracker',['services', 'timer', 'ngCookies'])
-    .config(['$locationProvider',
-        function ($locationProvider) {
-            // note we do not require base as we are only using it to parse parameters
-            $locationProvider.html5Mode({enabled: true, requireBase: false});
-        }
-    ]);
+var calendar = angular.module('stattracker',['services', 'timer', 'ngCookies']);
 
 calendar.controller('header', function($scope) {
     $scope.contextItems = [
