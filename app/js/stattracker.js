@@ -19,13 +19,15 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
 
     $scope.bindPlayers = function(){
         $(".player").draggable();
+    };
 
-        $(".player").click(function(evt) {
-            var modaltop = $(this).offset().top - $("#player-modal").height() - 20;
-            var modalleft = $(this).offset().left - ($("#player-modal").width() / 3) + 10;
-            $("#player-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
-            evt.stopPropagation();
-        });
+    $scope.playerClick = function(evt, player, team){
+        $scope.currentPlayer = player;
+        $scope.currentTeam = team;
+        var modaltop = $(evt.currentTarget).offset().top - $("#player-modal").height() - 20;
+        var modalleft = $(evt.currentTarget).offset().left - ($("#player-modal").width() / 3) + 10;
+        $("#player-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
+        evt.stopPropagation();
     };
 
     if($location.search().event) {
@@ -48,15 +50,25 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         Session.get({id: $scope.event.id}).$promise.then(function(resp) {
             //check for session conflict
             if(resp.status.code == 409) {
-                SessionReset.get({id: $scope.event.id}).$promise.then(function(resp) {
-                    $cookies.soccersession = resp.token;
-                    $scope.$broadcast('timer-start');
-                });
+                $("#errorHeader").hide();
+                $("#resetHeader").show();
             } else {
-                $cookies.soccersession = resp.token;
+                $cookies.soccersession = resp.session;
                 $scope.$broadcast('timer-start');
             }
         });
+    };
+
+    $scope.resetSession = function(){
+        $("#resetHeader").hide();
+        SessionReset.get({id: $scope.event.id}).$promise.then(function(resp) {
+            $cookies.soccersession = resp.session;
+            $scope.$broadcast('timer-start');
+        });
+    };
+
+    $scope.hideResetHeader = function(){
+        $("#resetHeader").hide();
     };
 
     $scope.stopSession = function(){
@@ -75,8 +87,15 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         $scope.timerRunning = !$scope.timerRunning;
     };
 
-    $scope.foul = function(){
-        Foul.get({id: $scope.event.id}).$promise.then(function(resp) {
+    $scope.foul = function(type){
+        if(type == 'red')
+            var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam, red: 'true'};
+        else if(type == 'yellow')
+            var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam, yellow: 'true'};
+        else
+            var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam};
+
+        Foul.save(parameters).$promise.then(function(resp) {
             setTimeout(function(){$(".player").draggable();}, 500);
         });
     };

@@ -85,3 +85,6 @@
     height: 20%;
     opacity: 0.8;
 }
+#resetHeader {
+    background-color: #777;
+}

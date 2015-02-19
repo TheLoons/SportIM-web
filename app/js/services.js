@@ -5,14 +5,12 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 
-services.run(function($cookies, $http){
-    // add the session token to all requests
-    $http.defaults.headers.common['token'] = $cookies.session;
-    //$http.defaults.headers.common['session'] = $cookies.soccersession;
-});
-
-services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector) {  
+services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {  
     var sessionRecoverer = {
+        request: function(request) {
+            request.headers = {'token': $cookies.session, 'session': $cookies.soccersession};
+            return request;
+        },
         response: function(response) {
             // Session has expired
             if (response.data.status && response.data.status.code != 200){
