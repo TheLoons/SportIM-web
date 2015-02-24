@@ -60,11 +60,35 @@
         </div>
         <div class="pure-u-3-5">
             <div class="soccer-field">
-                <div class="corner-area"></div>
-                <div class="space-area"></div>
-                <div class="goal-area"></div>
-                <div class="space-area"></div>
-                <div class="corner-area"></div>
+                <div class="endline-area">
+                    <div class="corner-area"></div>
+                    <div class="endline-space-area"></div>
+                    <div class="offtarget-area"></div>
+                    <div class="goal-area"></div>
+                    <div class="offtarget-area"></div>
+                    <div class="endline-space-area"></div>
+                    <div class="corner-area"></div>
+                </div>
+                <div class="goalfront-area goalfront-area-left">
+                    <div class="space-area"></div>
+                    <div class="ontarget-area"></div>
+                    <div class="space-area"></div>
+                </div>
+                <div class="middle-area"></div>
+                <div class="goalfront-area goalfront-area-right">
+                    <div class="space-area"></div>
+                    <div class="ontarget-area"></div>
+                    <div class="space-area"></div>
+                </div>
+                <div class="endline-area">
+                    <div class="corner-area"></div>
+                    <div class="endline-space-area"></div>
+                    <div class="offtarget-area"></div>
+                    <div class="goal-area"></div>
+                    <div class="offtarget-area"></div>
+                    <div class="endline-space-area"></div>
+                    <div class="corner-area"></div>
+                </div>
             </div>
         </div>
         <div class="pure-u-1-5">
@@ -81,7 +105,6 @@
         </div>
     </div>
     <div id="player-modal">
-        <div class="pure-button button-green"><span>Goal</span></div>
         <div class="pure-button" ng-click="foul('foul')"><span>Foul</span></div>
         <div class="pure-button button-yellow" ng-click="foul('yellow')"><span>Yellow</span></div>
         <div class="pure-button button-red" ng-click="foul('red')"><span>Red</span></div>

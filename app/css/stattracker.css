@@ -21,10 +21,11 @@
 .soccerball {
     width: 32px;
     height: 32px;
+    z-index: 100;
 }
 #player-modal {
     background-color: #ccc;
-    width: 345px;
+    width: 255px;
     padding: 5px 5px 5px 5px;
     border-radius: 10px;
     position: absolute;
@@ -71,20 +72,46 @@
     font-weight: bolder;
 }
 
+.endline-area {
+    width: 8%;
+    height: 100%;
+    display: inline-block;
+}
+.goalfront-area {
+    width: 4%;
+    height: 100%;
+    display: inline-block;
+}
+.goalfront-area-left {
+    margin-left: -3px;
+}
+.goalfront-area-right {
+    margin-right: -3px;
+}
+.middle-area {
+    width: 76%;
+    height: 100%;
+    display: inline-block;
+}
 .corner-area {
-    width: 10%;
     height: 10%;
     opacity: 0.8;
 }
-.space-area {
-    width: 10%;
-    height: 30%;
+.endline-space-area {
+    height: 23%;
 }
-.goal-area {
-    width: 10%;
-    height: 20%;
+.offtarget-area {
+    height: 9%;
     opacity: 0.8;
 }
+.goal-area, .ontarget-area {
+    height: 16%;
+    opacity: 0.8;
+}
+.space-area {
+    height: 42%;
+}
+
 #resetHeader {
     background-color: #777;
 }

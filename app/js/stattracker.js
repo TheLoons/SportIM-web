@@ -11,9 +11,16 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         return $(this).width()*(1530/2048);
     });
 
+    $(".middle-area").width(function(){
+        return $(".soccer-field").width() - (2*$(".endline-area").width()) - (2*$(".goalfront-area").width()) - 12;
+    });
+
     $(window).resize(function() {
         $(".soccer-field").height(function(){
             return $(this).width()*(1530/2048);
+        });
+        $(".middle-area").width(function(){
+            return $(".soccer-field").width() - (2*$(".endline-area").width()) - (2*$(".goalfront-area").width()) - 12;
         });
     });
 
@@ -25,7 +32,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         $scope.currentPlayer = player;
         $scope.currentTeam = team;
         var modaltop = $(evt.currentTarget).offset().top - $("#player-modal").height() - 20;
-        var modalleft = $(evt.currentTarget).offset().left - ($("#player-modal").width() / 3) + 10;
+        var modalleft = $(evt.currentTarget).offset().left - ($("#player-modal").width() / 3) + 20;
         $("#player-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
         evt.stopPropagation();
     };
@@ -100,18 +107,10 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         });
     };
 
-    $(".soccerball").draggable({
-        start: function(event, ui) {
-            $(".goal-area").css("background-color", "#00cc00");
-            $(".corner-area").css("background-color", "#0000cc");
-        },
-        stop: function(event, ui) {
-            $(".goal-area").css("background-color", "transparent");
-            $(".corner-area").css("background-color", "transparent");
-        }
-    });
+    $(".soccerball").draggable();
+
     $(".goal-area").droppable({
-        accept: ".soccerball",
+        accept: ".soccerball, .player",
         drop: function(event, ui) {
         },
         over: function(event, ui) {
@@ -119,6 +118,12 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         out: function(event, ui) {
             $(this).css("background-color", "#00cc00");
+        },
+        activate: function(event, ui) {
+            $(this).css("background-color", "#00cc00");
+        },
+        deactivate: function(event, ui) {
+            $(this).css("background-color", "transparent");
         }
     });
     $(".corner-area").droppable({
@@ -130,6 +135,46 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         out: function(event, ui) {
             $(this).css("background-color", "#0000cc");
+        },
+        activate: function(event, ui) {
+            $(this).css("background-color", "#0000cc");
+        },
+        deactivate: function(event, ui) {
+            $(this).css("background-color", "transparent");
+        }
+    });
+    $(".offtarget-area").droppable({
+        accept: ".soccerball",
+        drop: function(event, ui) {
+        },
+        over: function(event, ui) {
+            $(this).css("background-color", "#ff0000");
+        },
+        out: function(event, ui) {
+            $(this).css("background-color", "#cc0000");
+        },
+        activate: function(event, ui) {
+            $(this).css("background-color", "#cc0000");
+        },
+        deactivate: function(event, ui) {
+            $(this).css("background-color", "transparent");
+        }
+    });
+    $(".ontarget-area").droppable({
+        accept: ".soccerball",
+        drop: function(event, ui) {
+        },
+        over: function(event, ui) {
+            $(this).css("background-color", "#ffff00");
+        },
+        out: function(event, ui) {
+            $(this).css("background-color", "#cccc00");
+        },
+        activate: function(event, ui) {
+            $(this).css("background-color", "#cccc00");
+        },
+        deactivate: function(event, ui) {
+            $(this).css("background-color", "transparent");
         }
     });
 
