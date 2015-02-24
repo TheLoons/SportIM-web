@@ -8,7 +8,8 @@ var services = angular.module('services', ['ngResource', 'ngCookies']);
 services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {  
     var sessionRecoverer = {
         request: function(request) {
-            request.headers = {'token': $cookies.session, 'session': $cookies.soccersession};
+            request.headers['token'] = $cookies.session;
+            request.headers['session'] = $cookies.soccersession;
             return request;
         },
         response: function(response) {
