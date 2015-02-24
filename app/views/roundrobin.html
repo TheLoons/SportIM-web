@@ -45,36 +45,42 @@
                 </div>
             </div>
             <div class="pure-g options-container">
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
+                    League
+                </div>
+                <div class="pure-u-1-6">
                     Select First Team
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     Start Date
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     Start Time
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     End Date
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     End Time
                 </div>
             </div>
             <div class="pure-g options-container">
-                <div class="pure-u-1-5">
-                    <select class="tourn-option" ng-model="teamSelected" ng-options="teamList.name for teamList in teamList" ng-change="changeTeam()"></select>
+                <div class="pure-u-1-6">
+                    <select class="tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
+                    <select class="tourn-option" ng-model="teamSelected" ng-options="team.name for team in teamList" ng-change="changeTeam()"></select>
+                </div>
+                <div class="pure-u-1-6">
                     <input id="startdatepicker" class="tourn-option selectDate" ng-model="totalstartDate" ng-change="updateDefaultDates()" placeholder="Start Date" />
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     <input class="tourn-option selectTime" ng-model="totalstartTime" ng-change="updateDefaultDates()" />
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     <input id="enddatepicker" class="tourn-option selectDate" ng-model="totalendDate" ng-change="updateDefaultDates()" placeholder="End Date" />
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-6">
                     <input class="tourn-option selectTime" ng-model="totalendTime" ng-change="updateDefaultDates()" />
                 </div>
             </div>

@@ -6,7 +6,7 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
+calendar.controller('roundrobinc', function($scope, League, Events, Event, Tournament) {
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
@@ -20,6 +20,11 @@ calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
         {name: "Team 7", id: 7},
         {name: "Team 8", id: 8}
     ];
+
+    League.get().$promise.then(function(resp) {
+        var leagues = resp.leagues;
+        $scope.leagueList = leagues;
+    });
 
     $scope.eventData = [];
     $scope.teamIndex = {};
@@ -61,6 +66,9 @@ calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
         angular.forEach($scope.teamIndex[$scope.teamSelected.name], function(key){
             $scope.teamData.push($scope.eventData[key]);
         });
+    };
+    $scope.changeLeague = function () {
+      console.log($scope.leagueSelected);
     };
 
     $scope.cancelEvent = function(evt){
@@ -139,7 +147,7 @@ calendar.controller('roundrobinc', function($scope, Events, Event, Tournament) {
         $scope.changeTeam();
     };
     $scope.saveTournament = function(){
-        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: 21}).$promise.then(function(resp) {
+        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: $scope.leagueSelected.id}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {
                     eventObject.tournamentID = resp.id;
