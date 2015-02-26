@@ -6,7 +6,7 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, $cookies, $location) {
+calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, $cookies, $location) {
     $(".soccer-field").height(function(){
         return $(this).width()*(1530/2048);
     });
@@ -29,12 +29,40 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     };
 
     $scope.playerClick = function(evt, player, team){
-        $scope.currentPlayer = player;
-        $scope.currentTeam = team;
-        var modaltop = $(evt.currentTarget).offset().top - $("#player-modal").height() - 20;
-        var modalleft = $(evt.currentTarget).offset().left - ($("#player-modal").width() / 3) + 20;
-        $("#player-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
-        evt.stopPropagation();
+        if($scope.ontargetPick == 1) {
+            $scope.playershot = player;
+            $scope.playershotteam = team;
+            $("#selectMessage").text("Click/Tap the goalkeeper made the save");
+            $scope.ontargetPick = 2;
+        } else if($scope.ontargetPick == 2) {
+            Shot.save({player: $scope.playershot, teamID: $scope.playershotteam, goalkeeper: player, goalieTeamID: team, onGoal: true, id: $scope.event.id});
+            $("#selectMessage").text("Saved the shot made");
+            $scope.ontargetPick = 0;
+        } else if($scope.offtargetPick == 1) {
+            Shot.save({player: player, teamID: team, id: $scope.event.id});
+            $("#selectMessage").text("Saved the shot made");
+            $scope.ontargetPick = 0;
+        } else if($scope.goalPick == 1) {
+            $scope.playergoal = player;
+            $scope.playergoalteam = team;
+            $("#selectMessage").text("Click/Tap the player who made the assist");
+            $scope.goalPick = 2;
+        } else if($scope.goalPick == 2) {
+            $scope.playerassist = player;
+            $("#selectMessage").text("Click/Tap the goalkeeper who was scored on");
+            $scope.goalPick = 3;
+        } else if($scope.goalPick == 3) {
+            Goal.save({player: $scope.playergoal, teamID: $scope.playergoalteam, assist: $scope.playerassist, goalkeeper: player, goalieTeamID: team, id: $scope.event.id});
+            $("#selectMessage").text("Saved the goal");
+            $scope.ontargetPick = 0;
+        } else {
+            $scope.currentPlayer = player;
+            $scope.currentTeam = team;
+            var modaltop = $(evt.currentTarget).offset().top - $("#player-modal").height() - 20;
+            var modalleft = $(evt.currentTarget).offset().left - ($("#player-modal").width() / 3) + 20;
+            $("#player-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
+            evt.stopPropagation();
+        }
     };
 
     if($location.search().event) {
@@ -78,6 +106,10 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         $("#resetHeader").hide();
     };
 
+    $scope.hideSelectHeader = function(){
+        $("#selectHeader").hide();
+    };
+
     $scope.stopSession = function(){
         $scope.$broadcast('timer-stop');
         console.log($("#timer").text());
@@ -110,7 +142,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     $(".soccerball").draggable();
 
     $(".goal-area").droppable({
-        accept: ".soccerball, .player",
+        accept: ".soccerball",
         drop: function(event, ui) {
         },
         over: function(event, ui) {
@@ -124,6 +156,11 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         deactivate: function(event, ui) {
             $(this).css("background-color", "transparent");
+        },
+        drop: function(event, ui) {
+            $("#selectMessage").text("Click/Tap player who scored the goal");
+            $("#selectHeader").show();
+            $scope.goalPick = 1;
         }
     });
     $(".corner-area").droppable({
@@ -158,6 +195,11 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         deactivate: function(event, ui) {
             $(this).css("background-color", "transparent");
+        },
+        drop: function(event, ui) {
+            $("#selectMessage").text("Click/Tap player who made the shot");
+            $("#selectHeader").show();
+            $scope.offtargetPick = 1;
         }
     });
     $(".ontarget-area").droppable({
@@ -175,6 +217,11 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         deactivate: function(event, ui) {
             $(this).css("background-color", "transparent");
+        },
+        drop: function(event, ui) {
+            $("#selectMessage").text("Click/Tap player who made the shot");
+            $("#selectHeader").show();
+            $scope.ontargetPick = 1;
         }
     });
 

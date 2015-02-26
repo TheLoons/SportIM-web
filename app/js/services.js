@@ -142,3 +142,15 @@ services.factory('Foul', ['$resource',
         return $resource(soccerUrl+'foul/:id', {id:'@id'}, {});
     }]
 );
+
+services.factory('Shot', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'shot/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('Goal', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'goal/:id', {id:'@id'}, {});
+    }]
+);
