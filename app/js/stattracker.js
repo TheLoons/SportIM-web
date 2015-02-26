@@ -163,23 +163,6 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             $scope.goalPick = 1;
         }
     });
-    $(".corner-area").droppable({
-        accept: ".soccerball",
-        drop: function(event, ui) {
-        },
-        over: function(event, ui) {
-            $(this).css("background-color", "#0000ff");
-        },
-        out: function(event, ui) {
-            $(this).css("background-color", "#0000cc");
-        },
-        activate: function(event, ui) {
-            $(this).css("background-color", "#0000cc");
-        },
-        deactivate: function(event, ui) {
-            $(this).css("background-color", "transparent");
-        }
-    });
     $(".offtarget-area").droppable({
         accept: ".soccerball",
         drop: function(event, ui) {
