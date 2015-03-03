@@ -26,10 +26,16 @@
 }
 
 .game-container {
-    margin: 10px;
-    width: 300px;
+    margin: 5px 5% 5px 5%;
     display: inline-block;
+    width: 90%;
 }
-.teamList{
+.game-container-1-2 {
+    margin-top: 60px;
+}
+.teamList {
     margin: 5px 0 5px 0;
+}
+.pure-u-1-5 {
+    width: 19.5%;
 }
