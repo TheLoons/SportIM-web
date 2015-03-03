@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="bracket">
+<head>
+    <meta charset="utf-8">
+    <title>Bracket</title>
+    <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/bracket.css">
+    <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css" />
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.js"></script>    
+    <script src="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js"></script>
+    <script src="../js/services.js"></script>
+    <script src="../js/bracket.js"></script>
+</head>
+<body ng-controller="bracket" ng-click="gameModal=false; inputModal=false">
+    <div ng-include src="'../partials/header.html'"></div>
+    <div class="pure-g">
+        <div class="pure-u-1-8">
+                <div>
+                    League
+                </div>
+            <select class="tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
+            <div ng-repeat="team in teamList"> 
+                <div class="pure-button match-item match-team teamList">{{team.name}}</div>
+            </div>
+        </div>
+        <div class="pure-u-3-4">
+            <div class="pure-g options-container">
+                <div class="pure-u-1-3">
+                </div>
+                <div class="pure-u-1-3">
+                    <input id="tourn-title" ng-model="tournamentName" placeholder="Tournament Name"/>
+                </div>
+                <div class="pure-u-1-6">
+                </div>
+                <div class="pure-u-1-6">
+                    <div id="tourn-save" class="pure-button pure-button-primary" ng-click="saveTournament()">Save Tournament</div>
+                </div>
+            </div>
+            <div class="pure-g options-container">
+                <div class="pure-u-1-3">
+                </div>
+                <div class="pure-u-1-3">
+                    <input id="tourn-desc" ng-model="tournamentDesc" placeholder="Description"/>
+                </div>
+            </div>
+            <div class="pure-u-1-5"  ng-repeat="team1 in teamList2">
+                <div class="game-container" class="pure-u-1-3">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah1</div>
+                </div>
+            </div>
+            <div class="pure-u-1-5"  ng-repeat="team1 in teamList2">
+                <div class="game-container" class="pure-u-1-3">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah1</div>
+                </div>
+            </div>
+<!--             <div class="pure-u-1-5">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div> -->
+<!--             <div class="pure-u-1-5">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div>
+            <div class="pure-u-1-5">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div>
+            <div class="pure-u-1-5">
+                <div class="game-container" ng-repeat="team2 in teamList2">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div> -->
+<!--             <div class="pure-u-1-10">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div>
+            <div class="pure-u-1-10">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div>
+            <div class="pure-u-1-10">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div>
+            <div class="pure-u-1-10">
+                <div class="game-container" ng-repeat="team1 in teamList1">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div>
+            <div class="pure-u-1-10">
+                <div class="game-container" ng-repeat="team2 in teamList2">
+                    <div class="pure-button match-item match-team">blah</div>
+                    <div class="pure-button match-item match-team">blah</div>
+                </div>
+            </div> -->
+        </div>
+        <div class="pure-u-1-8">
+        </div>
+    </div>  
+        <div id="input-modal" ng-show="inputModal" ng-click="$event.stopPropagation()">
+        <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="name">Event Title</label>
+                    <input ng-model="eventTitle" type="text" placeholder="Title"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="startDate">Start Date</label>
+                    <input id="startmodaldatepicker" class="selectDate" ng-model="startDate" placeholder="Start Date"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="startTime">Start Time</label>
+                    <input id="startTime" class="selectTime" ng-model="startTime"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="startDate">End Date</label>
+                    <input id="endmodaldatepicker" ng-model="endDate" class="selectDate" placeholder="End Date"/>
+                </div>
+                <div class="pure-control-group">
+                    <label for="endTime">End Time</label>
+                    <input id="endTime" class="selectTime" ng-model="endTime"/>
+                </div>
+                <button class="pure-button pure-u-1-4 button-moreOptions">More Options</button>
+                <div class="pure-u-1-5"></div>
+                <div class="pure-u-1-6"></div>
+                <button class="pure-button pure-u-1-8 button-cancel" ng-click="cancelEvent($event)">Cancel</button>
+                <input type="submit" value="Submit" class="pure-button pure-button-primary pure-u-1-8"/>
+            </fieldset>
+        </form>
+    </div>
+    <div id="page-cover" ng-show="inputModal"></div>
+</body>
+</html>

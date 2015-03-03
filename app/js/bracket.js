@@ -1,4 +1,4 @@
-var calendar = angular.module('roundrobin',['services']);
+var calendar = angular.module('bracket',['services']);
 
 calendar.controller('header', function($scope) {
     $scope.contextItems = [
@@ -6,8 +6,7 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('roundrobinc', function($scope, League, Events, Event, Tournament, TeamView) {
-
+calendar.controller('bracket', function($scope, League, Events, Event, Tournament, TeamView) {
     $scope.eventData = [];
     $scope.teamIndex = {};
     $scope.twoteamIndex = {};
@@ -17,35 +16,17 @@ calendar.controller('roundrobinc', function($scope, League, Events, Event, Tourn
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
     TeamView.get().$promise.then(function(resp){
-            $scope.teamList = resp.teams;
-            angular.forEach($scope.teamList, function(firstTeam, firstTeamKey){
-            var start = moment("01/01/2010 13:00:00", "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
-            var end = moment("01/01/2010 13:00:00", "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
-
-            if($scope.teamIndex[firstTeam.name] === undefined)
-                $scope.teamIndex[firstTeam.name] = [];
-
-            if($scope.twoteamIndex[firstTeam.name] === undefined)
-                $scope.twoteamIndex[firstTeam.name] = {};
-
-            angular.forEach($scope.teamList, function(secondTeam, secondTeamKey){
-                if(firstTeam.id != secondTeam.id && firstTeamKey <= secondTeamKey){
-                    var index = $scope.eventData.push({"title": firstTeam.name+" v. "+secondTeam.name, "start": start, "end": end, "teamIDs": [firstTeam.id, secondTeam.id], "team1": firstTeam.name, "team2": secondTeam.name, "dateLabel": "Select Date"}) - 1;
-
-                    if($scope.teamIndex[secondTeam.name] === undefined)
-                        $scope.teamIndex[secondTeam.name] = [];
-
-                    $scope.teamIndex[firstTeam.name].push(index);
-                    $scope.teamIndex[secondTeam.name].push(index);
-
-                    if($scope.twoteamIndex[secondTeam.name] === undefined)
-                        $scope.twoteamIndex[secondTeam.name] = {};
-
-                    $scope.twoteamIndex[firstTeam.name][secondTeam.name] = index;
-                    $scope.twoteamIndex[secondTeam.name][firstTeam.name] = index;
-                }
-            });
-          });
+            response = resp
+            $scope.teamList = response.teams;
+            var half_length = Math.ceil(resp.teams.length / 2);    
+            var leftSide = resp.teams.slice(0,half_length);
+            var rightSide = resp.teams.slice(half_length,resp.teams.length);
+            var leftSide_length = Math.ceil(leftSide.length / 2);    
+            var rightSide_length = Math.ceil(rightSide.length / 2);
+            var leftSide1 = leftSide.slice(0,leftSide_length);
+            var rightSide1 = rightSide.slice(0, rightSide_length);
+            $scope.teamList1 = leftSide1;
+            $scope.teamList2 = rightSide1;
     });
 
     League.get().$promise.then(function(resp) {

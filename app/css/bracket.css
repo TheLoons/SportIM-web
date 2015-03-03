@@ -1,0 +1,35 @@
+#tourn-title {
+    width: 350px;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#tourn-desc {
+    width: 400px;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#tourn-save {
+    font-size: 20px;
+    text-align: center;
+}
+
+.tourn-option {
+    width: 60%;
+}
+
+.options-container {
+    text-align: center;
+}
+
+.game-container {
+    margin: 10px;
+    width: 300px;
+    display: inline-block;
+}
+.teamList{
+    margin: 5px 0 5px 0;
+}
