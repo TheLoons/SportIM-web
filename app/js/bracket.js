@@ -21,12 +21,14 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             var half_length = Math.ceil(resp.teams.length / 2);    
             var leftSide = resp.teams.slice(0,half_length);
             var rightSide = resp.teams.slice(half_length,resp.teams.length);
-            var leftSide_length = Math.ceil(leftSide.length / 2);    
+            var leftSide_length = Math.ceil(leftSide.length / 2);
             var rightSide_length = Math.ceil(rightSide.length / 2);
             var leftSide1 = leftSide.slice(0,leftSide_length);
             var rightSide1 = rightSide.slice(0, rightSide_length);
-            $scope.teamList1 = leftSide1;
-            $scope.teamList2 = rightSide1;
+            $scope.leftSide = leftSide;
+            $scope.leftSide1 = leftSide1;
+            $scope.rightSide = rightSide;
+            $scope.rightSide1 = rightSide1;
     });
 
     League.get().$promise.then(function(resp) {
