@@ -7,6 +7,9 @@ calendar.controller('header', function($scope) {
 });
 
 calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, $cookies, $location) {
+    $scope.score1 = 0;
+    $scope.score2 = 0;
+
     $(".soccer-field").height(function(){
         return $(this).width()*(1530/2048);
     });
@@ -53,6 +56,13 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             $scope.goalPick = 3;
         } else if($scope.goalPick == 3) {
             Goal.save({player: $scope.playergoal, teamID: $scope.playergoalteam, assist: $scope.playerassist, goalkeeper: player, goalieTeamID: team, id: $scope.event.id});
+            if($scope.playergoalteam == $scope.team1.id) {
+                $scope.score1 = $scope.score1 + 1;
+                $("#team1-score").text($scope.score1);
+            } else {
+                $scope.score2 = $scope.score2 + 1;
+                $("#team2-score").text($scope.score2);
+            }
             $("#selectMessage").text("Saved the goal");
             $scope.ontargetPick = 0;
         } else {

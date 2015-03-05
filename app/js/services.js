@@ -154,3 +154,21 @@ services.factory('Goal', ['$resource',
         return $resource(soccerUrl+'goal/:id', {id:'@id'}, {});
     }]
 );
+
+services.factory('EventStats', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'stats/event/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('TeamStats', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'stats/team/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('PlayerStats', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'stats/player', {}, {});
+    }]
+);

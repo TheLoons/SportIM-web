@@ -43,10 +43,50 @@ team.controller('teams', function($scope, TeamEdit) {
     });
 });
 
-team.controller('teamview', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
+team.controller('teamview', ['$scope', 'Team', 'TeamStats', '$routeParams', function($scope, Team, TeamStats, $routeParams) {
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
         $("#successHeader").hide();
+    });
+    TeamStats.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+        var stats = resp.teamStats;
+        var data = [{label: 'fouls', count: stats.fouls, color: "#ccc"},
+        {label: 'yellows', count: stats.yellow, color: "#"},
+        {label: 'reds', count: stats.red}];
+        console.log(data.length);
+
+        var barWidth = 50;
+        var width = (barWidth + 10) * data.length;
+        var height = 200;
+
+        var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
+        var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.count; })]).
+            rangeRound([0, height]);
+
+        // add the canvas to the DOM
+        var barDemo = d3.select("#foulChart").
+            attr("width", width).
+            attr("height", height);
+
+        barDemo.selectAll("rect").
+            data(data).
+            enter().
+            append("svg:rect").
+            attr("x", function(datum, index) { return x(index); }).
+            attr("y", function(datum) { return height - y(datum.count) - 30; }).
+            attr("height", function(datum) { return y(datum.count); }).
+            attr("width", barWidth).
+            attr("fill", function(datum) { return y(datum.color); });
+
+        barDemo.selectAll("text").
+            data(data).
+            enter().
+            append("text").
+            attr("x", function(datum, index) { return x(index); }).
+            attr("y", function(datum) { return height - 20; }).
+            attr("dy", ".75em").
+            attr("text-anchor", "middle").
+            text(function(datum) {return datum.label});
     });
 }]);
 

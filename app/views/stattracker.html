@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/stattracker.css">
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="../bower_components/humanize-duration/humanize-duration.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -32,7 +33,7 @@
         </div>
         <div class="pure-u-3-5">
             <div class="pure-button pure-button-primary match-time-container">
-                <span class="match-time">0</span>
+                <span id="team1-score" class="match-time">0</span>
                 <span class="match-period">{{team1.name}}</span>
             </div>
             <div class="pure-button pure-button-primary match-time-container" ng-click="toggleTimer()">
@@ -40,7 +41,7 @@
                 <span class="match-period"></span>
             </div>
             <div class="pure-button pure-button-primary match-time-container">
-                <span class="match-time">0</span>
+                <span id="team2-score" class="match-time">0</span>
                 <span class="match-period">{{team2.name}}</span>
             </div>
             <img class="soccerball" src="../images/soccerball.png" />
