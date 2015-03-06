@@ -18,6 +18,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     TeamView.get().$promise.then(function(resp){
             response = resp
             $scope.teamList = response.teams;
+            setTimeout(function(){$(".teamDrag").draggable();}, 500);
             var half_length = Math.ceil(resp.teams.length / 2);    
             var leftSide = resp.teams.slice(0,half_length);
             var rightSide = resp.teams.slice(half_length,resp.teams.length);
@@ -29,6 +30,8 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             $scope.leftSide1 = leftSide1;
             $scope.rightSide = rightSide;
             $scope.rightSide1 = rightSide1;
+            setTimeout(function(){$scope.drop()}, 500);
+
     });
 
     League.get().$promise.then(function(resp) {
@@ -129,4 +132,29 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             }
         });
     };
+    $scope.drop = function(){
+        $(".teamDrop").droppable({
+            accept: ".teamDrag",
+            drop: function(event, ui) {
+            },
+            over: function(event, ui) {
+                $(this).css("background-color", "#ffff00");
+            },
+            out: function(event, ui) {
+                $(this).css("background-color", "#cccc00");
+            },
+            activate: function(event, ui) {
+                $(this).css("background-color", "#cccc00");
+            },
+            deactivate: function(event, ui) {
+                $(this).css("background-color", "transparent");
+            },
+            drop: function(event, ui) {
+                ui.draggable.offset($(this).offset());
+                ui.draggable.width($(this).width());
+            }
+        });
+    };
+
+    
 });
