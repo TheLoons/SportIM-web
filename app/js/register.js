@@ -38,7 +38,7 @@ register.controller('register', function($scope, Register) {
         };
         Register.save({login: $scope.email, firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phone, password: $scope.password}).$promise.then(function(resp) {
         	if (resp.status.code == 200) {
-				console.log("created");	
+				window.location.href = "../views/home.html";	
 			}
 			else{
 				$('#errorMessage').text("Server error please try again later");
