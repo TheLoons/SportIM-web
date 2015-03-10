@@ -15,13 +15,11 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
-    TeamView.get().$promise.then(function(resp){
-            response = resp
-            $scope.teamList = response.teams;
+    $scope.computeLayout = function(){
             setTimeout(function(){$(".teamDrag").draggable();}, 500);
-            var half_length = Math.ceil(resp.teams.length / 2);    
-            var leftSide = resp.teams.slice(0,half_length);
-            var rightSide = resp.teams.slice(half_length,resp.teams.length);
+            var half_length = Math.ceil($scope.teamList.length / 2);    
+            var leftSide = $scope.teamList.slice(0,half_length);
+            var rightSide = $scope.teamList.slice(half_length,$scope.teamList.length);
             var leftSide_length = Math.ceil(leftSide.length / 2);
             var rightSide_length = Math.ceil(rightSide.length / 2);
             var leftSide1 = leftSide.slice(0,leftSide_length);
@@ -31,13 +29,23 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             $scope.rightSide = rightSide;
             $scope.rightSide1 = rightSide1;
             setTimeout(function(){$scope.drop()}, 500);
+    };
 
+    TeamView.get().$promise.then(function(resp){
+            $scope.teamList = resp.teams;
+            $scope.computeLayout();
     });
 
     League.get().$promise.then(function(resp) {
         $scope.leagueList = resp.leagues;
     });
 
+    $scope.changeLeague = function() {
+        League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+            $scope.teamList = resp.teams;
+            $scope.computeLayout();
+        });
+    }
      
     $scope.changeTeam = function () {
         $scope.teamData = []
