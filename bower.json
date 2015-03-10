@@ -15,7 +15,8 @@
     "d3": "~3.5",
     "selectize": "~0.11.x",
     "jqueryui-timepicker-addon": "~1.5.x",
-    "angular-timer":"~1.2.x"
+    "angular-timer":"~1.2.x",
+    "d3pie":"x.x"
   },
   "resolutions": {
     "angular": "~1.3.0",
