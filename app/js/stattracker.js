@@ -6,7 +6,7 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, $cookies, $location) {
+calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, TimeStart, $cookies, $location) {
     $scope.score1 = 0;
     $scope.score2 = 0;
 
@@ -100,6 +100,11 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             } else {
                 $cookies.soccersession = resp.session;
                 $scope.$broadcast('timer-start');
+                var currTime = moment().format(serviceDateFormat);
+
+                TimeStart.save({id: $scope.event.id, teamID: $scope.team1.id, teamID2: $scope.team2.id,
+                    timestamp: currTime, starters: [], starters2: []}).$promise.then(function(resp) {
+                });
             }
         });
     };

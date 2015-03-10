@@ -1,6 +1,6 @@
-var register = angular.module('register',['services']);
+var register = angular.module('register',['services', 'ngCookies']);
 
-register.controller('register', function($scope, Register) {
+register.controller('register', function($scope, Register, Login, $cookies) {
 	$scope.registerEvent = function(){
 		var missingFields = false;
 		if (!$scope.lastName) {
@@ -37,11 +37,16 @@ register.controller('register', function($scope, Register) {
         	return;
         };
         Register.save({login: $scope.email, firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phone, password: $scope.password}).$promise.then(function(resp) {
-        	if (resp.status.code == 200) {
-				window.location.href = "../views/home.html";	
-			}
-			else{
-				$('#errorMessage').text("Server error please try again later");
+            if (resp.status.code == 200) {
+                Login.save({login: $scope.email, password: $scope.password}).$promise.then(function(resp) {
+                    if (resp.status.code == 200) {
+                        $cookies.session = resp.token;
+                        window.location.href = "../views/home.html";
+                    }
+                });
+            }
+            else{
+                $('#errorMessage').text("Server error please try again later");
 				$('#errorMessage').css({'color': 'red'});
 				$('#errorMessage').show(600, $scope.callBack());
 			}	

@@ -172,3 +172,33 @@ services.factory('PlayerStats', ['$resource',
         return $resource(soccerUrl+'stats/player', {}, {});
     }]
 );
+
+services.factory('TimeStart', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/start/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('HalfEnd', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/halfend/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('HalfStart', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/halfstart/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('TimeEnd', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/end/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('PlayerSub', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/sub/:id', {id: '@id'}, {});
+    }]
+);
