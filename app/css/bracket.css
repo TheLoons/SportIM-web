@@ -1,0 +1,44 @@
+#tourn-title {
+    width: 350px;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#tourn-desc {
+    width: 400px;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#tourn-save {
+    font-size: 20px;
+    text-align: center;
+}
+
+.tourn-option {
+    width: 60%;
+}
+
+.options-container {
+    text-align: center;
+}
+
+.game-container {
+    margin: 5px 5% 5px 5%;
+    display: inline-block;
+    width: 90%;
+}
+.game-container-1-2 {
+    margin-top: 60px;
+}
+.teamList {
+    margin: 5px 0 5px 0;
+}
+.pure-u-1-5 {
+    width: 19.5%;
+}
+.teamDrag{
+    z-index: 2000;
+}

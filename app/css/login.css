@@ -2,7 +2,9 @@ body{
     color: #fff;
     font-family: Arial;
     font-size: 12px;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.95))) fixed; /* Chrome,Safari4+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.95))) fixed;
+    background: -moz-linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.95)) fixed;
+    background: linear-gradient(left top, left bottom, color-stop(0%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.95))) fixed;
 }
 a:link {
     color: #FFFFFF;

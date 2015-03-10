@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="roundrobin">
+<html lang="en" ng-app="bracket">
 <head>
     <meta charset="utf-8">
-    <title>Round Robin</title>
+    <title>Bracket</title>
     <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
     <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/roundrobin.css">
+    <link rel="stylesheet" href="../css/bracket.css">
     <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" href="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css" />
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -17,12 +17,19 @@
     <script src="../bower_components/angular-resource/angular-resource.js"></script>    
     <script src="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js"></script>
     <script src="../js/services.js"></script>
-    <script src="../js/roundrobin.js"></script>
+    <script src="../js/bracket.js"></script>
 </head>
-<body ng-controller="roundrobinc" ng-click="gameModal=false; inputModal=false">
+<body ng-controller="bracket" ng-click="gameModal=false; inputModal=false">
     <div ng-include src="'../partials/header.html'"></div>
     <div class="pure-g">
         <div class="pure-u-1-8">
+                <div>
+                    League
+                </div>
+            <select class="tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
+            <div ng-repeat="team in teamList"> 
+                <div class="pure-button match-item match-team teamDrag teamList">{{team.name}}</div>
+            </div>
         </div>
         <div class="pure-u-3-4">
             <div class="pure-g options-container">
@@ -44,50 +51,52 @@
                     <input id="tourn-desc" ng-model="tournamentDesc" placeholder="Description"/>
                 </div>
             </div>
-            <div class="pure-g options-container">
-                <div class="pure-u-1-6">
-                    League
+            <!-- Left Side -->
+            <div class="pure-u-1-5">
+                <div class="game-container"  ng-repeat="team1 in leftSide1 ">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
                 </div>
-                <div class="pure-u-1-6">
-                    Select First Team
-                </div>
-                <div class="pure-u-1-6">
-                    Start Date
-                </div>
-                <div class="pure-u-1-6">
-                    Start Time
-                </div>
-                <div class="pure-u-1-6">
-                    End Date
-                </div>
-                <div class="pure-u-1-6">
-                    End Time
+                <div class="game-container"  ng-repeat="team1 in leftSide1 ">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
                 </div>
             </div>
-            <div class="pure-g options-container">
-                <div class="pure-u-1-6">
-                    <select class="tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
-                </div>
-                <div class="pure-u-1-6">
-                    <select class="tourn-option" ng-model="teamSelected" ng-options="team.name for team in teamList" ng-change="changeTeam()"></select>
-                </div>
-                <div class="pure-u-1-6">
-                    <input id="startdatepicker" class="tourn-option selectDate" ng-model="totalstartDate" ng-change="updateDefaultDates()" placeholder="Start Date" />
-                </div>
-                <div class="pure-u-1-6">
-                    <input class="tourn-option selectTime" ng-model="totalstartTime" ng-change="updateDefaultDates()" />
-                </div>
-                <div class="pure-u-1-6">
-                    <input id="enddatepicker" class="tourn-option selectDate" ng-model="totalendDate" ng-change="updateDefaultDates()" placeholder="End Date" />
-                </div>
-                <div class="pure-u-1-6">
-                    <input class="tourn-option selectTime" ng-model="totalendTime" ng-change="updateDefaultDates()" />
+            <div class="pure-u-1-5">
+                <div class="game-container game-container-1-2">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item match-team">Semi</div>
+                    <div class="pure-button match-item match-team">Semi</div>
                 </div>
             </div>
-            <div class="game-container" ng-repeat="eventObject in teamData">
-                <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">{{eventObject.dateLabel}}</div>
-                    <div class="pure-button match-item match-team">{{eventObject.team1}}</div>
-                    <div class="pure-button match-item match-team">{{eventObject.team2}}</div>
+            <!-- This is the final bracket -->
+            <div class="pure-u-1-5">
+                <div class="game-container game-container-1-2">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item match-team">Final</div>
+                    <div class="pure-button match-item match-team">Final</div>
+                </div>
+            </div>
+            <!-- right Side -->
+            <div class="pure-u-1-5">
+                <div class="game-container game-container-1-2">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item match-team">Semi</div>
+                    <div class="pure-button match-item match-team">Semi</div>
+                </div>
+            </div>
+            <div class="pure-u-1-5">
+                <div class="game-container" ng-repeat="team1 in rightSide1">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
+                </div>
+                <div class="game-container" ng-repeat="team1 in rightSide1">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
+                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
                 </div>
             </div>
         </div>

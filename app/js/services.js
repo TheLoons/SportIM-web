@@ -5,14 +5,13 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 
-services.run(function($cookies, $http){
-    // add the session token to all requests
-    $http.defaults.headers.common['token'] = $cookies.session;
-    //$http.defaults.headers.common['session'] = $cookies.soccersession;
-});
-
-services.factory('sessionRecoverer', ['$q', '$injector', function($q, $injector) {  
+services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {  
     var sessionRecoverer = {
+        request: function(request) {
+            request.headers['token'] = $cookies.session;
+            request.headers['session'] = $cookies.soccersession;
+            return request;
+        },
         response: function(response) {
             // Session has expired
             if (response.data.status && response.data.status.code != 200){
@@ -141,5 +140,65 @@ services.factory('SessionReset', ['$resource',
 services.factory('Foul', ['$resource',
     function($resource){
         return $resource(soccerUrl+'foul/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('Shot', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'shot/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('Goal', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'goal/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('EventStats', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'stats/event/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('TeamStats', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'stats/team/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('PlayerStats', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'stats/player', {}, {});
+    }]
+);
+
+services.factory('TimeStart', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/start/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('HalfEnd', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/halfend/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('HalfStart', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/halfstart/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('TimeEnd', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/end/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('PlayerSub', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'time/sub/:id', {id: '@id'}, {});
     }]
 );

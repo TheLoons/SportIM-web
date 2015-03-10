@@ -43,10 +43,30 @@ team.controller('teams', function($scope, TeamEdit) {
     });
 });
 
-team.controller('teamview', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
+team.controller('teamview', ['$scope', 'Team', 'TeamStats', '$routeParams', function($scope, Team, TeamStats, $routeParams) {
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
         $("#successHeader").hide();
+    });
+    TeamStats.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+        var stats = resp.teamStats;
+
+        var fouldata = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"},
+        {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
+        {label: 'reds', count: stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
+
+        barChart("#foulChart", fouldata);
+
+        var goaldata = [{ "label": "For", "value": stats.goals, "color": "#44cc44"},
+            {"label": "Against", "value": stats.goalsAgainst, "color": "#cc4444"}];
+
+        pieChart("#goalChart", goaldata);
+
+        var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
+            {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},
+            {"label": "Off Target", "value": (stats.shots - stats.shotsOnGoal), "color": "#cc4444"}];
+
+        pieChart("#shotChart", shotdata);
     });
 }]);
 
