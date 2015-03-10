@@ -137,15 +137,23 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     };
 
     $scope.foul = function(type){
-        if(type == 'red')
+        if(type == 'red') {
             var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam, red: 'true'};
-        else if(type == 'yellow')
+            var message = "Red Card";
+        }
+        else if(type == 'yellow') {
             var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam, yellow: 'true'};
-        else
+            var message = "Yellow Card";
+        }
+        else {
             var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam};
+            var message = "Foul";
+        }
 
         Foul.save(parameters).$promise.then(function(resp) {
             setTimeout(function(){$(".player").draggable();}, 500);
+            $("#selectMessage").text("Saved "+message);
+            $("#selectHeader").show();
         });
     };
 
