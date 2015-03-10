@@ -50,121 +50,23 @@ team.controller('teamview', ['$scope', 'Team', 'TeamStats', '$routeParams', func
     });
     TeamStats.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         var stats = resp.teamStats;
-        var data = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"},
+
+        var fouldata = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"},
         {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
         {label: 'reds', count: stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
-        var goalsFor = stats.goals;
-        var goalsAgainst = stats.goalsAgainst;
 
-        var barWidth = 50;
-        var width = (barWidth + 10) * data.length;
-        var height = 200;
+        barChart("#foulChart", fouldata);
 
-        var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
-        var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.count; })]).
-            rangeRound([0, height]);
+        var goaldata = [{ "label": "For", "value": stats.goals, "color": "#44cc44"},
+            {"label": "Against", "value": stats.goalsAgainst, "color": "#cc4444"}];
 
-        // add the canvas to the DOM
-        var barDemo = d3.select("#foulChart").
-            attr("width", width).
-            attr("height", height);
+        pieChart("#goalChart", goaldata);
 
-        barDemo.selectAll().
-            data(data).
-            enter().
-            append("svg:rect").
-            attr("x", function(datum, index) { return x(index); }).
-            attr("y", function(datum) { return height - y(datum.count) - 30; }).
-            attr("height", function(datum) { return y(datum.count); }).
-            attr("width", barWidth).
-            attr("fill", function(datum) { return datum.color; }).
-            on("mouseover", function() {
-                d3.select(this).attr("fill", function(datum) {return datum.highlightColor});
-            }).
-            on("mouseout", function() {
-                d3.select(this).attr("fill", function(datum) {return datum.color});
-            });
+        var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
+            {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},
+            {"label": "Off Target", "value": (stats.shots - stats.shotsOnGoal), "color": "#cc4444"}];
 
-        barDemo.selectAll().
-            data(data).
-            enter().
-            append("text").
-            attr("x", function(datum, index) { return x(index) + 25; }).
-            attr("y", function(datum) { return d3.max([10, height - y(datum.count) - 20]); }).
-            attr("dy", ".75em").
-            attr("text-anchor", "middle").
-            text(function(datum) {return datum.count});
-
-        barDemo.selectAll().
-            data(data).
-            enter().
-            append("text").
-            attr("x", function(datum, index) { return x(index) + 25; }).
-            attr("y", function(datum) { return height - 20; }).
-            attr("dy", ".75em").
-            attr("text-anchor", "middle").
-            text(function(datum) {return datum.label});
-
-        var pie = new d3pie("goalChart", {
-            "size": {
-                "canvasWidth": 300,
-                "canvasHeight": 200,
-                "pieInnerRadius": "50%",
-                "pieOuterRadius": "100%"
-            },
-            "data": {
-                "sortOrder": "value-desc",
-                "content": [
-                {
-                    "label": "For",
-                    "value": goalsFor,
-                    "color": "#44cc44"
-                },
-                {
-                    "label": "Against",
-                    "value": goalsAgainst,
-                    "color": "#cc4444"
-                }
-                ]
-            },
-            "labels": {
-                "outer": {
-                    "pieDistance": 12
-                },
-                "inner": {
-                    "hideWhenLessThanPercentage": 3
-                },
-                "mainLabel": {
-                    "fontSize": 11
-                },
-                "percentage": {
-                    "color": "#ffffff",
-                    "decimalPlaces": 0
-                },
-                "value": {
-                    "color": "#adadad",
-                    "fontSize": 11
-                },
-                "lines": {
-                    "enabled": false
-                }
-            },
-            "effects": {
-                "pullOutSegmentOnClick": {
-                    "effect": "linear",
-                    "speed": 400,
-                    "size": 8
-                },
-                "highlightSegmentOnMouseover": true,
-                "highlightLuminosity": 0.1
-            },
-            "misc": {
-                "gradient": {
-                    "enabled": true,
-                    "percentage": 100
-                }
-            }
-        });
+        pieChart("#shotChart", shotdata);
     });
 }]);
 
