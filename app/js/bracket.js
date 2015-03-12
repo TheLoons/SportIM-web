@@ -17,18 +17,17 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
 
     $scope.computeLayout = function(){
             setTimeout(function(){$(".teamDrag").draggable();}, 500);
-            var half_length = Math.ceil($scope.teamList.length / 2);    
-            var leftSide = $scope.teamList.slice(0,half_length);
-            var rightSide = $scope.teamList.slice(half_length,$scope.teamList.length);
-            var leftSide_length = Math.ceil(leftSide.length / 2);
-            var rightSide_length = Math.ceil(rightSide.length / 2);
-            var leftSide1 = leftSide.slice(0,leftSide_length);
-            var rightSide1 = rightSide.slice(0, rightSide_length);
-            $scope.leftSide = leftSide;
-            $scope.leftSide1 = leftSide1;
-            $scope.rightSide = rightSide;
-            $scope.rightSide1 = rightSide1;
-            setTimeout(function(){$scope.drop()}, 500);
+            if($scope.teamList.length > 0)
+            {
+                var half_length = Math.ceil($scope.teamList.length / 2);
+                var secondDivide = half_length/2;
+                var outterMost = $scope.teamList.slice(0,secondDivide);
+                var outterMostLength = Math.ceil(outterMost.length / 2);
+                var innerMost = outterMost.slice(0,outterMostLength);
+                $scope.outterMost = outterMost;
+                $scope.innerMost = innerMost;
+                setTimeout(function(){$scope.drop()}, 500);
+            }
     };
 
     TeamView.get().$promise.then(function(resp){
