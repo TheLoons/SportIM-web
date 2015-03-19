@@ -52,7 +52,6 @@ calendar.controller('roundrobinc', function($scope, League, Events, Event, Tourn
         $scope.leagueList = resp.leagues;
     });
 
-     
     $scope.changeTeam = function () {
         $scope.teamData = []
         angular.forEach($scope.teamIndex[$scope.teamSelected.name], function(key){
