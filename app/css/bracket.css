@@ -39,6 +39,6 @@
 .pure-u-1-5 {
     width: 19.5%;
 }
-.teamDrag{
+.teamDrag, .teamDragDropped{
     z-index: 2000;
 }

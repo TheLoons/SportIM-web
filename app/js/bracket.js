@@ -16,7 +16,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
     $scope.computeLayout = function(){
-            setTimeout(function(){$(".teamDrag").draggable();}, 500);
+            setTimeout(function(){$(".teamDrag").draggable({revert: "invalid"});}, 500);
             if($scope.teamList.length > 0)
             {
                 var eventIds = [];
@@ -111,7 +111,9 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         {
             $scope.eventData[eventID] = {teamIDs: [teamID]};
         }
-
+    };
+    $scope.removeTeam = function(teamID, eventID){
+        $scope.eventData[eventID].teamIDs.splice($scope.eventData[eventID].teamIDs.indexOf(teamID),1);
     };
     $scope.updateDefaultDates = function(){
         if($scope.totalstartDate == "" || $scope.totalstartTime == "" || $scope.totalendDate == "" || $scope.totalendTime == "")
@@ -175,8 +177,35 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             drop: function(event, ui) {
                 ui.draggable.offset($(this).offset());
                 ui.draggable.width($(this).width());
-                $scope.updateEvents($(ui.draggable).data("teamid"), $(this).parent().data("id"));
+                ui.draggable.data("eventid", $(this).parent().data("eventid"));
+                ui.draggable.data("slot", $(this));
+                ui.draggable.switchClass("teamDrag", "teamDragDropped");
+                $(".teamDrop").css("background-color", "transparent");
+                $scope.updateEvents(ui.draggable.data("teamid"), $(this).parent().data("eventid"));
                 $(this).droppable("disable");
+            }
+        });
+        $("#teamList").droppable({
+            accept: ".teamDragDropped",
+            over: function(event, ui) {
+                $(this).css("background-color", "#ffff00");
+            },
+            out: function(event, ui) {
+                $(this).css("background-color", "#cccc00");
+                $(this).droppable("enable");
+            },
+            activate: function(event, ui) {
+                $(this).css("background-color", "#cccc00");
+            },
+            deactivate: function(event, ui) {
+                $(this).css("background-color", "transparent");
+            },
+            drop: function(event, ui) {
+                $scope.removeTeam(ui.draggable.data("teamid"), ui.draggable.data("eventid"));
+                $(ui.draggable.data("slot")).droppable("enable");
+                $(".teamDrop").css("background-color", "transparent");
+                $(this).css("background-color", "transparent");
+                ui.draggable.switchClass("teamDragDropped", "teamDrag");
             }
         });
     };
