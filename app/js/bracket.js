@@ -66,8 +66,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     };
     $scope.selectDate = function(evt, evtObject){
         evt.stopPropagation();
-        var index = $scope.twoteamIndex[evtObject.team1][evtObject.team2];
-        var eventObject = $scope.eventData[index];
+        var eventObject = $scope.eventData[evtObject];
 
         $scope.startDate = eventObject.startDate;
         $scope.endDate = eventObject.endDate;
@@ -76,7 +75,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.eventTitle = eventObject.title;
 
         $scope.inputModal = true;
-        $scope.currentIndex = index;
+        $scope.currentIndex = evtObject;
     };
     $scope.clearForm = function(){
         $scope.endDate = "";
@@ -148,7 +147,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.changeTeam();
     };
     $scope.saveTournament = function(){
-        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: $scope.leagueSelected.id}).$promise.then(function(resp) {
+        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: "61"}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {
                     eventObject.tournamentID = resp.id;
