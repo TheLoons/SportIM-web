@@ -5,7 +5,7 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 
-services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {  
+services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {
     var sessionRecoverer = {
         request: function(request) {
             request.headers['token'] = $cookies.session;
@@ -27,7 +27,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
     return sessionRecoverer;
 }]);
 
-services.config(['$httpProvider', function($httpProvider) {  
+services.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('sessionRecoverer');
 }]);
 

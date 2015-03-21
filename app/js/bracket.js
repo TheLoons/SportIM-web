@@ -46,12 +46,16 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.leagueList = resp.leagues;
     });
 
-    $scope.changeLeague = function() {
-        League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
-            $scope.teamList = resp.teams;
-            $scope.computeLayout();
-        });
-    }
+    // $scope.changeLeague = function() {
+    //     League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+    //         $scope.teamList = resp.teams;
+    //         $scope.computeLayout();
+    //     });
+    // }
+    $scope.validateBeforeSave = function () {
+        // TODO: Validate before the saving of the bracket here.
+
+    };
     $scope.changeTeam = function () {
         $scope.teamData = []
         angular.forEach($scope.teamIndex[$scope.teamSelected.name], function(key){
@@ -147,7 +151,8 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.changeTeam();
     };
     $scope.saveTournament = function(){
-        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: "61"}).$promise.then(function(resp) {
+        $scope.validateBeforeSave();
+        Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: $scope.leagueSelected.id}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {
                     eventObject.tournamentID = resp.id;
