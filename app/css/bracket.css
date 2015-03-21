@@ -40,5 +40,5 @@
     width: 19.5%;
 }
 .teamDrag, .teamDragDropped{
-    z-index: 2000;
+    z-index: 500;
 }

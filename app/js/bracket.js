@@ -15,6 +15,10 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
+    $("#ui-datepicker-div, #ui-timepicker-div").click(function(event) {
+        event.stopPropagation();
+    });
+
     $scope.computeLayout = function(){
             setTimeout(function(){$(".teamDrag").draggable({revert: "invalid"});}, 500);
             if($scope.teamList.length > 0)
