@@ -30,6 +30,9 @@
             <div id="teamList" ng-repeat="team in teamList">
                 <div class="pure-button match-item match-team teamDrag teamList" data-teamID="{{team.id}}">{{team.name}}</div>
             </div>
+            <div id="noTeams" style="display: none">
+                No teams in the league to show.  Select a league that has teams.
+            </div>
         </div>
         <div class="pure-u-3-4">
             <div class="pure-g options-container">

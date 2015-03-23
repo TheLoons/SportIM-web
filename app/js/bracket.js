@@ -11,6 +11,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $scope.teamIndex = {};
     $scope.twoteamIndex = {};
     $scope.teamData = [];
+    $scope.halfTeamLength = 0;
     $scope.currentIndex = -1;
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
@@ -21,13 +22,14 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
 
     $scope.computeLayout = function(){
             setTimeout(function(){$(".teamDrag").draggable({revert: "invalid"});}, 500);
-            if($scope.teamList.length > 0)
+            if($scope.teamList && $scope.teamList.length > 0)
             {
                 var eventIds = [];
                 for(var i = 0; i < $scope.teamList.length; i++)
                 {
                     eventIds.push(i);
                 }
+                $scope.halfTeamLength = Math.ceil($scope.teamList.length / 2);
                 var half_length = Math.ceil($scope.teamList.length / 2);
                 var secondDivide = half_length/2;
                 var leftOutterMost = eventIds.slice(0,secondDivide);
@@ -39,6 +41,11 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
                 $scope.innerMost = innerMost;
                 setTimeout(function(){$scope.drop()}, 500);
             }
+            else
+            {
+                $('#noTeams').show();
+            }
+
     };
 
     TeamView.get().$promise.then(function(resp){
@@ -50,14 +57,35 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.leagueList = resp.leagues;
     });
 
-    // $scope.changeLeague = function() {
-    //     League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
-    //         $scope.teamList = resp.teams;
-    //         $scope.computeLayout();
-    //     });
-    // }
+    $scope.changeLeague = function() {
+        League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+            $scope.teamList = resp.league.teams;
+            $scope.computeLayout();
+        });
+    }
+
     $scope.validateBeforeSave = function () {
-        // TODO: Validate before the saving of the bracket here.
+        if(!$scope.tournamentDesc)
+        {
+            console.log("error message for tournament description");
+            return false;
+        }
+        if(!$scope.tournamentName)
+        {
+            console.log("error message for tournament name");
+            return false;
+        }
+        if(!$scope.leagueSelected)
+        {
+            console.log("error message for tournament leagueSelected");
+            return false;
+        }
+        if($scope.halfTeamLength != $scope.eventData.length)
+        {
+            console.log("didn't fill out full bracket error");
+            return false;
+        }
+        return true;
 
     };
     $scope.changeTeam = function () {
@@ -155,7 +183,10 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.changeTeam();
     };
     $scope.saveTournament = function(){
-        $scope.validateBeforeSave();
+        if(!$scope.validateBeforeSave())
+        {
+            return;
+        }
         Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: $scope.leagueSelected.id}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {
