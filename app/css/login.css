@@ -2,7 +2,7 @@ body{
     color: #fff;
     font-family: Arial;
     font-size: 12px;
-    background-image: url("/images/login.jpg");
+    background-image: url("../images/login.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
 }
