@@ -14,7 +14,7 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
-    <script src="../bower_components/angular-resource/angular-resource.js"></script>    
+    <script src="../bower_components/angular-resource/angular-resource.js"></script>
     <script src="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js"></script>
     <script src="../js/services.js"></script>
     <script src="../js/bracket.js"></script>
@@ -27,8 +27,11 @@
                     League
                 </div>
             <select class="tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
-            <div ng-repeat="team in teamList"> 
-                <div class="pure-button match-item match-team teamDrag teamList">{{team.name}}</div>
+            <div id="teamList" ng-repeat="team in teamList">
+                <div class="pure-button match-item match-team teamDrag teamList" data-teamID="{{team.id}}">{{team.name}}</div>
+            </div>
+            <div id="noTeams" style="display: none">
+                No teams in the league to show.  Select a league that has teams.
             </div>
         </div>
         <div class="pure-u-3-4">
@@ -53,13 +56,8 @@
             </div>
             <!-- Left Side -->
             <div class="pure-u-1-5">
-                <div class="game-container"  ng-repeat="team1 in leftSide1 ">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
-                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
-                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
-                </div>
-                <div class="game-container"  ng-repeat="team1 in leftSide1 ">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                <div id="event{{eventID}}" class="game-container" data-type="quarterFinal" data-eventid="{{eventID}}" ng-repeat="eventID in leftOutterMost ">
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventID)">Select Date</div>
                     <div class="pure-button match-item teamDrop match-team">Quarter</div>
                     <div class="pure-button match-item teamDrop match-team">Quarter</div>
                 </div>
@@ -88,12 +86,7 @@
                 </div>
             </div>
             <div class="pure-u-1-5">
-                <div class="game-container" ng-repeat="team1 in rightSide1">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
-                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
-                    <div class="pure-button match-item teamDrop match-team">Quarter</div>
-                </div>
-                <div class="game-container" ng-repeat="team1 in rightSide1">
+                <div id="event{{eventID}}" class="game-container" data-type="quarterFinal" data-eventid="{{eventID}}" ng-repeat="eventID in rightOutterMost ">
                     <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
                     <div class="pure-button match-item teamDrop match-team">Quarter</div>
                     <div class="pure-button match-item teamDrop match-team">Quarter</div>
@@ -102,7 +95,7 @@
         </div>
         <div class="pure-u-1-8">
         </div>
-    </div>  
+    </div>
         <div id="input-modal" ng-show="inputModal" ng-click="$event.stopPropagation()">
         <form class="pure-form pure-form-aligned" ng-submit="submitEvent()" >
             <fieldset>
@@ -126,7 +119,6 @@
                     <label for="endTime">End Time</label>
                     <input id="endTime" class="selectTime" ng-model="endTime"/>
                 </div>
-                <button class="pure-button pure-u-1-4 button-moreOptions">More Options</button>
                 <div class="pure-u-1-5"></div>
                 <div class="pure-u-1-6"></div>
                 <button class="pure-button pure-u-1-8 button-cancel" ng-click="cancelEvent($event)">Cancel</button>

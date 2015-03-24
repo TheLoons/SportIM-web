@@ -11,24 +11,41 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $scope.teamIndex = {};
     $scope.twoteamIndex = {};
     $scope.teamData = [];
+    $scope.halfTeamLength = 0;
     $scope.currentIndex = -1;
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
+    $("#ui-datepicker-div, #ui-timepicker-div").click(function(event) {
+        event.stopPropagation();
+    });
+
     $scope.computeLayout = function(){
-            setTimeout(function(){$(".teamDrag").draggable();}, 500);
-            var half_length = Math.ceil($scope.teamList.length / 2);    
-            var leftSide = $scope.teamList.slice(0,half_length);
-            var rightSide = $scope.teamList.slice(half_length,$scope.teamList.length);
-            var leftSide_length = Math.ceil(leftSide.length / 2);
-            var rightSide_length = Math.ceil(rightSide.length / 2);
-            var leftSide1 = leftSide.slice(0,leftSide_length);
-            var rightSide1 = rightSide.slice(0, rightSide_length);
-            $scope.leftSide = leftSide;
-            $scope.leftSide1 = leftSide1;
-            $scope.rightSide = rightSide;
-            $scope.rightSide1 = rightSide1;
-            setTimeout(function(){$scope.drop()}, 500);
+            setTimeout(function(){$(".teamDrag").draggable({revert: "invalid"});}, 500);
+            if($scope.teamList && $scope.teamList.length > 0)
+            {
+                var eventIds = [];
+                for(var i = 0; i < $scope.teamList.length; i++)
+                {
+                    eventIds.push(i);
+                }
+                $scope.halfTeamLength = Math.ceil($scope.teamList.length / 2);
+                var half_length = Math.ceil($scope.teamList.length / 2);
+                var secondDivide = half_length/2;
+                var leftOutterMost = eventIds.slice(0,secondDivide);
+                var rightOutterMost = eventIds.slice(secondDivide,secondDivide*2);
+                var outterMostLength = Math.ceil(rightOutterMost.length / 2);
+                var innerMost = rightOutterMost.slice(0,outterMostLength);
+                $scope.rightOutterMost = rightOutterMost;
+                $scope.leftOutterMost = leftOutterMost;
+                $scope.innerMost = innerMost;
+                setTimeout(function(){$scope.drop()}, 500);
+            }
+            else
+            {
+                $('#noTeams').show();
+            }
+
     };
 
     TeamView.get().$promise.then(function(resp){
@@ -42,11 +59,35 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
 
     $scope.changeLeague = function() {
         League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
-            $scope.teamList = resp.teams;
+            $scope.teamList = resp.league.teams;
             $scope.computeLayout();
         });
     }
-     
+
+    $scope.validateBeforeSave = function () {
+        if(!$scope.tournamentDesc)
+        {
+            console.log("error message for tournament description");
+            return false;
+        }
+        if(!$scope.tournamentName)
+        {
+            console.log("error message for tournament name");
+            return false;
+        }
+        if(!$scope.leagueSelected)
+        {
+            console.log("error message for tournament leagueSelected");
+            return false;
+        }
+        if($scope.halfTeamLength != $scope.eventData.length)
+        {
+            console.log("didn't fill out full bracket error");
+            return false;
+        }
+        return true;
+
+    };
     $scope.changeTeam = function () {
         $scope.teamData = []
         angular.forEach($scope.teamIndex[$scope.teamSelected.name], function(key){
@@ -61,8 +102,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     };
     $scope.selectDate = function(evt, evtObject){
         evt.stopPropagation();
-        var index = $scope.twoteamIndex[evtObject.team1][evtObject.team2];
-        var eventObject = $scope.eventData[index];
+        var eventObject = $scope.eventData[evtObject];
 
         $scope.startDate = eventObject.startDate;
         $scope.endDate = eventObject.endDate;
@@ -71,7 +111,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.eventTitle = eventObject.title;
 
         $scope.inputModal = true;
-        $scope.currentIndex = index;
+        $scope.currentIndex = evtObject;
     };
     $scope.clearForm = function(){
         $scope.endDate = "";
@@ -96,6 +136,19 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
 
         $scope.inputModal = false;
         $scope.clearForm();
+    };
+    $scope.updateEvents = function(teamID, eventID){
+        if($scope.eventData[eventID] != undefined)
+        {
+            $scope.eventData[eventID].teamIDs.push(teamID);
+        }
+        else
+        {
+            $scope.eventData[eventID] = {teamIDs: [teamID]};
+        }
+    };
+    $scope.removeTeam = function(teamID, eventID){
+        $scope.eventData[eventID].teamIDs.splice($scope.eventData[eventID].teamIDs.indexOf(teamID),1);
     };
     $scope.updateDefaultDates = function(){
         if($scope.totalstartDate == "" || $scope.totalstartTime == "" || $scope.totalendDate == "" || $scope.totalendTime == "")
@@ -130,6 +183,10 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         $scope.changeTeam();
     };
     $scope.saveTournament = function(){
+        if(!$scope.validateBeforeSave())
+        {
+            return;
+        }
         Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: $scope.leagueSelected.id}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {
@@ -143,13 +200,12 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $scope.drop = function(){
         $(".teamDrop").droppable({
             accept: ".teamDrag",
-            drop: function(event, ui) {
-            },
             over: function(event, ui) {
                 $(this).css("background-color", "#ffff00");
             },
             out: function(event, ui) {
                 $(this).css("background-color", "#cccc00");
+                $(this).droppable("enable");
             },
             activate: function(event, ui) {
                 $(this).css("background-color", "#cccc00");
@@ -160,9 +216,36 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             drop: function(event, ui) {
                 ui.draggable.offset($(this).offset());
                 ui.draggable.width($(this).width());
+                ui.draggable.data("eventid", $(this).parent().data("eventid"));
+                ui.draggable.data("slot", $(this));
+                ui.draggable.switchClass("teamDrag", "teamDragDropped");
+                $(".teamDrop").css("background-color", "transparent");
+                $scope.updateEvents(ui.draggable.data("teamid"), $(this).parent().data("eventid"));
+                $(this).droppable("disable");
+            }
+        });
+        $("#teamList").droppable({
+            accept: ".teamDragDropped",
+            over: function(event, ui) {
+                $(this).css("background-color", "#ffff00");
+            },
+            out: function(event, ui) {
+                $(this).css("background-color", "#cccc00");
+                $(this).droppable("enable");
+            },
+            activate: function(event, ui) {
+                $(this).css("background-color", "#cccc00");
+            },
+            deactivate: function(event, ui) {
+                $(this).css("background-color", "transparent");
+            },
+            drop: function(event, ui) {
+                $scope.removeTeam(ui.draggable.data("teamid"), ui.draggable.data("eventid"));
+                $(ui.draggable.data("slot")).droppable("enable");
+                $(".teamDrop").css("background-color", "transparent");
+                $(this).css("background-color", "transparent");
+                ui.draggable.switchClass("teamDragDropped", "teamDrag");
             }
         });
     };
-
-    
 });

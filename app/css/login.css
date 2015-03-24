@@ -2,9 +2,7 @@ body{
     color: #fff;
     font-family: Arial;
     font-size: 12px;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.95))) fixed;
-    background: -moz-linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.95)) fixed;
-    background: linear-gradient(left top, left bottom, color-stop(0%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.95))) fixed;
+    background-image: url("//c4.staticflickr.com/8/7426/10373593623_fbe929be0a_h.jpg");
 }
 a:link {
     color: #FFFFFF;
@@ -17,14 +15,14 @@ a:visited {
 }
 .login-header{
     position: absolute;
-    top: calc(50% - 35px);
-    left: calc(50% - 180px);
+    top: calc(50% - 235px);
+    left: calc(50% - 220px);
     z-index: 2;
 }
 
 .login{
     position: absolute;
-    top: calc(50% - 75px);
+    top: calc(50% - 275px);
     left: calc(50% - 50px);
     height: 150px;
     padding: 10px;
@@ -100,4 +98,9 @@ a:visited {
 
 ::-moz-input-placeholder{
    color: rgba(255,255,255,0.6);
+}
+#image-license {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
 }
