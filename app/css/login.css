@@ -35,7 +35,7 @@ a:visited {
     width: 250px;
     height: 30px;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.8);
     border-radius: 2px;
     color: #fff;
     font-family: 'Exo', sans-serif;
@@ -48,7 +48,7 @@ a:visited {
     width: 250px;
     height: 30px;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.8);
     border-radius: 2px;
     color: #fff;
     font-family: 'Exo', sans-serif;
@@ -95,11 +95,11 @@ a:visited {
 }
 
 ::-webkit-input-placeholder{
-   color: rgba(255,255,255,0.6);
+   color: rgba(255,255,255,1);
 }
 
 ::-moz-input-placeholder{
-   color: rgba(255,255,255,0.6);
+   color: rgba(255,255,255,1);
 }
 
 #image-license {
