@@ -43,11 +43,15 @@ league.controller('leagues', function($scope, League) {
     });
 });
 
-league.controller('leagueview', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
+league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', '$routeParams', function($scope, League, LeagueTeamAdd, $routeParams) {
     League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
+        $scope.teamList = resp.league.teams;
         $("#successHeader").hide();
     });
+    $scope.addTeam = function(){
+        LeagueTeamAdd.save({teamId: parseInt($scope.teamAdd), id: $scope.league.id});
+    };
 }]);
 
 league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {

@@ -22,6 +22,7 @@
         };
         $scope.eventClick = function(calEvent, jsEvent, view) {
             $scope.gameModal = true;
+            $('.button-moreOptions').show();
             var modaltop = $(jsEvent.currentTarget).offset().top - $("#player-modal").height() - 75;
             var modalleft = $(jsEvent.currentTarget).offset().left - ($("#player-modal").width() / 3) - 50;
             $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
@@ -43,6 +44,9 @@
             $scope.startTime = "";
             $scope.eventTitle = "";
             $scope.selectedEvent = -1;
+            $scope.team1 = "";
+            $scope.team2 = "";
+            $('.button-moreOptions').hide();
         }
         $scope.deleteEvent = function(evt){
             evt.stopPropagation();
@@ -71,7 +75,7 @@
                 }
                 if (evtobj.teams && evtobj.teams[1]) {
                     $scope.team2 = evtobj.teams[1].id;
-                }   
+                }
                 $scope.inputModal = true;
             });
         };
@@ -84,13 +88,12 @@
             var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
             var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
             if (!$scope.team1 || !$scope.team2) {
-                console.log("you sucks");
                 return;
             }
             else{
                 if ($scope.selectedEvent != -1) {
                     Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle, teamIDs: [$scope.team1, $scope.team2]});
-                }  
+                }
                 else{
                     Event.save({start: startDate, end: endDate, title: $scope.eventTitle, teamIDs: [$scope.team1, $scope.team2]});
                 }

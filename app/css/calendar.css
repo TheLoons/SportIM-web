@@ -54,6 +54,7 @@
 .button-moreOptions{
     text-align: center;
     margin-left: 5px;
+    display: none;
 }
 .button-cancel{
     text-align: center;
