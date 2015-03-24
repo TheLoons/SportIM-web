@@ -2,7 +2,7 @@ body{
     color: #fff;
     font-family: Arial;
     font-size: 12px;
-    background-image: url("/images/login.jpg");
+    background-image: url("../images/login.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -101,6 +101,7 @@ a:visited {
 ::-moz-input-placeholder{
    color: rgba(255,255,255,0.6);
 }
+
 #image-license {
     position: absolute;
     bottom: 0px;

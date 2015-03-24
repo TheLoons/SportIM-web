@@ -155,6 +155,12 @@ services.factory('Goal', ['$resource',
     }]
 );
 
+services.factory('Pass', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'pass/:id', {id:'@id'}, {});
+    }]
+);
+
 services.factory('EventStats', ['$resource',
     function($resource){
         return $resource(soccerUrl+'stats/event/:id', {id:'@id'}, {});

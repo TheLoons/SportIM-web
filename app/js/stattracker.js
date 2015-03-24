@@ -6,9 +6,11 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, TimeStart, $cookies, $location) {
+calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, Pass, TimeStart, $cookies, $location) {
     $scope.score1 = 0;
     $scope.score2 = 0;
+    $scope.passingMode = false;
+    $scope.passingStep = 1;
 
     $(".soccer-field").height(function(){
         return $(this).width()*(1530/2048);
@@ -28,7 +30,12 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     });
 
     $scope.bindPlayers = function(){
-        $(".player").draggable();
+        $(".player").draggable({
+            start: function(e, ui) {
+                $(this).data("dragstart", true);
+                $("#player-modal").css('display', 'none');
+            }
+        });
     };
 
     $scope.playerClick = function(evt, player, team){
@@ -65,6 +72,18 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             }
             $("#selectMessage").text("Saved the goal");
             $scope.ontargetPick = 0;
+        } else if($scope.passingMode && $scope.passingStep == 1) {
+            $scope.passingPlayer = player;
+            $scope.passingStep = 2;
+            $("#selectMessage").text("Select player passing to");
+            $scope.showSelectHeader();
+        } else if($scope.passingMode && $scope.passingStep == 2) {
+            Pass.save({to: player, from: $scope.passingPlayer, id: $scope.event.id});
+            $scope.passingStep = 1;
+            $("#selectMessage").text("Saved the Pass");
+            $scope.showSelectHeader();
+        } else if($(evt.currentTarget).data("dragstart") != false) {
+            $(evt.currentTarget).data("dragstart", false);
         } else {
             $scope.currentPlayer = player;
             $scope.currentTeam = team;
@@ -122,7 +141,11 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     };
 
     $scope.hideSelectHeader = function(){
-        $("#selectHeader").hide();
+        $("#selectHeader").css("background-color", "#fff");
+    };
+
+    $scope.showSelectHeader = function(){
+        $("#selectHeader").css("background-color", "#777");
     };
 
     $scope.stopSession = function(){
@@ -158,7 +181,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         Foul.save(parameters).$promise.then(function(resp) {
             setTimeout(function(){$(".player").draggable();}, 500);
             $("#selectMessage").text("Saved "+message);
-            $("#selectHeader").show();
+            $scope.showSelectHeader();
         });
     };
 
@@ -182,7 +205,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         drop: function(event, ui) {
             $("#selectMessage").text("Click/Tap player who scored the goal");
-            $("#selectHeader").show();
+            $scope.showSelectHeader();
             $scope.goalPick = 1;
         }
     });
@@ -204,7 +227,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         drop: function(event, ui) {
             $("#selectMessage").text("Click/Tap player who made the shot");
-            $("#selectHeader").show();
+            $scope.showSelectHeader();
             $scope.offtargetPick = 1;
         }
     });
@@ -226,7 +249,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         },
         drop: function(event, ui) {
             $("#selectMessage").text("Click/Tap player who made the shot");
-            $("#selectHeader").show();
+            $scope.showSelectHeader();
             $scope.ontargetPick = 1;
         }
     });
@@ -234,4 +257,16 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     $(document).click(function() {
         $("#player-modal").css('display', 'none');
     });
+
+    $scope.enablePassing = function(){
+        $scope.passingMode = true;
+        $(".player").draggable("destroy");
+        $(".soccerball").draggable("destroy");
+    };
+
+    $scope.disablePassing = function(){
+        $scope.passingMode = false;
+        $scope.bindPlayers();
+        $(".soccerball").draggable();
+    };
 });
