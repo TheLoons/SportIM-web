@@ -1,17 +1,17 @@
 {
   "name": "jqueryui-timepicker-addon",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/trentrichardson/jQuery-Timepicker-Addon.git"
   },
   "dependencies": {},
   "homepage": "https://github.com/trentrichardson/jQuery-Timepicker-Addon",
-  "_release": "1.5.0",
+  "_release": "1.5.2",
   "_resolution": {
     "type": "version",
-    "tag": "v1.5.0",
-    "commit": "4b0b765627aea323d016174641385d3cd97667dd"
+    "tag": "v1.5.2",
+    "commit": "fd4cd42967b4eb394f581427230b73aabbfa071d"
   },
   "_source": "git://github.com/trentrichardson/jQuery-Timepicker-Addon.git",
   "_target": "~1.5.x",
