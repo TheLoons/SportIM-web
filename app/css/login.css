@@ -2,7 +2,9 @@ body{
     color: #fff;
     font-family: Arial;
     font-size: 12px;
-    background-image: url("//c4.staticflickr.com/8/7426/10373593623_fbe929be0a_h.jpg");
+    background-image: url("/images/login.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 a:link {
     color: #FFFFFF;
