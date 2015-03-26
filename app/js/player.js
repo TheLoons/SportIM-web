@@ -58,10 +58,10 @@ player.controller('playerview', ['$scope', 'User', 'PlayerStats', '$routeParams'
 
         barChart("#foulChart", fouldata);
 
-        var goaldata = [{ "label": "For", "value": stats.goals, "color": "#44cc44"},
-            {"label": "Against", "value": stats.goalsAgainst, "color": "#cc4444"}];
+        var goaldata = [{label: "Minutes", count: stats.minutes, color: "#ccc", highlightColor: "#eee"},
+            {label: "Goals", count: stats.goals, color: "#44cc44", highlightColor: "#44ff44"}];
 
-        pieChart("#goalChart", goaldata);
+        barChart("#goalChart", goaldata);
 
         var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
             {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},

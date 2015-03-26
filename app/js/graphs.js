@@ -24,8 +24,8 @@ function barChart(element, data) {
         on("mouseover", function() {
             d3.select(this).attr("fill", function(datum) {return datum.highlightColor});
         }).
-    on("mouseout", function() {
-        d3.select(this).attr("fill", function(datum) {return datum.color});
+        on("mouseout", function() {
+            d3.select(this).attr("fill", function(datum) {return datum.color});
     });
 
     barDemo.selectAll().
@@ -42,7 +42,7 @@ function barChart(element, data) {
         data(data).
         enter().
         append("text").
-        attr("x", function(datum, index) { return x(index) + 25; }).
+        attr("x", function(datum, index) { return x(index) + 26; }).
         attr("y", function(datum) { return height - 20; }).
         attr("dy", ".75em").
         attr("text-anchor", "middle").
