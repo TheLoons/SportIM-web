@@ -22,7 +22,7 @@
         <div id="teamList" class="pure-u-1-2 ng-binding">
         <h2>Players</h2>
             <div style="display: inline-flex;" ng-repeat="player in playerList">
-                <li>{{player.firstName}}&nbsp;{{player.lastName}}</li>
+                <li><a href="../views/player.html#/player/{{player.login}}">{{player.firstName}}&nbsp;{{player.lastName}}</a></li>
                 <button ng-click="deleteTeam(player.login)">delete</button>
             </div>
         </div>
