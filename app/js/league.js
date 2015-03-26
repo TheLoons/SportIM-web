@@ -51,10 +51,18 @@ league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTea
         $("#successHeader").hide();
     });
     $scope.addTeam = function(){
-        LeagueTeamAdd.update({teamId: parseInt($scope.teamAdd), id: $scope.league.id});
+        LeagueTeamAdd.update({teamId: parseInt($scope.teamAdd), id: $scope.league.id}).$promise.then(function(resp) {
+            League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+                $scope.teamList = resp.league.teams;
+            });
+        });
     };
     $scope.deleteTeam = function(teamId){
-        LeagueTeamRemove.delete({teamId: teamId, id: $scope.league.id}).$promise.then(function(resp) {});
+        LeagueTeamRemove.delete({teamId: teamId, id: $scope.league.id}).$promise.then(function(resp) {
+            League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+                $scope.teamList = resp.league.teams;
+            });
+        });
     };
 }]);
 
