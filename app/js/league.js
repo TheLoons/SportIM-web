@@ -2,6 +2,7 @@ var league = angular.module('league',['ngRoute', 'services']);
 
 league.controller('header', function($scope) {
     $scope.contextItems = [
+        {url: "player.html#/players", label: "My Players"},
         {url: "team.html", label: "My Teams"},
         {url: "league.html#/leagues", label: "My Leagues"}
     ];

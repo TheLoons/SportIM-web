@@ -33,7 +33,7 @@ function barChart(element, data) {
         enter().
         append("text").
         attr("x", function(datum, index) { return x(index) + 25; }).
-        attr("y", function(datum) { return d3.max([10, height - y(datum.count) - 20]); }).
+        attr("y", function(datum) { if(datum.count == 0) return height - 50; else return d3.max([10, height - y(datum.count) - 20]); }).
         attr("dy", ".75em").
         attr("text-anchor", "middle").
         text(function(datum) {return datum.count});

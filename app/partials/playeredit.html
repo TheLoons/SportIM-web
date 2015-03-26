@@ -1,0 +1,32 @@
+<div class="pure-g">
+    <div class="pure-u-1-4">
+    </div>
+    <div class="pure-u-1-2">
+        <h2>{{player.firstName + ' ' + player.lastName}}</h2>
+        <form class="pure-form pure-form-aligned" ng-submit="submitEdit()" >
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <label for="name">First Name</label>
+                    <input ng-model="playerFirstName" type="text" placeholder="First Name"/>
+                </div>
+                <div class="pure-u-1-2">
+                    <label for="name">Last Name</label>
+                    <input ng-model="playerLastName" type="text" placeholder="Last Name"/>
+                </div>
+                <div class="pure-u-1-2">
+                    <label for="name">Phone Number</label>
+                    <input ng-model="playerPhone" type="text" placeholder="Phone"/>
+                </div>
+                <div class="pure-u-1-2">
+                    <label for="name">Email Address</label>
+                    <input ng-model="playerEmail" type="text" readonly="true" placeholder="Email"/>
+                </div>
+            </div>
+            <br />
+            <a class="pure-button pure-u-1-8 button-cancel" href="#/player/{{player.login}}">Cancel</a>
+            <input type="submit" value="Save" class="pure-button pure-button-primary pure-u-1-8"/>
+        </form>
+    </div>
+    <div class="pure-u-1-4">
+    </div>
+</div>

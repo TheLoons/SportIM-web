@@ -1,0 +1,29 @@
+<div class="pure-g">
+    <div class="pure-u-1-4">
+    </div>
+    <div class="pure-u-1-2">
+        <h2>{{player.name}}</h2>
+        <div class="pure-g">
+            <div class="pure-u-1-3"><strong>Fouls This Season</strong></div>
+            <div class="pure-u-1-3"><strong>Goals For And Against</strong></div>
+            <div class="pure-u-1-3"><strong>Shots This Season</strong></div>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-1-3"><svg id="foulChart"></svg></div>
+            <div class="pure-u-1-3"><div id="goalChart"></div></div>
+            <div class="pure-u-1-3"><div id="shotChart"></div></div>
+        </div>
+        <br/>
+        <div class="pure-g">
+            <div class="pure-u-1-2"><strong>First Name:</strong> {{player.firstName}}</div>
+            <div class="pure-u-1-2"><strong>Last Name:</strong> {{player.lastName}}</div>
+            <div class="pure-u-1-2"><strong>Email:</strong> {{player.login}}</div>
+            <div class="pure-u-1-2"><strong>Phone:</strong> {{player.phone}}</div>
+        </div>
+        <br/>
+        <a class="pure-button" href="#/player/{{player.login}}/edit">Edit player</a>
+        <a class="pure-button button-red" href="#/player/{{player.login}}/delete">Delete player</a>
+    </div>
+    <div class="pure-u-1-4">
+    </div>
+</div>

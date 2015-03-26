@@ -1,4 +1,4 @@
-var serviceUrl = 'https://sportim.herokuapp.com/rest/';
+var serviceUrl = 'http://192.168.0.105:8080/rest/';
 var soccerUrl = 'https://sportim.herokuapp.com/soccer/';
 
 var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
@@ -182,7 +182,7 @@ services.factory('TeamStats', ['$resource',
 
 services.factory('PlayerStats', ['$resource',
     function($resource){
-        return $resource(soccerUrl+'stats/player', {}, {});
+        return $resource(soccerUrl+'stats/player?login=:login', {login:'@login'}, {});
     }]
 );
 
