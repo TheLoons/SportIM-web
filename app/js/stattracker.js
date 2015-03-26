@@ -6,11 +6,12 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, Pass, TimeStart, $cookies, $location) {
+calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, Pass, TimeStart, HalfEnd, HalfStart, TimeEnd, $cookies, $location) {
     $scope.score1 = 0;
     $scope.score2 = 0;
     $scope.passingMode = false;
     $scope.passingStep = 1;
+    $scope.timeStep = 1;
 
     $(".soccer-field").height(function(){
         return $(this).width()*(1530/2048);
@@ -110,32 +111,6 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         });
     }
 
-    $scope.startSession = function(){
-        Session.get({id: $scope.event.id}).$promise.then(function(resp) {
-            //check for session conflict
-            if(resp.status.code == 409) {
-                $("#errorHeader").hide();
-                $("#resetHeader").show();
-            } else {
-                $cookies.soccersession = resp.session;
-                $scope.$broadcast('timer-start');
-                var currTime = moment().format(serviceDateFormat);
-
-                TimeStart.save({id: $scope.event.id, teamID: $scope.team1.id, teamID2: $scope.team2.id,
-                    timestamp: currTime, starters: [], starters2: []}).$promise.then(function(resp) {
-                });
-            }
-        });
-    };
-
-    $scope.resetSession = function(){
-        $("#resetHeader").hide();
-        SessionReset.get({id: $scope.event.id}).$promise.then(function(resp) {
-            $cookies.soccersession = resp.session;
-            $scope.$broadcast('timer-start');
-        });
-    };
-
     $scope.hideResetHeader = function(){
         $("#resetHeader").hide();
     };
@@ -148,18 +123,90 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         $("#selectHeader").css("background-color", "#777");
     };
 
-    $scope.stopSession = function(){
+    $scope.startFirstHalf = function(){
+        $scope.$broadcast('timer-start');
+        var currTime = moment().format(serviceDateFormat);
+
+        var players1 = [];
+        for(var i = 0; i < $scope.team1.players.length; i++)
+            players1.push($scope.team1.players[i].login);
+
+        var players2 = [];
+        for(var i = 0; i < $scope.team2.players.length; i++)
+            players2.push($scope.team2.players[i].login);
+
+        TimeStart.save({id: $scope.event.id, teamID: $scope.team1.id, teamID2: $scope.team2.id,
+            timestamp: currTime, starters: players1, starters2: players2}).$promise.then(function(resp) {
+            $scope.timeStep = 2;
+        });
+    };
+
+    $scope.endFirstHalf = function(){
         $scope.$broadcast('timer-stop');
-        console.log($("#timer").text());
+        var currTime = moment().format(serviceDateFormat);
+
+        HalfEnd.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
+            $scope.timeStep = 3;
+        });
+    };
+
+    $scope.startSecondHalf = function(){
+        $scope.$broadcast('timer-resume');
+        var currTime = moment().format(serviceDateFormat);
+
+        HalfStart.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
+            $scope.timeStep = 4;
+        });
+    };
+
+    $scope.endSecondHalf = function(){
+        $scope.$broadcast('timer-stop');
+        var currTime = moment().format(serviceDateFormat);
+
+        TimeEnd.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
+            $scope.timeStep = 1;
+            $cookies.soccersession = "";
+        });
+    };
+
+    $scope.startSession = function(){
+        Session.get({id: $scope.event.id}).$promise.then(function(resp) {
+            //check for session conflict
+            if(resp.status.code == 409) {
+                $("#errorHeader").hide();
+                $("#resetHeader").show();
+            } else {
+                $cookies.soccersession = resp.session;
+                $scope.startFirstHalf();
+            }
+        });
+    };
+
+    $scope.resetSession = function(){
+        $("#resetHeader").hide();
+        SessionReset.get({id: $scope.event.id}).$promise.then(function(resp) {
+            $cookies.soccersession = resp.session;
+            $scope.startFirstHalf();
+        });
     };
 
     $scope.timerRunning = false;
 
     $scope.toggleTimer = function() {
         if(!$scope.timerRunning)
-            $scope.startSession();
+        {
+            if($scope.timeStep == 1)
+                $scope.startSession();
+            else if ($scope.timeStep == 3)
+                $scope.startSecondHalf();
+        }
         else
-            $scope.stopSession();
+        {
+            if($scope.timeStep == 2)
+                $scope.endFirstHalf();
+            else if ($scope.timeStep == 4)
+                $scope.endSecondHalf();
+        }
 
         $scope.timerRunning = !$scope.timerRunning;
     };
