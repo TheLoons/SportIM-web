@@ -52,6 +52,7 @@ league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTea
     });
     $scope.addTeam = function(){
         LeagueTeamAdd.update({teamId: parseInt($scope.teamAdd), id: $scope.league.id}).$promise.then(function(resp) {
+            $scope.teamAdd = "";
             League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
                 $scope.teamList = resp.league.teams;
             });

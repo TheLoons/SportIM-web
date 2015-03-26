@@ -2,7 +2,7 @@ var player = angular.module('player',['ngRoute', 'services']);
 
 player.controller('header', function($scope) {
     $scope.contextItems = [
-        {url: "player.html#/players", label: "My Users"},
+        {url: "player.html#/players", label: "My Players"},
         {url: "team.html#/teams", label: "My Teams"},
         {url: "league.html", label: "My Leagues"}
     ];
