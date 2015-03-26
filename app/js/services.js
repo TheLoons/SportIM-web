@@ -1,4 +1,4 @@
-var serviceUrl = 'http://192.168.0.105:8080/rest/';
+var serviceUrl = 'https://sportim.herokuapp.com/rest/';
 var soccerUrl = 'https://sportim.herokuapp.com/soccer/';
 
 var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
