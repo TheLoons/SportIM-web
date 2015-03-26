@@ -9,17 +9,18 @@
             <div class="pure-u-1-3"><strong>Sport:</strong> {{league.sport}}</div>
         </div>
         <h2>Teams In League </h2>
-        <div id="teamList" class="pure-u-1-2 ng-binding">
+        <div id="teamList" class="pure-u-1-3 ng-binding">
             <div style="display: inline-flex;" ng-repeat="team in teamList">
                 <li><a href="../views/team.html#/team/{{team.id}}">{{team.name}}</a></li>
                 <button ng-click="deleteTeam(team.id)">delete</button>
             </div>
         </div>
-            <input id="teamAdd" ng-model="teamAdd" placeholder="Add Team">
-            </input>
+        <div class="pure-u-1-2">
+            <input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/>
             <button id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">
                 Add
             </button>
+        </div>
         <br/>
         <a class="pure-button" href="#/league/{{league.id}}/edit">Edit league</a>
         <a class="pure-button button-red" href="#/league/{{league.id}}/delete">Delete league</a>

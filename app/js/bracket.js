@@ -39,6 +39,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
                 $scope.rightOutterMost = rightOutterMost;
                 $scope.leftOutterMost = leftOutterMost;
                 $scope.innerMost = innerMost;
+                $('#noTeams').hide();
                 setTimeout(function(){$scope.drop()}, 500);
             }
             else
@@ -47,11 +48,6 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             }
 
     };
-
-    TeamView.get().$promise.then(function(resp){
-            $scope.teamList = resp.teams;
-            $scope.computeLayout();
-    });
 
     League.get().$promise.then(function(resp) {
         $scope.leagueList = resp.leagues;
