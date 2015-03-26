@@ -34,7 +34,17 @@
             var startDate = moment(view.start).format(serviceDateFormat);
             var endDate = moment(view.end).format(serviceDateFormat);
             Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
+                for(var i = 0; i < resp.events.length; i++)
+                {
+                    if (resp.events[i].tournamentID) {
+                        resp.events[i].color = "#FF4444";
+                    }
+                    else{
+                        resp.events[i].color = "#4444FF";
+                    }
+                }
                 $scope.eventSources[0] = resp;
+
             });
         };
         $scope.clearForm = function(){
