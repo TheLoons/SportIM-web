@@ -51,7 +51,23 @@
                 <label id="awayLabel">Away Team</label>
                 <input id="awayTeam" ng-model="awayTeam" type="text" name="focus" required class="settings-input" placeholder="Away Team"/>
             </div>
+            <div class="pure-g pure-u-1-2">
+                <label>Event Type:</label>
+                <select ng-model="eventType" class="form-control" name="eventType" id="eventType">
+                    <option></option>
+                    <option value="Practice">Practice</option>
+                    <option value="Game">Game</option>
+                    <option value="Fundraiser">Fundraiser</option>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="pure-g pure-u-1-2">
+                <label>Location</label>
+                <input ng-model="location" type="text" name="focus" required class="settings-input" placeholder="Location"/>
+            </div>
         </div>
+        </br>
         <div class="pure-u-11-12">
         <label>Participants</label>
             </br><div ng-repeat="user in searchUsers">

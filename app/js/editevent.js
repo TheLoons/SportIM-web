@@ -5,7 +5,8 @@ editevent.controller('header', function($scope) {
 
 editevent.controller('editevent', function($scope, $location, UserView, TeamView, Event) {
     Event.get({id:$location.search().event}).$promise.then(function(resp) {
-
+        debugger
+        $scope.event = resp.event;
         var event = resp.event;
         $scope.title = event.title;
         $scope.startTime = event.start;
@@ -39,4 +40,11 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
         var teams = resp.teams;
         $scope.searchTeams = teams;    
     });
+    $scope.submitEvent = function() {
+        Event.update({id:$scope.event.id, owner: $scope.event.owner, type: $scope.eventType, location: $scope.location , title:"blah", start: $scope.startTime, end: $scope.endTime, description:$scope.eventDescription}).$promise.then(function(resp) {
+            if(resp.status){
+                $("#successMessage").text("Update Successful");
+            }
+        });
+    };
 });
