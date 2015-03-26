@@ -10,10 +10,11 @@
         </div>
         <h2>Teams In League </h2>
         <div id="teamList" class="pure-u-1-3 ng-binding">
-            <div style="display: inline-flex;" ng-repeat="team in teamList">
-                <li><a href="../views/team.html#/team/{{team.id}}">{{team.name}}</a></li>
-                <button ng-click="deleteTeam(team.id)">delete</button>
-            </div>
+            <ul>
+                <li ng-repeat="team in teamList"><a href="../views/team.html#/team/{{team.id}}">{{team.name}}</a>
+                    <button class="pure-button button-red small-button" ng-click="deleteTeam(team.id)">X</button>
+                </li>
+            </ul>
         </div>
         <div class="pure-u-1-2">
             <input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/>

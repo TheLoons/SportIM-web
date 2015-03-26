@@ -133,3 +133,7 @@
     z-index: 1001;
     background-color: #fff;
 }
+.small-button {
+    font-size: 70%;
+    margin-bottom: 2px;
+}
