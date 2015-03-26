@@ -72,6 +72,7 @@ team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'Te
     });
     $scope.addTeam = function(){
         TeamAddPlayer.update({login: $scope.teamAdd, id: $scope.team.id}).$promise.then(function(resp) {
+            $scope.teamAdd = "";
             Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
                 $scope.playerList = resp.team.players;
             });

@@ -12,6 +12,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     $scope.passingMode = false;
     $scope.passingStep = 1;
     $scope.timeStep = 1;
+    $scope.periodlabel = "";
 
     $(".soccer-field").height(function(){
         return $(this).width()*(1530/2048);
@@ -83,7 +84,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             $scope.passingStep = 1;
             $("#selectMessage").text("Saved the Pass");
             $scope.showSelectHeader();
-        } else if($(evt.currentTarget).data("dragstart") != false) {
+        } else if($(evt.currentTarget).data("dragstart") == true) {
             $(evt.currentTarget).data("dragstart", false);
         } else {
             $scope.currentPlayer = player;
@@ -138,6 +139,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         TimeStart.save({id: $scope.event.id, teamID: $scope.team1.id, teamID2: $scope.team2.id,
             timestamp: currTime, starters: players1, starters2: players2}).$promise.then(function(resp) {
             $scope.timeStep = 2;
+            $scope.periodlabel = "1H";
         });
     };
 
@@ -147,6 +149,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
 
         HalfEnd.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
             $scope.timeStep = 3;
+            $scope.periodlabel = "Half";
         });
     };
 
@@ -156,6 +159,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
 
         HalfStart.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
             $scope.timeStep = 4;
+            $scope.periodlabel = "2H";
         });
     };
 
@@ -166,6 +170,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         TimeEnd.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
             $scope.timeStep = 1;
             $cookies.soccersession = "";
+            $scope.periodlabel = "End";
         });
     };
 
