@@ -83,12 +83,18 @@ services.factory('League', ['$resource',
 );
 services.factory('LeagueTeamAdd', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'league/:id/add', {id:'@id'}, {
+        return $resource(serviceUrl+'league/:id/add?teamId=:teamId', {id:'@id', teamId:'@teamId'}, {
             "update":{method:"PUT"}
         });
     }]
 );
-
+services.factory('LeagueTeamRemove', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league/:id?teamId=:teamId', {id:'@id', teamId:'@teamId'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
 services.factory('Tournament', ['$resource',
     function($resource){
         return $resource(serviceUrl+'tournament/:id', {id:'@id'}, {
