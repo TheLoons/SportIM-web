@@ -2,6 +2,7 @@ var league = angular.module('league',['ngRoute', 'services']);
 
 league.controller('header', function($scope) {
     $scope.contextItems = [
+        {url: "player.html#/players", label: "My Players"},
         {url: "team.html", label: "My Teams"},
         {url: "league.html#/leagues", label: "My Leagues"}
     ];
@@ -43,11 +44,26 @@ league.controller('leagues', function($scope, League) {
     });
 });
 
-league.controller('leagueview', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
+league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTeamRemove', '$routeParams', function($scope, League, LeagueTeamAdd, LeagueTeamRemove, $routeParams) {
     League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
+        $scope.teamList = resp.league.teams;
         $("#successHeader").hide();
     });
+    $scope.addTeam = function(){
+        LeagueTeamAdd.update({teamId: parseInt($scope.teamAdd), id: $scope.league.id}).$promise.then(function(resp) {
+            League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+                $scope.teamList = resp.league.teams;
+            });
+        });
+    };
+    $scope.deleteTeam = function(teamId){
+        LeagueTeamRemove.delete({teamId: teamId, id: $scope.league.id}).$promise.then(function(resp) {
+            League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+                $scope.teamList = resp.league.teams;
+            });
+        });
+    };
 }]);
 
 league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {

@@ -19,7 +19,21 @@
             <div class="pure-u-1-3"><strong>Team Owner:</strong> {{team.owner}}</div>
             <div class="pure-u-1-3"><strong>Sport:</strong> {{team.sport}}</div>
         </div>
-        <br/>
+        <div id="teamList" class="pure-u-1-2 ng-binding">
+        <h2>Players</h2>
+            <div style="display: inline-flex;" ng-repeat="player in playerList">
+                <li><a href="../views/player.html#/player/{{player.login}}">{{player.firstName}}&nbsp;{{player.lastName}}</a></li>
+                <button ng-click="deleteTeam(player.login)">delete</button>
+            </div>
+        </div>
+        <br/><br/>
+        <div class="pure-u-1-2">
+            <input id="teamAdd" ng-model="teamAdd" placeholder="Add Player"/>
+            <button id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">
+                Add
+            </button>
+        </div>
+        <br/><br/><br/>
         <a class="pure-button" href="#/team/{{team.id}}/edit">Edit Team</a>
         <a class="pure-button button-red" href="#/team/{{team.id}}/delete">Delete Team</a>
     </div>

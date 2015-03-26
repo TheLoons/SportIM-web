@@ -2,6 +2,7 @@ var home = angular.module('home',['services']);
 
 home.controller('header', function($scope) {
     $scope.contextItems = [
+        {url: "player.html#/players", label: "My Players"},
         {url: "team.html", label: "My Teams"},
         {url: "league.html", label: "My Leagues"}
     ];

@@ -61,6 +61,20 @@ services.factory('Team', ['$resource',
         });
     }]
 );
+services.factory('TeamAddPlayer', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/:id/add?login=:login', {id:'@id', login:'@login'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
+services.factory('TeamRemovePlayer', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team?teamId=:id&login=:login', {id:'@id', login:'@login'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
 
 services.factory('TeamView', ['$resource',
     function($resource){
@@ -81,7 +95,20 @@ services.factory('League', ['$resource',
         });
     }]
 );
-
+services.factory('LeagueTeamAdd', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league/:id/add?teamId=:teamId', {id:'@id', teamId:'@teamId'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
+services.factory('LeagueTeamRemove', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league?leagueId=:id&teamId=:teamId', {id:'@id', teamId:'@teamId'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
 services.factory('Tournament', ['$resource',
     function($resource){
         return $resource(serviceUrl+'tournament/:id', {id:'@id'}, {
@@ -175,7 +202,7 @@ services.factory('TeamStats', ['$resource',
 
 services.factory('PlayerStats', ['$resource',
     function($resource){
-        return $resource(soccerUrl+'stats/player', {}, {});
+        return $resource(soccerUrl+'stats/player?login=:login', {login:'@login'}, {});
     }]
 );
 
