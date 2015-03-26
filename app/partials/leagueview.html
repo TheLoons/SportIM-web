@@ -11,7 +11,7 @@
         <h2>Teams In League </h2>
         <div id="teamList" class="pure-u-1-2 ng-binding">
             <div style="display: inline-flex;" ng-repeat="team in teamList">
-                <li>{{team.name}}</li>
+                <li><a href="../views/team.html#/team/{{team.id}}">{{team.name}}</a></li>
                 <button ng-click="deleteTeam(team.id)">delete</button>
             </div>
         </div>
