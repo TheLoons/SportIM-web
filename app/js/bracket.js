@@ -29,15 +29,15 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
             {
                 if(i < numGames/2)
                 {
-                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4) }};
+                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4) };
                 }
                 else if(i == Math.ceil(numGames/2))
                 {
-                    $scope.eventData[i] = {teamIDs: [], id: i}};
+                    $scope.eventData[i] = {teamIDs: [], id: i};
                 }
                 else
                 {
-                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4) }};
+                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4) };
                 }
                 eventIds.push(i);
             }
