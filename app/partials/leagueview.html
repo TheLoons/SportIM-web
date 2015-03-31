@@ -17,10 +17,8 @@
             </ul>
         </div>
         <div class="pure-u-1-2">
-            <input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/>
-            <button id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">
-                Add
-            </button>
+            <div><input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/></div>
+            <div id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">Add</div>
         </div>
         <br/>
         <a class="pure-button" href="#/league/{{league.id}}/edit">Edit league</a>

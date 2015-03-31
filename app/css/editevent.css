@@ -10,3 +10,10 @@
 #awayLabel {
 	display: none;
 }
+.participants-list {
+    height: 300px;
+    overflow-y: scroll;
+}
+div.selectize-input {
+    width: 100%;
+}

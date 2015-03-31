@@ -4,10 +4,8 @@
 }
 .settings-input {
     width: 100%;
-    border: 1px solid #ccc;
     outline: 0;
     color: #696969;
-    display: block;
     margin-bottom: 15px;
 }
 .pure-button {

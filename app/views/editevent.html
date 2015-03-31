@@ -5,6 +5,7 @@
     <title>Edit Event</title>
     <link rel="stylesheet" href="../bower_components/pure/pure-min.css">
     <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="../bower_components/selectize/dist/css/selectize.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/settings.css">
     <link rel="stylesheet" href="../css/editevent.css">
@@ -14,6 +15,8 @@
     <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
     <script src="../bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="../bower_components/selectize/dist/js/standalone/selectize.min.js"></script>    
+    <script src="../js/autocompletes.js"></script>
     <script src="../js/services.js"></script>
     <script src="../js/editevent.js"></script>
 </head>
@@ -43,13 +46,13 @@
         <div class="pure-g">
             <div class="pure-u-5-12">
                 <label id="homeLabel">Home Team</label>
-                <input id="homeTeam" ng-model="homeTeam" type="text" name="focus" required class="settings-input" placeholder="Home Team"/>
+                <div><input id="homeTeam" ng-model="homeTeam" type="text" name="focus" required class="settings-input" placeholder="Home Team"/></div>
             </div>
             <div class="pure-u-1-12">
             </div>
             <div class="pure-u-5-12">
                 <label id="awayLabel">Away Team</label>
-                <input id="awayTeam" ng-model="awayTeam" type="text" name="focus" required class="settings-input" placeholder="Away Team"/>
+                <div><input id="awayTeam" ng-model="awayTeam" type="text" name="focus" required class="settings-input" placeholder="Away Team"/></div>
             </div>
             <div class="pure-g pure-u-1-2">
                 <label>Event Type:</label>
@@ -68,7 +71,7 @@
             </div>
         </div>
         </br>
-        <div class="pure-u-11-12">
+        <div class="pure-u-11-12 participants-list">
         <label>Participants</label>
             </br><div ng-repeat="user in searchUsers">
                 </br><li>

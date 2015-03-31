@@ -44,7 +44,8 @@ league.controller('leagues', function($scope, League) {
     });
 });
 
-league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTeamRemove', '$routeParams', function($scope, League, LeagueTeamAdd, LeagueTeamRemove, $routeParams) {
+league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTeamRemove', 'TeamEdit', '$routeParams', function($scope, League, LeagueTeamAdd, LeagueTeamRemove, TeamEdit, $routeParams) {
+    teamAutocomplete("#teamAdd", TeamEdit);
     League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
         $scope.teamList = resp.league.teams;
@@ -52,7 +53,7 @@ league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTea
     });
     $scope.addTeam = function(){
         LeagueTeamAdd.update({teamId: parseInt($scope.teamAdd), id: $scope.league.id}).$promise.then(function(resp) {
-            $scope.teamAdd = "";
+            $("#teamAdd")[0].selectize.clear();
             League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
                 $scope.teamList = resp.league.teams;
             });

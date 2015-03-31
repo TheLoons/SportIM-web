@@ -5,19 +5,18 @@ editevent.controller('header', function($scope) {
 
 editevent.controller('editevent', function($scope, $location, UserView, TeamView, Event) {
     Event.get({id:$location.search().event}).$promise.then(function(resp) {
-        debugger
         $scope.event = resp.event;
         var event = resp.event;
         $scope.title = event.title;
         $scope.startTime = event.start;
         $scope.endTime = event.end;
         if (event.teams && event.teams[0] && event.teams[1]) {
-            $('#homeTeam').show()
-            $('#awayTeam').show()
             $('#homeLabel').show()
             $('#awayLabel').show()
-            $scope.homeTeam = event.teams[0].id;
-            $scope.awayTeam = event.teams[1].id;
+            $("#homeTeam").val(event.teams[0].name);
+            $("#awayTeam").val(event.teams[1].name);
+            teamAutocomplete("#homeTeam", TeamView);
+            teamAutocomplete("#awayTeam", TeamView);
         }
         if (!event.editable) {
             $("#homeTeam").prop("readonly",true);

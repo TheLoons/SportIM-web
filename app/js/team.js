@@ -44,7 +44,8 @@ team.controller('teams', function($scope, TeamEdit) {
     });
 });
 
-team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'TeamRemovePlayer', '$routeParams', function($scope, Team, TeamStats, TeamAddPlayer, TeamRemovePlayer, $routeParams) {
+team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'TeamRemovePlayer', 'UserView', '$routeParams', function($scope, Team, TeamStats, TeamAddPlayer, TeamRemovePlayer, UserView, $routeParams) {
+    playerAutocomplete("#playerAdd", UserView);
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
         $("#successHeader").hide();
@@ -70,9 +71,9 @@ team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'Te
 
         pieChart("#shotChart", shotdata);
     });
-    $scope.addTeam = function(){
-        TeamAddPlayer.update({login: $scope.teamAdd, id: $scope.team.id}).$promise.then(function(resp) {
-            $scope.teamAdd = "";
+    $scope.addPlayer = function(){
+        TeamAddPlayer.update({login: $scope.playerAdd, id: $scope.team.id}).$promise.then(function(resp) {
+            $("#playerAdd")[0].selectize.clear();
             Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
                 $scope.playerList = resp.team.players;
             });

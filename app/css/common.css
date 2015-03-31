@@ -136,4 +136,13 @@
 .small-button {
     font-size: 70%;
     margin-bottom: 2px;
+    padding: 0.3em 0.3em 0.3em 0.4em;
+}
+
+div.selectize-input {
+    width: 300px;
+}
+.selectize-dropdown-content .name{
+    font-weight: bold;
+    display: block;
 }
