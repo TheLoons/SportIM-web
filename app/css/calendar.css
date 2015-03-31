@@ -60,3 +60,9 @@
     text-align: center;
     margin-right: 10px;
 }
+.pure-control-group .selectize-value{
+    display: inline-block;
+}
+.selectize-label {
+    vertical-align: 70%!important;
+}
