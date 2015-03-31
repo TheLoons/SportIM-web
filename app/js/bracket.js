@@ -21,32 +21,46 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     });
 
     $scope.computeLayout = function(){
-            setTimeout(function(){$(".teamDrag").draggable({revert: "invalid"});}, 500);
-            if($scope.teamList && $scope.teamList.length > 0)
+        if($scope.teamList && $scope.teamList.length > 0)
+        {
+            var eventIds = [];
+            var numGames = $scope.teamList.length-1;
+            for(var i = 1; i <= numGames; i++)
             {
-                var eventIds = [];
-                for(var i = 0; i < $scope.teamList.length; i++)
+                if(i < numGames/2)
                 {
-                    eventIds.push(i);
+                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4) }};
                 }
-                $scope.halfTeamLength = Math.ceil($scope.teamList.length / 2);
-                var half_length = Math.ceil($scope.teamList.length / 2);
-                var secondDivide = half_length/2;
-                var leftOutterMost = eventIds.slice(0,secondDivide);
-                var rightOutterMost = eventIds.slice(secondDivide,secondDivide*2);
-                var outterMostLength = Math.ceil(rightOutterMost.length / 2);
-                var innerMost = rightOutterMost.slice(0,outterMostLength);
-                $scope.rightOutterMost = rightOutterMost;
-                $scope.leftOutterMost = leftOutterMost;
-                $scope.innerMost = innerMost;
-                $('#noTeams').hide();
-                setTimeout(function(){$scope.drop()}, 500);
-            }
-            else
-            {
-                $('#noTeams').show();
+                else if(i == Math.ceil(numGames/2))
+                {
+                    $scope.eventData[i] = {teamIDs: [], id: i}};
+                }
+                else
+                {
+                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4) }};
+                }
+                eventIds.push(i);
             }
 
+
+            $scope.halfTeamLength = Math.ceil($scope.teamList.length / 2);
+            var half_length = Math.ceil($scope.teamList.length / 2);
+            var secondDivide = half_length/2;
+            var leftOutterMost = eventIds.slice(0,secondDivide);
+            var rightOutterMost = eventIds.slice(secondDivide,secondDivide*2);
+            var outterMostLength = Math.ceil(rightOutterMost.length / 2);
+            var innerMost = rightOutterMost.slice(0,outterMostLength);
+            $scope.rightOutterMost = rightOutterMost;
+            $scope.leftOutterMost = leftOutterMost;
+            $scope.innerMost = innerMost;
+            $('#noTeams').hide();
+            setTimeout(function(){$scope.drop()}, 500);
+        }
+        else
+        {
+            $('#noTeams').show();
+        }
+        setTimeout(function(){$(".teamDrag").draggable({revert: "invalid"});}, 500);
     };
 
     League.get().$promise.then(function(resp) {
