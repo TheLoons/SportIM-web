@@ -1,0 +1,16 @@
+.header{
+	text-align:center
+}
+.main_picture{
+	pure-u-1-1
+	text-align:center
+}
+.mainImage{
+	width:60%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+.description{
+	text-align:center	
+}
