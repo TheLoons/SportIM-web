@@ -44,10 +44,58 @@ player.controller('players', function($scope, UserView) {
     });
 });
 
-player.controller('playerview', ['$scope', 'User', 'PlayerStats', '$routeParams', function($scope, User, PlayerStats, $routeParams) {
+player.controller('playerview', function($scope, User, PlayerStats, PlayerPassing, $routeParams) {
     User.get({login: $routeParams.playerId}).$promise.then(function(resp) {
         $scope.player = resp.user;
         $("#successHeader").hide();
+
+        PlayerPassing.get({login: $routeParams.playerId}).$promise.then(function(resp) {
+            var passingMade = resp.playerPasses.passesMade;
+            var passingReceived = resp.playerPasses.passesReceived;
+            var passdata = [];
+            var players = [];
+
+            players.push($scope.player.login);
+            passdata[players.indexOf($scope.player.login)] = [];
+
+            angular.forEach(passingMade, function(count, to){
+                if(players.indexOf(to) == -1) {
+                    players.push(to);
+                    passdata[players.indexOf(to)] = [];
+                }
+
+                passdata[players.indexOf($scope.player.login)][players.indexOf(to)] = count;
+            });
+
+            angular.forEach(passingReceived, function(count, from){
+                if(players.indexOf(from) == -1) {
+                    players.push(from);
+                    passdata[players.indexOf(from)] = [];
+                }
+
+                passdata[players.indexOf(from)][players.indexOf($scope.player.login)] = count;
+            });
+
+            angular.forEach(passdata, function(pass, key){
+                for(i = 0; i < players.length; i++) {
+                    if(pass[i] == undefined)
+                        pass[i] = 0;
+                }
+            });
+
+            var namecount = 0;
+            angular.forEach(players, function(player, key){
+                User.get({login: player}).$promise.then(function(resp) {
+                    // based on number of passes, allow a name to be passes * 3
+                    var count = 0;
+                    passdata[key].map(function(d){count += d});
+                    players[key] = resp.user.lastName.slice(0, count > 1 ? count*3 : 1 );
+                    namecount++;
+                    if(namecount == players.length)
+                        chordChart("#passChart", passdata, players, $("#passChart").parent().width(), 300);
+                });
+            });
+        });
     });
     PlayerStats.get({login: $routeParams.playerId}).$promise.then(function(resp) {
         var stats = resp.playerStats;
@@ -56,20 +104,20 @@ player.controller('playerview', ['$scope', 'User', 'PlayerStats', '$routeParams'
         {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
         {label: 'reds', count: stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
 
-        barChart("#foulChart", fouldata);
+        barChart("#foulChart", fouldata, 200, 200);
 
         var goaldata = [{label: "Minutes", count: stats.minutes, color: "#ccc", highlightColor: "#eee"},
             {label: "Goals", count: stats.goals, color: "#44cc44", highlightColor: "#44ff44"}];
 
-        barChart("#goalChart", goaldata);
+        barChart("#goalChart", goaldata, 200, 200);
 
         var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
             {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},
             {"label": "Off Target", "value": (stats.shots - stats.shotsOnGoal), "color": "#cc4444"}];
 
-        pieChart("#shotChart", shotdata);
+        pieChart("#shotChart", shotdata, 300, 250);
     });
-}]);
+});
 
 player.controller('playeredit', ['$scope', 'User', '$routeParams', function($scope, User, $routeParams) {
     if($routeParams.playerId) {

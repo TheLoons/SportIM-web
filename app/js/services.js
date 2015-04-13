@@ -235,3 +235,21 @@ services.factory('PlayerSub', ['$resource',
         return $resource(soccerUrl+'time/sub/:id', {id: '@id'}, {});
     }]
 );
+
+services.factory('PlayerPassing', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'pass?player=:login', {login: '@login'}, {});
+    }]
+);
+
+services.factory('TeamPassing', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'pass?teamID=:id', {login: '@id'}, {});
+    }]
+);
+
+services.factory('EventPassing', ['$resource',
+    function($resource){
+        return $resource(soccerUrl+'pass?eventID=:id', {login: '@id'}, {});
+    }]
+);

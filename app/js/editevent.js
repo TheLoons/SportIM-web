@@ -3,7 +3,48 @@ var editevent = angular.module('editevent',['services']);
 editevent.controller('header', function($scope) {
 });
 
-editevent.controller('editevent', function($scope, $location, UserView, TeamView, Event, EventStats, Team) {
+editevent.controller('editevent', function($scope, $location, UserView, TeamView, Event, EventStats, Team, EventPassing) {
+    $scope.loadPassing = function(teamID, passing, element) {
+        Team.get({id: teamID}).$promise.then(function(resp) {
+            var team = resp.team;
+            var playerList = resp.team.players;
+            var passdata = [];
+            var players = [];
+
+            angular.forEach(passing, function(pass, key){
+                if(players.indexOf(pass.to) == -1) {
+                    players.push(pass.to);
+                    passdata[players.indexOf(pass.to)] = [];
+                }
+
+                if(players.indexOf(pass.from) == -1) {
+                    players.push(pass.from);
+                    passdata[players.indexOf(pass.from)] = [];
+                }
+
+                passdata[players.indexOf(pass.from)][players.indexOf(pass.to)] = pass.count;
+            });
+
+            angular.forEach(passdata, function(pass, key){
+                for(i = 0; i < players.length; i++) {
+                    if(pass[i] == undefined)
+                        pass[i] = 0;
+                }
+            });
+
+            angular.forEach(playerList, function(player, key){
+                if(players.indexOf(player.login) != -1) {
+                    // based on number of passes, allow a name to be passes * 3
+                    var count = 0;
+                    passdata[players.indexOf(player.login)].map(function(d){count += d});
+                    players[players.indexOf(player.login)] = player.lastName.slice(0, count > 1 ? count*3 : 1 );
+                }
+            });
+
+            chordChart(element, passdata, players, $(element).parent().width(), 300);
+        });
+    }
+
     Event.get({id:$location.search().event}).$promise.then(function(resp) {
         $scope.event = resp.event;
         var event = resp.event;
@@ -13,6 +54,8 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
         if (event.teams && event.teams[0] && event.teams[1]) {
             $('#homeLabel').show()
             $('#awayLabel').show()
+            $scope.team1 = event.teams[0];
+            $scope.team2 = event.teams[1];
             $("#homeTeam").val(event.teams[0].name);
             $("#awayTeam").val(event.teams[1].name);
             teamAutocomplete("#homeTeam", TeamView);
@@ -27,7 +70,17 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
             $("#endTime").prop("readonly",true);
             $("#submit").hide();
         }
-      });
+
+        EventPassing.get({id: event.id}).$promise.then(function(resp) {
+            if(resp.eventPasses[0].teamID == $scope.team1.id) {
+                $scope.loadPassing($scope.team1.id, resp.eventPasses[0].passes, "#team1passChart");
+                $scope.loadPassing($scope.team2.id, resp.eventPasses[1].passes, "#team2passChart");
+            } else {
+                $scope.loadPassing($scope.team1.id, resp.eventPasses[1].passes, "#team1passChart");
+                $scope.loadPassing($scope.team2.id, resp.eventPasses[0].passes, "#team2passChart");
+            }
+        });
+    });
     EventStats.get({id:$location.search().event}).$promise.then(function(resp) {
         $scope.eventstats = resp.eventStats;
         $scope.team1stats = $scope.eventstats.teamStats[0];
@@ -37,32 +90,25 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
         {label: 'yellows', count: $scope.team1stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
         {label: 'reds', count: $scope.team1stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
 
-        barChart("#team1foulChart", team1fouldata);
+        barChart("#team1foulChart", team1fouldata, 200, 150);
 
         var team1shotdata = [{ "label": "Goal", "value": $scope.team1stats.goals, "color": "#44cc44"},
             {"label": "Saved", "value": $scope.team1stats.shotsOnGoal, "color": "#ffee00"},
             {"label": "Off Target", "value": ($scope.team1stats.shots - $scope.team1stats.shotsOnGoal), "color": "#cc4444"}];
 
-        pieChart("#team1shotChart", team1shotdata);
+        pieChart("#team1shotChart", team1shotdata, 300, 250);
 
         var team2fouldata = [{label: 'fouls', count: $scope.team2stats.fouls, color: "#ccc", highlightColor: "#eee"},
         {label: 'yellows', count: $scope.team2stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
         {label: 'reds', count: $scope.team2stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
 
-        barChart("#team2foulChart", team2fouldata);
+        barChart("#team2foulChart", team2fouldata, 200, 150);
 
         var team2shotdata = [{ "label": "Goal", "value": $scope.team2stats.goals, "color": "#44cc44"},
             {"label": "Saved", "value": $scope.team2stats.shotsOnGoal, "color": "#ffee00"},
             {"label": "Off Target", "value": ($scope.team2stats.shots - $scope.team2stats.shotsOnGoal), "color": "#cc4444"}];
 
-        pieChart("#team2shotChart", team2shotdata);
-
-        Team.get({id: $scope.team1stats.teamID}).$promise.then(function(resp) {
-            $scope.team1 = resp.team;
-        });
-        Team.get({id: $scope.team2stats.teamID}).$promise.then(function(resp) {
-            $scope.team2 = resp.team;
-        });
+        pieChart("#team2shotChart", team2shotdata, 300, 250);
     });
 
     UserView.get().$promise.then(function(resp) {
@@ -80,6 +126,11 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
             if(resp.status){
                 $("#successMessage").text("Update Successful");
             }
+        });
+    };
+    $scope.clearStats = function() {
+        EventStats.delete({id:$scope.event.id}).$promise.then(function(resp) {
+            location.reload();
         });
     };
 });
