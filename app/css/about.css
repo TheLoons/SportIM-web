@@ -1,0 +1,34 @@
+body {
+    color: #fff;
+    font-family: Arial;
+}
+.about-header {
+    text-align: center;
+    font-size: 30px;
+    padding-top: 30px;
+}
+.description {
+    font-size: 17px;
+    background-color: #444;
+    padding: 5px;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+.short-description {
+    margin-right: 4px;
+}
+.logo-container {
+	text-align:center	
+}
+.sportim-logo {
+    float: initial;
+}
+.mainImage {
+    margin-top: 20px;
+    width: 100%;
+}
+.inline-logo {
+    display: inline;
+    padding: 0px;
+    font-weight: bolder;
+}

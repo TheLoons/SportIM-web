@@ -17,15 +17,27 @@
             </ul>
         </div>
         <div class="pure-u-1-2">
-            <input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/>
-            <button id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">
-                Add
-            </button>
+            <div><input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/></div>
+            <div id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">Add</div>
         </div>
         <br/>
         <a class="pure-button" href="#/league/{{league.id}}/edit">Edit league</a>
         <a class="pure-button button-red" href="#/league/{{league.id}}/delete">Delete league</a>
     </div>
     <div class="pure-u-1-4">
+        <h2> League Table</h2>
+        <select class="tourn-option" ng-model="leagueSelected" ng-options="table.tournamentID for table in tableList" ng-change="changeTournament()"></select>
+            <table align="left" style="width:100%">
+              <tr>
+                <th align="center">Rank</th>
+                <th align="center">Team</th>      
+                <th align="center">Points</th>
+              </tr>
+              <tr ng-repeat="row in tournamentResults">
+                <td align="center">{{row.rank}}</td>
+                <td align="center">{{row.teamID}}</td>      
+                <td align="center">{{row.points}}</td>
+              </tr>
+            </table>
     </div>
 </div>

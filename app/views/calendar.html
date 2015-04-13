@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../bower_components/fullcalendar/fullcalendar.print.css" media="print">
     <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" href="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css" />
+    <link rel="stylesheet" href="../bower_components/selectize/dist/css/selectize.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/calendar.css">
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -21,6 +22,8 @@
     <script src="../bower_components/fullcalendar/fullcalendar.min.js"></script>
     <script src="../bower_components/fullcalendar/gcal.js"></script>
     <script src="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js"></script>
+    <script src="../bower_components/selectize/dist/js/standalone/selectize.min.js"></script>    
+    <script src="../js/autocompletes.js"></script>
     <script src="../js/services.js"></script>
     <script src="../js/calendar.js"></script>
 </head>
@@ -67,12 +70,12 @@
                     <input id="endTime" ng-model="endTime"/>
                 </div>
                 <div class="pure-control-group">
-                    <label for="team1">Team 1</label>
-                    <input id="team1" ng-model="team1"/>
+                    <label for="team1" class="selectize-label">Team 1</label>
+                    <div class="selectize-value"><input id="team1" ng-model="team1"/></div>
                 </div>
                 <div class="pure-control-group">
-                    <label for="team2">Team 2</label>
-                    <input id="team2" ng-model="team2"/>
+                    <label for="team2" class="selectize-label">Team 2</label>
+                    <div class="selectize-value"><input id="team2" ng-model="team2"/></div>
                 </div>
                 <a href="editevent.html#/?event={{selectedEvent}}" class="pure-button pure-u-1-5 button-moreOptions" ng-click="$event.stopPropagation();">More Options</a>
                 <div class="pure-u-1-4"></div>

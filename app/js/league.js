@@ -44,15 +44,25 @@ league.controller('leagues', function($scope, League) {
     });
 });
 
-league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd', 'LeagueTeamRemove', '$routeParams', function($scope, League, LeagueTeamAdd, LeagueTeamRemove, $routeParams) {
+league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd','LeagueTables', 'LeagueTableResult', 'LeagueTeamRemove', 'TeamEdit', '$routeParams', function($scope, League, LeagueTeamAdd, LeagueTables, LeagueTableResult, LeagueTeamRemove, TeamEdit, $routeParams) {
+    teamAutocomplete("#teamAdd", TeamEdit);
     League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
         $scope.teamList = resp.league.teams;
         $("#successHeader").hide();
+
+        LeagueTables.get({id: $routeParams.leagueId}).$promise.then(function(resp){
+            $scope.tableList = resp.tables;
+        });
     });
+    $scope.changeTournament = function() {
+        LeagueTableResult.get({id: $routeParams.leagueId, tableID: $scope.leagueSelected.tournamentID}).$promise.then(function(resp){
+            $scope.tournamentResults = resp.tournamentResults;
+        });
+    }
     $scope.addTeam = function(){
         LeagueTeamAdd.update({teamId: parseInt($scope.teamAdd), id: $scope.league.id}).$promise.then(function(resp) {
-            $scope.teamAdd = "";
+            $("#teamAdd")[0].selectize.clear();
             League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
                 $scope.teamList = resp.league.teams;
             });

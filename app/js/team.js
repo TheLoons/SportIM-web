@@ -44,11 +44,49 @@ team.controller('teams', function($scope, TeamEdit) {
     });
 });
 
-team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'TeamRemovePlayer', '$routeParams', function($scope, Team, TeamStats, TeamAddPlayer, TeamRemovePlayer, $routeParams) {
+team.controller('teamview', function($scope, Team, TeamStats, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
+    playerAutocomplete("#playerAdd", UserView);
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
         $("#successHeader").hide();
         $scope.playerList = resp.team.players;
+
+        TeamPassing.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+            var passing = resp.teamPasses.passes;
+            var passdata = [];
+            var players = [];
+            angular.forEach(passing, function(pass, key){
+                if(players.indexOf(pass.to) == -1) {
+                    players.push(pass.to);
+                    passdata[players.indexOf(pass.to)] = [];
+                }
+
+                if(players.indexOf(pass.from) == -1) {
+                    players.push(pass.from);
+                    passdata[players.indexOf(pass.from)] = [];
+                }
+
+                passdata[players.indexOf(pass.from)][players.indexOf(pass.to)] = pass.count;
+            });
+
+            angular.forEach(passdata, function(pass, key){
+                for(i = 0; i < players.length; i++) {
+                    if(pass[i] == undefined)
+                        pass[i] = 0;
+                }
+            });
+
+            angular.forEach($scope.playerList, function(player, key){
+                if(players.indexOf(player.login) != -1) {
+                    // based on number of passes, allow a name to be passes * 3
+                    var count = 0;
+                    passdata[players.indexOf(player.login)].map(function(d){count += d});
+                    players[players.indexOf(player.login)] = player.lastName.slice(0, count > 1 ? count*3 : 1 );
+                }
+            });
+
+            chordChart("#passChart", passdata, players, $("#passChart").parent().width(), 300);
+        });
     });
     TeamStats.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         var stats = resp.teamStats;
@@ -57,27 +95,29 @@ team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'Te
         {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
         {label: 'reds', count: stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
 
-        barChart("#foulChart", fouldata);
+        barChart("#foulChart", fouldata, $("#foulChart").parent().width()/1.5, 250);
 
         var goaldata = [{ "label": "For", "value": stats.goals, "color": "#44cc44"},
             {"label": "Against", "value": stats.goalsAgainst, "color": "#cc4444"}];
 
-        pieChart("#goalChart", goaldata);
+        pieChart("#goalChart", goaldata, $("#goalChart").parent().width(), 250);
 
         var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
             {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},
             {"label": "Off Target", "value": (stats.shots - stats.shotsOnGoal), "color": "#cc4444"}];
 
-        pieChart("#shotChart", shotdata);
+        pieChart("#shotChart", shotdata, $("#goalChart").parent().width(), 250);
     });
-    $scope.addTeam = function(){
-        TeamAddPlayer.update({login: $scope.teamAdd, id: $scope.team.id}).$promise.then(function(resp) {
-            $scope.teamAdd = "";
+
+    $scope.addPlayer = function(){
+        TeamAddPlayer.update({login: $scope.playerAdd, id: $scope.team.id}).$promise.then(function(resp) {
+            $("#playerAdd")[0].selectize.clear();
             Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
                 $scope.playerList = resp.team.players;
             });
         });
     };
+
     $scope.deleteTeam = function(login){
         TeamRemovePlayer.delete({login: login, id: $scope.team.id}).$promise.then(function(resp) {
             Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
@@ -85,7 +125,7 @@ team.controller('teamview', ['$scope', 'Team', 'TeamStats', 'TeamAddPlayer', 'Te
             });
         });
     };
-}]);
+});
 
 team.controller('teamedit', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
     if($routeParams.teamId) {
