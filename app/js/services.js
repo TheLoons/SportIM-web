@@ -87,7 +87,16 @@ services.factory('TeamEdit', ['$resource',
         return $resource(serviceUrl+'team/edit', {});
     }]
 );
-
+services.factory('LeagueTables', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league/:id/table', {id: '@id'}, {});
+    }]
+);
+services.factory('LeagueTableResult', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'league/:id/table/:tableID', {id:'@id', tableID: '@tableID'}, {});
+    }]
+);
 services.factory('League', ['$resource',
     function($resource){
         return $resource(serviceUrl+'league/:id', {id:'@id'}, {
