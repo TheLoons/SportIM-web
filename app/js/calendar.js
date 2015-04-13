@@ -100,7 +100,6 @@
             $scope.clearForm();
         };
         $scope.submitEvent = function(){
-            debugger
             var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
             var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
             if (!$scope.team1 || !$scope.team2) {
