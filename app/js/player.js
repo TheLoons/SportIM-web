@@ -98,7 +98,7 @@ player.controller('playerview', function($scope, User, PlayerStats, PlayerPassin
         });
     });
     PlayerStats.get({login: $routeParams.playerId}).$promise.then(function(resp) {
-        var stats = resp.playerStats;
+        var stats = resp.playerStats[0];
 
         var fouldata = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"},
         {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
