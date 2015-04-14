@@ -59,6 +59,12 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
         });
     };
 
+    $scope.changeLeague = function() {
+        League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+            $scope.teamList = resp.league.teams;
+        });
+    }
+
     $scope.cancelEvent = function(evt){
         evt.stopPropagation();
         $scope.inputModal = false;
@@ -141,14 +147,15 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
                     eventObject.tournamentID = resp.id;
                     $scope.eventData[key] = eventObject;
                 });
-                Events.save($scope.eventData);
-                if ($scope.tableList) {
-                    LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: resp.id}).$promise.then(function(resp) {
-                        if(resp.status.code == 200) {
-                            document.location = "calendar.html";
-                        }
-                    });
-                }
+                Events.save($scope.eventData).$promise.then(function(resp){
+                    if ($scope.tableList) {
+                        LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: resp.id}).$promise.then(function(resp) {
+                            if(resp.status.code == 200) {
+                                document.location = "calendar.html";
+                            }
+                        });
+                    }
+                });
             }
         });
     };
