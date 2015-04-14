@@ -19,18 +19,27 @@
 <body>
     <div ng-include src="'../partials/header.html'"></div>
     <div class="pure-g">
-        <div class="pure-menu go_home pure-u-1-8"></div>
-        <div ng-controller="feed" class="feeds_container pure-u-3-4">
+        <div class="pure-menu pure-u-1-8"></div>
+        <div ng-controller="feed" class="feeds-container pure-u-3-4">
             <h3 class="feed-head">Upcoming Games and Events</h3>
             <div class="feeds">
                 <ul>
                     <li ng-hide="!noevents" class="odd"><span class="feed-event-title">{{noevents}}</span></li>
-                    <li ng-class-odd="'odd'" ng-repeat="event in events"><span class="feed-event-title">{{event.title}}</span> ({{event.start}} - {{event.end}})</li>
+                    <li ng-class-odd="'odd'" class="pure-g" ng-repeat="event in events">
+                        <span class="feed-event-date pure-u-1-8">
+                            <span class="feed-event-day">{{event.startday}}</span>
+                            <span class="feed-event-month">{{event.startmonth}}</span>
+                        </span>
+                        <span class="feed-event-title pure-u-3-4">{{event.title}}</span>
+                        <span class="feed-event-date pure-u-1-8">
+                            <span class="feed-event-time-start">{{event.start}}</span>
+                            <span class="feed-event-time-end">{{event.end}}</span>
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="pure-u-1-8"></div>
-        
     </div>
 </body>
 </html>

@@ -12,10 +12,12 @@ home.controller('feed', function($scope, Events) {
     var startDate = moment().format(serviceDateFormat);
     var endDate = moment().add(3,'M').format(serviceDateFormat);
     Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
-        var events = resp.events;
-        angular.forEach(resp.events, function(value, key){
-            events[key].start = moment(value.start).format("MM/DD/YYYY h:mm:ssa");
-            events[key].end = moment(value.end).format("MM/DD/YYYY h:mm:ssa");
+        var events = resp.events.slice(0,10);
+        angular.forEach(events, function(value, key){
+            events[key].startday = moment(value.start).format("D");
+            events[key].startmonth = moment(value.start).format("MMM");
+            events[key].start = moment(value.start).format("h:mm A");
+            events[key].end = moment(value.end).format("h:mm A");
         }); 
         if(events.length == 0)
             $scope.noevents = "No Upcoming Events";
