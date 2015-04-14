@@ -13,6 +13,7 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
     $scope.twoteamIndex = {};
     $scope.teamData = [];
     $scope.currentIndex = -1;
+    $scope.daysbetween = 1;
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
@@ -131,8 +132,8 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
 
             if(currentDate.clone().add(2, 'h').isAfter(currentEndDate))
             {
-                currentStartDate.add(1, 'd');
-                currentEndDate.add(1, 'd');
+                currentStartDate.add($scope.daysbetween, 'd');
+                currentEndDate.add($scope.daysbetween, 'd');
                 currentDate = currentStartDate.clone();
             }
             $scope.eventData[key] = eventObject;
@@ -147,9 +148,10 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
                     eventObject.tournamentID = resp.id;
                     $scope.eventData[key] = eventObject;
                 });
+                var tournamentId = resp.id;
                 Events.save($scope.eventData).$promise.then(function(resp){
                     if ($scope.tableList) {
-                        LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: resp.id}).$promise.then(function(resp) {
+                        LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: tournamentId}).$promise.then(function(resp) {
                             if(resp.status.code == 200) {
                                 document.location = "calendar.html";
                             }
