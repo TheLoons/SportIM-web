@@ -6,7 +6,7 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('roundrobinc', function($scope, League, Events, Event, Tournament, TeamView) {
+calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events, Event, Tournament, TeamView) {
 
     $scope.eventData = [];
     $scope.teamIndex = {};
@@ -142,6 +142,13 @@ calendar.controller('roundrobinc', function($scope, League, Events, Event, Tourn
                     $scope.eventData[key] = eventObject;
                 });
                 Events.save($scope.eventData);
+                if ($scope.tableList) {
+                    LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: resp.id}).$promise.then(function(resp) {
+                        if(resp.status.code == 200) {
+                            document.location = "calendar.html";
+                        }
+                    });
+                }
             }
         });
     };

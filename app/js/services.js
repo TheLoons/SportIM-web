@@ -89,7 +89,9 @@ services.factory('TeamEdit', ['$resource',
 );
 services.factory('LeagueTables', ['$resource',
     function($resource){
-        return $resource(serviceUrl+'league/:id/table', {id: '@id'}, {});
+        return $resource(serviceUrl+'league/:id/table', {id: '@id'}, {
+            "update":{method:"PUT"}
+        });
     }]
 );
 services.factory('LeagueTableResult', ['$resource',
