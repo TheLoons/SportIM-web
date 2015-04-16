@@ -6,13 +6,14 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('roundrobinc', function($scope, League, Events, Event, Tournament, TeamView) {
+calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events, Event, Tournament, TeamView) {
 
     $scope.eventData = [];
     $scope.teamIndex = {};
     $scope.twoteamIndex = {};
     $scope.teamData = [];
     $scope.currentIndex = -1;
+    $scope.daysbetween = 1;
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
@@ -58,6 +59,12 @@ calendar.controller('roundrobinc', function($scope, League, Events, Event, Tourn
             $scope.teamData.push($scope.eventData[key]);
         });
     };
+
+    $scope.changeLeague = function() {
+        League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+            $scope.teamList = resp.league.teams;
+        });
+    }
 
     $scope.cancelEvent = function(evt){
         evt.stopPropagation();
@@ -125,8 +132,8 @@ calendar.controller('roundrobinc', function($scope, League, Events, Event, Tourn
 
             if(currentDate.clone().add(2, 'h').isAfter(currentEndDate))
             {
-                currentStartDate.add(1, 'd');
-                currentEndDate.add(1, 'd');
+                currentStartDate.add($scope.daysbetween, 'd');
+                currentEndDate.add($scope.daysbetween, 'd');
                 currentDate = currentStartDate.clone();
             }
             $scope.eventData[key] = eventObject;
@@ -141,7 +148,16 @@ calendar.controller('roundrobinc', function($scope, League, Events, Event, Tourn
                     eventObject.tournamentID = resp.id;
                     $scope.eventData[key] = eventObject;
                 });
-                Events.save($scope.eventData);
+                var tournamentId = resp.id;
+                Events.save($scope.eventData).$promise.then(function(resp){
+                    if ($scope.tableList) {
+                        LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: tournamentId}).$promise.then(function(resp) {
+                            if(resp.status.code == 200) {
+                                document.location = "calendar.html";
+                            }
+                        });
+                    }
+                });
             }
         });
     };

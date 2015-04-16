@@ -12,7 +12,7 @@
 }
 
 .feeds-container {
-    height: 540px;
+    margin-bottom: 50px;
 }
 
 .feeds {
@@ -31,13 +31,60 @@
     background-color: #33CCFF;
     position: relative;
     background: #FFFFFF;
+    border-bottom: 1px solid #ccc;
 }
 
 .feeds li.odd {
-    background: #f7f7f7;
 }
 
 .feed-event-title {
-    font-size: 15px;
+    font-size: 1.5em;
     font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.feed-event-date {
+    display: inline-block;
+    text-align: center;
+}
+
+.feed-event-day {
+    display: block;
+    font-size: 2em;
+}
+
+.feed-event-month {
+    color: #777;
+    font-size: 1.5em;
+}
+
+.feed-event-time-start {
+    display: block;
+    color: #777;
+    font-size: 1.5em;
+}
+.feed-event-time-end {
+    color: #777;
+    font-size: 1.5em;
+}
+
+.league-table-row {
+    padding: 22px 0px;
+}
+
+.league-table-rank {
+    font-size: 2em;
+}
+
+.league-table-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.league-table-points {
+    color: #777;
+    font-size: 1.5em;
+    margin-top: 6px;
 }

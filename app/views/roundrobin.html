@@ -85,6 +85,30 @@
                     <input class="tourn-option selectTime" ng-model="totalendTime" ng-change="updateDefaultDates()" />
                 </div>
             </div>
+            <div class="pure-g options-container">
+                <div class="pure-u-1-6">
+                    Days Between Games
+                </div>
+                <div class="pure-u-1-6">
+                    Is a League Table
+                </div>
+                <div class="pure-u-1-6">
+                </div>
+                <div class="pure-u-1-6">
+                </div>
+                <div class="pure-u-1-6">
+                </div>
+                <div class="pure-u-1-6">
+                </div>
+            </div>
+            <div class="pure-g options-container">
+                <div class="pure-u-1-6">
+                    <input class="tourn-option" ng-model="daysbetween" ng-change="updateDefaultDates()" />
+                </div>
+                <div class="pure-u-1-6">
+                    <input type="checkbox" ng-model="tableList" name="table" value="table">
+                </div>
+            </div>
             <div class="game-container" ng-repeat="eventObject in teamData">
                 <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">{{eventObject.dateLabel}}</div>
                     <div class="pure-button match-item match-team">{{eventObject.team1}}</div>

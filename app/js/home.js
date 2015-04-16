@@ -8,18 +8,52 @@ home.controller('header', function($scope) {
     ];
 });
 
-home.controller('feed', function($scope, Events) {
+home.controller('feed', function($scope, Events, League, LeagueTables, LeagueTableResult, TeamView) {
     var startDate = moment().format(serviceDateFormat);
     var endDate = moment().add(3,'M').format(serviceDateFormat);
     Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
-        var events = resp.events;
-        angular.forEach(resp.events, function(value, key){
-            events[key].start = moment(value.start).format("MM/DD/YYYY h:mm:ssa");
-            events[key].end = moment(value.end).format("MM/DD/YYYY h:mm:ssa");
+        var events = resp.events.slice(0,10);
+        angular.forEach(events, function(value, key){
+            events[key].startday = moment(value.start).format("D");
+            events[key].startmonth = moment(value.start).format("MMM");
+            events[key].start = moment(value.start).format("h:mm A");
+            events[key].end = moment(value.end).format("h:mm A");
         }); 
         if(events.length == 0)
             $scope.noevents = "No Upcoming Events";
         else
             $scope.events = events;
+    });
+
+    $scope.loadTournament = function(leagueId, tableId) {
+        TeamView.get().$promise.then(function(resp) {
+            if(resp.status.code == 200) {
+                var teamviews = resp.teams
+                LeagueTableResult.get({id: leagueId, tableID: tableId}).$promise.then(function(resp){
+                    var table = resp.tournamentResults;
+
+                    angular.forEach(table, function(teamResults, key){
+                        angular.forEach(teamviews, function(team, key){
+                            if(teamResults.teamID == team.id)
+                                teamResults.name = team.name;
+                        });
+                    });
+
+                    $scope.tournamentResults = table;
+                });
+            }
+        });
+    }
+
+    // Get first league and league table we find, and display it.
+    League.get().$promise.then(function(resp) {
+        if(resp.leagues.length != 0) {
+            var leagueid = resp.leagues[0].id;
+            LeagueTables.get({id: leagueid}).$promise.then(function(resp){
+                if(resp.tables.length != 0) {
+                    $scope.loadTournament(leagueid, resp.tables[0].tournamentId);
+                }
+            });
+        }
     });
 });
