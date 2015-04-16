@@ -13,7 +13,6 @@
 
 .feeds-container {
     margin-bottom: 50px;
-    max-width: 900px;
 }
 
 .feeds {
@@ -68,4 +67,24 @@
 .feed-event-time-end {
     color: #777;
     font-size: 1.5em;
+}
+
+.league-table-row {
+    padding: 22px 0px;
+}
+
+.league-table-rank {
+    font-size: 2em;
+}
+
+.league-table-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.league-table-points {
+    color: #777;
+    font-size: 1.5em;
+    margin-top: 6px;
 }

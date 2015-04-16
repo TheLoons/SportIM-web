@@ -44,7 +44,7 @@ league.controller('leagues', function($scope, League) {
     });
 });
 
-league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd','LeagueTables', 'LeagueTableResult', 'LeagueTeamRemove', 'TeamEdit', '$routeParams', function($scope, League, LeagueTeamAdd, LeagueTables, LeagueTableResult, LeagueTeamRemove, TeamEdit, $routeParams) {
+league.controller('leagueview', function($scope, League, LeagueTeamAdd, LeagueTables, LeagueTableResult, LeagueTeamRemove, TeamEdit, TeamView, $routeParams) {
     teamAutocomplete("#teamAdd", TeamEdit);
     League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
         $scope.league = resp.league;
@@ -56,8 +56,22 @@ league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd','LeagueTabl
         });
     });
     $scope.changeTournament = function() {
-        LeagueTableResult.get({id: $routeParams.leagueId, tableID: $scope.leagueSelected.tournamentID}).$promise.then(function(resp){
-            $scope.tournamentResults = resp.tournamentResults;
+        TeamView.get().$promise.then(function(resp) {
+            if(resp.status.code == 200) {
+                var teamviews = resp.teams
+                LeagueTableResult.get({id: $routeParams.leagueId, tableID: $scope.leagueSelected.tournamentId}).$promise.then(function(resp){
+                    var table = resp.tournamentResults;
+
+                    angular.forEach(table, function(teamResults, key){
+                        angular.forEach(teamviews, function(team, key){
+                            if(teamResults.teamID == team.id)
+                                teamResults.name = team.name;
+                        });
+                    });
+
+                    $scope.tournamentResults = table;
+                });
+            }
         });
     }
     $scope.addTeam = function(){
@@ -75,7 +89,7 @@ league.controller('leagueview', ['$scope', 'League', 'LeagueTeamAdd','LeagueTabl
             });
         });
     };
-}]);
+});
 
 league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
     if($routeParams.leagueId) {
