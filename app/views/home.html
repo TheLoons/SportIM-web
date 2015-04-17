@@ -13,11 +13,19 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../jscolor/jscolor.js"></script>
     <script src="../js/services.js"></script>
     <script src="../js/home.js"></script>
 </head>
 <body>
     <div ng-include src="'../partials/header.html'"></div>
+    <div ng-controller="feed">
+        <label>Primary Color</label><input ng-model="primary" id="primary" class="color">
+        <label>Secondary Color</label><input id="secondary" ng-model="secondary" class="color">
+        <label>Tertiary Color</label><input id="tertiary" ng-model="tertiary" class="color">
+        <label>Team</label><select ng-model="teamSelected" ng-options="team.name for team in teamList"></select>
+        <div id="create-event" class="pure-button pure-button-primary calendar-button" ng-click="saveColors()">Save Colors</div>
+    </div>
     <div ng-controller="feed" class="pure-g">
         <div class="pure-menu pure-u-1-8"></div>
         <div class="feeds-container pure-u-3-8">
