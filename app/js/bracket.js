@@ -7,7 +7,7 @@ calendar.controller('header', function($scope) {
 });
 
 calendar.controller('bracket', function($scope, $location, League, Events, Event, Tournament, TeamView) {
-
+    $scope.isEdit = true;
     $scope.eventData = [];
     $scope.teamIndex = {};
     $scope.twoteamIndex = {};
@@ -18,8 +18,13 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
     $scope.final = {teams:[{name:"Final"},{name:"Final"}]};
     $scope.leftSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
+    $scope.rightSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
+    $scope.leftOutterMost = [];
+    $scope.rightOutterMost = [];
     if($location.search().tournament){
         Tournament.get({id: $location.search().tournament}).$promise.then(function(resp) {
+            // SET TITLE MAKE UN EDITABLE
+            debugger
             $scope.eventData = resp.tournament.events;
             var count = 0;
             while(count < resp.tournament.events.length){
@@ -28,7 +33,7 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
                         $scope.final = key;
                         count++;
                     }
-                    else if(key.nextEventID == $scope.final.id){
+                    else if($scope.final != undefined && key.nextEventID == $scope.final.id){
                             if(!$scope.leftSemi.id)
                             {
                                 $scope.leftSemi = key;
@@ -40,36 +45,26 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
                                 count++;
                             }
                     }
-                    else if (key.nextEventID == $scope.leftSemi.id)
+                    else if ($scope.leftSemi != undefined && key.nextEventID == $scope.leftSemi.id)
                     {
-                            if(!$scope.leftQuarterFirst.id)
-                            {
-                                $scope.leftQuarterFirst = key;
-                                count++;
-                            }
-                            else
-                            {
-                                $scope.leftQuarterSecond = key;
-                                count++;
-                            }
+
+                        $scope.leftOutterMost.push(key);
+                        count++;
                     }
-                    else if (key.nextEventID == $scope.rightSemi.id)
+                    else if ($scope.rightSemi != undefined && key.nextEventID == $scope.rightSemi.id)
                     {
-                            if(!$scope.rightQuarterFirst.id)
-                            {
-                                $scope.rightQuarterFirst = key;
-                                count++;
-                            }
-                            else
-                            {
-                                $scope.rightQuarterSecond = key;
-                                count++;
-                            }
+                        $scope.rightOutterMost.push(key);
+                        count++;
+
                     }
 
                 });
             }
         });
+    }
+    else
+    {
+        $scope.isEdit = false;
     }
 
     $("#ui-datepicker-div, #ui-timepicker-div").click(function(event) {
@@ -79,31 +74,28 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
     $scope.computeLayout = function(){
         if($scope.teamList && $scope.teamList.length > 0)
         {
-            var eventIds = [];
             var numGames = $scope.teamList.length-1;
             for(var i = 1; i <= numGames; i++)
             {
                 if(i < numGames/2)
                 {
-                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4) };
+                    $scope.eventData[i-1] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4), teams: [{name: "Quarter"},{name: "Quarter"}] };
+
                 }
                 else if(i == Math.ceil(numGames/2))
                 {
-                    $scope.eventData[i] = {teamIDs: [], id: i};
+                    $scope.eventData[i-1] = {teamIDs: [], id: i};
                 }
                 else
                 {
-                    $scope.eventData[i] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4) };
+                    $scope.eventData[i-1] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4),  teams: [{name: "Quarter"},{name: "Quarter"}] };
                 }
-                eventIds.push(i);
             }
-
-
             $scope.halfTeamLength = Math.ceil($scope.teamList.length / 2);
             var half_length = Math.ceil($scope.teamList.length / 2);
             var secondDivide = half_length/2;
-            var leftOutterMost = eventIds.slice(0,secondDivide);
-            var rightOutterMost = eventIds.slice(secondDivide,secondDivide*2);
+            var leftOutterMost = $scope.eventData.slice(0,secondDivide);
+            var rightOutterMost = $scope.eventData.slice($scope.teamList.length - secondDivide-1, $scope.teamList.length-1);
             var outterMostLength = Math.ceil(rightOutterMost.length / 2);
             var innerMost = rightOutterMost.slice(0,outterMostLength);
             $scope.rightOutterMost = rightOutterMost;
@@ -124,10 +116,13 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
     });
 
     $scope.changeLeague = function() {
-        League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
-            $scope.teamList = resp.league.teams;
-            $scope.computeLayout();
-        });
+        if(!$scope.isEdit){
+            League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+                $scope.teamList = resp.league.teams;
+                $scope.computeLayout();
+            });
+        }
+
     }
 
     $scope.validateBeforeSave = function () {

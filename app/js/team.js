@@ -44,8 +44,16 @@ team.controller('teams', function($scope, TeamEdit) {
     });
 });
 
-team.controller('teamview', function($scope, Team, TeamStats, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
+team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
     playerAutocomplete("#playerAdd", UserView);
+    $scope.saveColors = function(){
+        var primaryColor = $('#primary').val();
+        var secondaryColor = $('#secondary').val();
+        var tertiaryColor = $('#tertiary').val();
+
+        Color.save({id: $scope.teamSelected.id, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        
+    };
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
         $("#successHeader").hide();

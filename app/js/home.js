@@ -10,7 +10,7 @@ home.controller('header', function($scope) {
 home.controller('color', function($scope) {
 
 });
-home.controller('feed', function($scope, Events, League, LeagueTables, Color, TeamView, LeagueTableResult, TeamView) {
+home.controller('feed', function($scope, Events, League, LeagueTables, TeamView, LeagueTableResult, TeamView) {
     TeamView.get().$promise.then(function(resp){
         $scope.teamList = resp.teams;
     });
@@ -49,15 +49,6 @@ home.controller('feed', function($scope, Events, League, LeagueTables, Color, Te
             }
         });
     }
-    $scope.saveColors = function(){
-        debugger
-        var primaryColor = $('#primary').val();
-        var secondaryColor = $('#secondary').val();
-        var tertiaryColor = $('#tertiary').val();
-
-        Color.save({id: $scope.teamSelected.id, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
-        
-    };
 
 
     // Get first league and league table we find, and display it.
