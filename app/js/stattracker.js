@@ -6,7 +6,7 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, Pass, TimeStart, HalfEnd, HalfStart, TimeEnd, $cookies, $location) {
+calendar.controller('stattrackerc', function($scope, Team, Event, Session, SessionReset, Foul, Shot, Goal, Pass, TimeStart, HalfEnd, HalfStart, TimeEnd, Finalize, UltimateFoul, UltimatePoint, $cookies, $location) {
     $scope.score1 = 0;
     $scope.score2 = 0;
     $scope.passingMode = false;
@@ -58,13 +58,19 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             $scope.playergoal = player;
             $scope.playergoalteam = team;
             $("#selectMessage").text("Click/Tap the player who made the assist");
-            $scope.goalPick = 2;
+            if($scope.isSoccer)
+                $scope.goalPick = 2;
+            else
+                $scope.goalPick = 3;
         } else if($scope.goalPick == 2) {
             $scope.playerassist = player;
             $("#selectMessage").text("Click/Tap the goalkeeper who was scored on");
             $scope.goalPick = 3;
         } else if($scope.goalPick == 3) {
-            Goal.save({player: $scope.playergoal, teamID: $scope.playergoalteam, assist: $scope.playerassist, goalkeeper: player, goalieTeamID: team, id: $scope.event.id});
+            if($scope.isSoccer)
+                Goal.save({player: $scope.playergoal, teamID: $scope.playergoalteam, assist: $scope.playerassist, goalkeeper: player, goalieTeamID: team, id: $scope.event.id});
+            else
+                UltimatePoint.save({receiver: $scope.playergoal, teamID: $scope.playergoalteam, thrower: player, opposingTeamID: team, id: $scope.event.id});
             if($scope.playergoalteam == $scope.team1.id) {
                 $scope.score1 = $scope.score1 + 1;
                 $("#team1-score").text($scope.score1);
@@ -99,6 +105,60 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     if($location.search().event) {
         Event.get({id: $location.search().event}).$promise.then(function(resp) {
             $scope.event = resp.event;
+            $scope.isSoccer = ($scope.event.sport == "soccer");
+            if($scope.isSoccer) {
+                $(".soccer-field").css("background-image", "url('../images/soccerfield.png')");
+                $(".soccerball").attr("src", "../images/soccerball.png");
+
+                $(".offtarget-area").droppable({
+                    accept: ".soccerball",
+                    drop: function(event, ui) {
+                    },
+                    over: function(event, ui) {
+                        $(this).css("background-color", "#ff0000");
+                    },
+                    out: function(event, ui) {
+                        $(this).css("background-color", "#cc0000");
+                    },
+                    activate: function(event, ui) {
+                        $(this).css("background-color", "#cc0000");
+                    },
+                    deactivate: function(event, ui) {
+                        $(this).css("background-color", "transparent");
+                    },
+                    drop: function(event, ui) {
+                        $("#selectMessage").text("Click/Tap player who made the shot");
+                        $scope.showSelectHeader();
+                        $scope.offtargetPick = 1;
+                    }
+                });
+                $(".ontarget-area").droppable({
+                    accept: ".soccerball",
+                    drop: function(event, ui) {
+                    },
+                    over: function(event, ui) {
+                        $(this).css("background-color", "#ffff00");
+                    },
+                    out: function(event, ui) {
+                        $(this).css("background-color", "#cccc00");
+                    },
+                    activate: function(event, ui) {
+                        $(this).css("background-color", "#cccc00");
+                    },
+                    deactivate: function(event, ui) {
+                        $(this).css("background-color", "transparent");
+                    },
+                    drop: function(event, ui) {
+                        $("#selectMessage").text("Click/Tap player who made the shot");
+                        $scope.showSelectHeader();
+                        $scope.ontargetPick = 1;
+                    }
+                });
+            }
+            else  {
+                $(".soccer-field").css("background-image", "url('../images/ultimatefield.png')");
+                $(".soccerball").attr("src", "../images/frisbee.png");
+            }
 
             Team.get({id: $scope.event.teams[0].id}).$promise.then(function(resp) {
                 $scope.team1 = resp.team;
@@ -167,11 +227,19 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         $scope.$broadcast('timer-stop');
         var currTime = moment().format(serviceDateFormat);
 
-        TimeEnd.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
-            $scope.timeStep = 1;
-            $cookies.soccersession = "";
-            $scope.periodlabel = "End";
-        });
+        if($scope.isSoccer) {
+            TimeEnd.save({id: $scope.event.id, timestamp: currTime}).$promise.then(function(resp) {
+                $scope.timeStep = 1;
+                $cookies.soccersession = "";
+                $scope.periodlabel = "End";
+            });
+        } else {
+            Finalize.save({id: $scope.event.id}).$promise.then(function(resp) {
+                $scope.timeStep = 1;
+                $cookies.soccersession = "";
+                $scope.periodlabel = "End";
+            });
+        }
     };
 
     $scope.startSession = function(){
@@ -182,7 +250,12 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
                 $("#resetHeader").show();
             } else {
                 $cookies.soccersession = resp.session;
-                $scope.startFirstHalf();
+                if($scope.isSoccer) {
+                    $scope.startFirstHalf();
+                } else {
+                    $scope.timeStep = 4;
+                    $scope.$broadcast('timer-start');
+                }
             }
         });
     };
@@ -191,7 +264,12 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         $("#resetHeader").hide();
         SessionReset.get({id: $scope.event.id}).$promise.then(function(resp) {
             $cookies.soccersession = resp.session;
-            $scope.startFirstHalf();
+            if($scope.isSoccer) {
+                $scope.startFirstHalf();
+            } else {
+                $scope.timeStep = 4;
+                $scope.$broadcast('timer-start');
+            }
         });
     };
 
@@ -229,11 +307,16 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             var parameters = {id: $scope.event.id, player: $scope.currentPlayer, teamID: $scope.currentTeam};
             var message = "Foul";
         }
+        var endpoint = Foul;
+        if(!$scope.isSoccer)
+            endpoint = UltimateFoul;
 
-        Foul.save(parameters).$promise.then(function(resp) {
-            setTimeout(function(){$(".player").draggable();}, 500);
-            $("#selectMessage").text("Saved "+message);
-            $scope.showSelectHeader();
+        endpoint.save(parameters).$promise.then(function(resp) {
+            if(resp.status.code == 200) {
+                setTimeout(function(){$(".player").draggable();}, 500);
+                $("#selectMessage").text("Saved "+message);
+                $scope.showSelectHeader();
+            }
         });
     };
 
@@ -256,53 +339,9 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             $(this).css("background-color", "transparent");
         },
         drop: function(event, ui) {
-            $("#selectMessage").text("Click/Tap player who scored the goal");
+            $("#selectMessage").text("Click/Tap player who scored");
             $scope.showSelectHeader();
             $scope.goalPick = 1;
-        }
-    });
-    $(".offtarget-area").droppable({
-        accept: ".soccerball",
-        drop: function(event, ui) {
-        },
-        over: function(event, ui) {
-            $(this).css("background-color", "#ff0000");
-        },
-        out: function(event, ui) {
-            $(this).css("background-color", "#cc0000");
-        },
-        activate: function(event, ui) {
-            $(this).css("background-color", "#cc0000");
-        },
-        deactivate: function(event, ui) {
-            $(this).css("background-color", "transparent");
-        },
-        drop: function(event, ui) {
-            $("#selectMessage").text("Click/Tap player who made the shot");
-            $scope.showSelectHeader();
-            $scope.offtargetPick = 1;
-        }
-    });
-    $(".ontarget-area").droppable({
-        accept: ".soccerball",
-        drop: function(event, ui) {
-        },
-        over: function(event, ui) {
-            $(this).css("background-color", "#ffff00");
-        },
-        out: function(event, ui) {
-            $(this).css("background-color", "#cccc00");
-        },
-        activate: function(event, ui) {
-            $(this).css("background-color", "#cccc00");
-        },
-        deactivate: function(event, ui) {
-            $(this).css("background-color", "transparent");
-        },
-        drop: function(event, ui) {
-            $("#selectMessage").text("Click/Tap player who made the shot");
-            $scope.showSelectHeader();
-            $scope.ontargetPick = 1;
         }
     });
 

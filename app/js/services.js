@@ -1,5 +1,6 @@
 var serviceUrl = 'https://sportim.herokuapp.com/rest/';
 var soccerUrl = 'https://sportim.herokuapp.com/soccer/';
+var ultimateUrl = 'https://sportim.herokuapp.com/ultimate/';
 
 var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
@@ -162,6 +163,13 @@ services.factory('Register', ['$resource',
     }]
 );
 
+// Sports API
+services.factory('Sports', ['$resource',
+    function($resource){
+            return $resource(serviceUrl + 'sports', {});
+    }]
+);
+
 // Soccer API
 services.factory('Session', ['$resource',
     function($resource){
@@ -262,5 +270,24 @@ services.factory('TeamPassing', ['$resource',
 services.factory('EventPassing', ['$resource',
     function($resource){
         return $resource(soccerUrl+'pass?eventID=:id', {login: '@id'}, {});
+    }]
+);
+
+// Ultimate Frisbee API
+services.factory('Finalize', ['$resource',
+    function($resource){
+        return $resource(ultimateUrl+'finalize/:id', {id: '@id'}, {});
+    }]
+);
+
+services.factory('UltimateFoul', ['$resource',
+    function($resource){
+        return $resource(ultimateUrl+'foul/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('UltimatePoint', ['$resource',
+    function($resource){
+        return $resource(ultimateUrl+'point/:id', {id:'@id'}, {});
     }]
 );

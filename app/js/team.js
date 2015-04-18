@@ -127,7 +127,7 @@ team.controller('teamview', function($scope, Team, TeamStats, TeamAddPlayer, Tea
     };
 });
 
-team.controller('teamedit', ['$scope', 'Team', '$routeParams', function($scope, Team, $routeParams) {
+team.controller('teamedit', ['$scope', 'Team', 'Sports', '$routeParams', function($scope, Team, Sports, $routeParams) {
     if($routeParams.teamId) {
         Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
             $scope.team = resp.team;
@@ -135,6 +135,9 @@ team.controller('teamedit', ['$scope', 'Team', '$routeParams', function($scope, 
             $scope.sport = resp.team.sport;
         });
     }
+    Sports.get().$promise.then(function(resp){
+        $scope.sports = resp.sports;
+    });
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.team)) {
             Team.update({id: $scope.team.id, name: $scope.teamName, sport: $scope.sport}).$promise.then(function(){

@@ -91,7 +91,7 @@ league.controller('leagueview', function($scope, League, LeagueTeamAdd, LeagueTa
     };
 });
 
-league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
+league.controller('leagueedit', ['$scope', 'League', 'Sports', '$routeParams', function($scope, League, Sports, $routeParams) {
     if($routeParams.leagueId) {
         League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
             $scope.league = resp.league;
@@ -99,6 +99,9 @@ league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($s
             $scope.sport = resp.league.sport;
         });
     }
+    Sports.get().$promise.then(function(resp){
+        $scope.sports = resp.sports;
+    });
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.league)) {
             League.update({id: $scope.league.id, name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){

@@ -12,8 +12,7 @@
                 <div class="pure-u-1-2">
                     <label for="sport">Sport</label>
                     <select ng-model="sport" type="text" placeholder="Sport">
-                        <option value="soccer">Soccer</option>
-                        <option value="other">Other</option>
+                        <option ng-repeat="sport in sports" value="{{sport}}">{{sport}}</option>
                     </select>
                 </div>
             </div>
