@@ -46,13 +46,15 @@ team.controller('teams', function($scope, TeamEdit) {
 
 team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
     playerAutocomplete("#playerAdd", UserView);
+    $(".colorpicker").colorpicker({history: false});
+
     $scope.saveColors = function(){
         var primaryColor = $('#primary').val();
         var secondaryColor = $('#secondary').val();
         var tertiaryColor = $('#tertiary').val();
 
         Color.save({id: $scope.teamSelected.id, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
-        
+
     };
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
@@ -118,7 +120,7 @@ team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlay
                 pieChart("#shotChart", shotdata, $("#goalChart").parent().width(), 250);
             } else {
                 var goaldata = [{ "label": "For", "value": stats.pointsFor, "color": "#44cc44"},
-                {"label": "Against", "value": stats.pointsAgainst, "color": "#cc4444"}];
+                    {"label": "Against", "value": stats.pointsAgainst, "color": "#cc4444"}];
 
                 pieChart("#ultimategoalChart", goaldata, $("#ultimategoalChart").parent().width(), 250);
 
