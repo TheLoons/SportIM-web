@@ -6,7 +6,8 @@ calendar.controller('header', function($scope) {
     ];
 });
 
-calendar.controller('bracket', function($scope, League, Events, Event, Tournament, TeamView) {
+calendar.controller('bracket', function($scope, $location, League, Events, Event, Tournament, TeamView) {
+
     $scope.eventData = [];
     $scope.teamIndex = {};
     $scope.twoteamIndex = {};
@@ -15,6 +16,61 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
     $scope.currentIndex = -1;
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
+    $scope.final = {teams:[{name:"Final"},{name:"Final"}]};
+    $scope.leftSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
+    if($location.search().tournament){
+        Tournament.get({id: $location.search().tournament}).$promise.then(function(resp) {
+            $scope.eventData = resp.tournament.events;
+            var count = 0;
+            while(count < resp.tournament.events.length){
+                angular.forEach(resp.tournament.events, function(key){
+                    if(!key.nextEventID){
+                        $scope.final = key;
+                        count++;
+                    }
+                    else if(key.nextEventID == $scope.final.id){
+                            if(!$scope.leftSemi.id)
+                            {
+                                $scope.leftSemi = key;
+                                count++;
+                            }
+                            else
+                            {
+                                $scope.rightSemi = key;
+                                count++;
+                            }
+                    }
+                    else if (key.nextEventID == $scope.leftSemi.id)
+                    {
+                            if(!$scope.leftQuarterFirst.id)
+                            {
+                                $scope.leftQuarterFirst = key;
+                                count++;
+                            }
+                            else
+                            {
+                                $scope.leftQuarterSecond = key;
+                                count++;
+                            }
+                    }
+                    else if (key.nextEventID == $scope.rightSemi.id)
+                    {
+                            if(!$scope.rightQuarterFirst.id)
+                            {
+                                $scope.rightQuarterFirst = key;
+                                count++;
+                            }
+                            else
+                            {
+                                $scope.rightQuarterSecond = key;
+                                count++;
+                            }
+                    }
+
+                });
+            }
+        });
+    }
 
     $("#ui-datepicker-div, #ui-timepicker-div").click(function(event) {
         event.stopPropagation();
@@ -88,11 +144,6 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         if(!$scope.leagueSelected)
         {
             console.log("error message for tournament leagueSelected");
-            return false;
-        }
-        if($scope.halfTeamLength != $scope.eventData.length)
-        {
-            console.log("didn't fill out full bracket error");
             return false;
         }
         return true;
@@ -197,6 +248,7 @@ calendar.controller('bracket', function($scope, League, Events, Event, Tournamen
         {
             return;
         }
+        $scope.eventData = $scope.eventData.filter(function(n){ return n != undefined });
         Tournament.save({tournamentName: $scope.tournamentName, desc: $scope.tournamentDesc, leagueId: $scope.leagueSelected.id}).$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 angular.forEach($scope.eventData, function(eventObject, key) {

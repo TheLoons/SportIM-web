@@ -55,6 +55,13 @@ services.factory('UserAlert', ['$resource',
     }]
 );
 
+services.factory('Color', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/:id/colors', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
 services.factory('Team', ['$resource',
     function($resource){
         return $resource(serviceUrl+'team/:id', {id:'@id'}, {

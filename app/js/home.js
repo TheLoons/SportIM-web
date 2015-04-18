@@ -7,8 +7,13 @@ home.controller('header', function($scope) {
         {url: "league.html", label: "My Leagues"}
     ];
 });
+home.controller('color', function($scope) {
 
-home.controller('feed', function($scope, Events, League, LeagueTables, LeagueTableResult, TeamView) {
+});
+home.controller('feed', function($scope, Events, League, LeagueTables, Color, TeamView, LeagueTableResult, TeamView) {
+    TeamView.get().$promise.then(function(resp){
+        $scope.teamList = resp.teams;
+    });
     var startDate = moment().format(serviceDateFormat);
     var endDate = moment().add(3,'M').format(serviceDateFormat);
     Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
@@ -44,6 +49,16 @@ home.controller('feed', function($scope, Events, League, LeagueTables, LeagueTab
             }
         });
     }
+    $scope.saveColors = function(){
+        debugger
+        var primaryColor = $('#primary').val();
+        var secondaryColor = $('#secondary').val();
+        var tertiaryColor = $('#tertiary').val();
+
+        Color.save({id: $scope.teamSelected.id, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        
+    };
+
 
     // Get first league and league table we find, and display it.
     League.get().$promise.then(function(resp) {
