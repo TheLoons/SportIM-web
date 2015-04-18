@@ -170,6 +170,42 @@ services.factory('Register', ['$resource',
     }]
 );
 
+services.factory('PlayerPassing', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'pass?player=:login', {login: '@login'}, {});
+    }]
+);
+
+services.factory('TeamPassing', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'pass?teamID=:id', {login: '@id'}, {});
+    }]
+);
+
+services.factory('EventPassing', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'pass?eventID=:id', {login: '@id'}, {});
+    }]
+);
+
+services.factory('EventStats', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'stats/event/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('TeamStats', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'stats/team/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('PlayerStats', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'stats/player?login=:login', {login:'@login'}, {});
+    }]
+);
+
 // Sports API
 services.factory('Sports', ['$resource',
     function($resource){
@@ -214,24 +250,6 @@ services.factory('Pass', ['$resource',
     }]
 );
 
-services.factory('EventStats', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'stats/event/:id', {id:'@id'}, {});
-    }]
-);
-
-services.factory('TeamStats', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'stats/team/:id', {id:'@id'}, {});
-    }]
-);
-
-services.factory('PlayerStats', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'stats/player?login=:login', {login:'@login'}, {});
-    }]
-);
-
 services.factory('TimeStart', ['$resource',
     function($resource){
         return $resource(soccerUrl+'time/start/:id', {id: '@id'}, {});
@@ -259,24 +277,6 @@ services.factory('TimeEnd', ['$resource',
 services.factory('PlayerSub', ['$resource',
     function($resource){
         return $resource(soccerUrl+'time/sub/:id', {id: '@id'}, {});
-    }]
-);
-
-services.factory('PlayerPassing', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'pass?player=:login', {login: '@login'}, {});
-    }]
-);
-
-services.factory('TeamPassing', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'pass?teamID=:id', {login: '@id'}, {});
-    }]
-);
-
-services.factory('EventPassing', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'pass?eventID=:id', {login: '@id'}, {});
     }]
 );
 

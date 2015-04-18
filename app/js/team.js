@@ -50,6 +50,7 @@ team.controller('teamview', function($scope, Team, TeamStats, TeamAddPlayer, Tea
         $scope.team = resp.team;
         $("#successHeader").hide();
         $scope.playerList = resp.team.players;
+        $scope.isSoccer = ($scope.team.sport == 'SOCCER');
 
         TeamPassing.get({id: $routeParams.teamId}).$promise.then(function(resp) {
             var passing = resp.teamPasses.passes;
@@ -87,26 +88,37 @@ team.controller('teamview', function($scope, Team, TeamStats, TeamAddPlayer, Tea
 
             chordChart("#passChart", passdata, players, $("#passChart").parent().width(), 300);
         });
-    });
-    TeamStats.get({id: $routeParams.teamId}).$promise.then(function(resp) {
-        var stats = resp.teamStats;
+        TeamStats.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+            var stats = resp.teamStats;
 
-        var fouldata = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"},
-        {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
-        {label: 'reds', count: stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
+            if($scope.isSoccer) {
+                var fouldata = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"},
+                    {label: 'yellows', count: stats.yellow, color: "#ffdd00", highlightColor: "#ffee00"},
+                    {label: 'reds', count: stats.red, color: "#ff4444", highlightColor: "#ff8888"}];
 
-        barChart("#foulChart", fouldata, $("#foulChart").parent().width()/1.5, 250);
+                barChart("#foulChart", fouldata, $("#foulChart").parent().width()/1.5, 250);
 
-        var goaldata = [{ "label": "For", "value": stats.goals, "color": "#44cc44"},
-            {"label": "Against", "value": stats.goalsAgainst, "color": "#cc4444"}];
+                var goaldata = [{ "label": "For", "value": stats.goals, "color": "#44cc44"},
+                {"label": "Against", "value": stats.goalsAgainst, "color": "#cc4444"}];
 
-        pieChart("#goalChart", goaldata, $("#goalChart").parent().width(), 250);
+                pieChart("#goalChart", goaldata, $("#goalChart").parent().width(), 250);
 
-        var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
-            {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},
-            {"label": "Off Target", "value": (stats.shots - stats.shotsOnGoal), "color": "#cc4444"}];
+                var shotdata = [{ "label": "Goal", "value": stats.goals, "color": "#44cc44"},
+                {"label": "Saved", "value": stats.shotsOnGoal, "color": "#ffee00"},
+                {"label": "Off Target", "value": (stats.shots - stats.shotsOnGoal), "color": "#cc4444"}];
 
-        pieChart("#shotChart", shotdata, $("#goalChart").parent().width(), 250);
+                pieChart("#shotChart", shotdata, $("#goalChart").parent().width(), 250);
+            } else {
+                var goaldata = [{ "label": "For", "value": stats.pointsFor, "color": "#44cc44"},
+                {"label": "Against", "value": stats.pointsAgainst, "color": "#cc4444"}];
+
+                pieChart("#ultimategoalChart", goaldata, $("#ultimategoalChart").parent().width(), 250);
+
+                var fouldata = [{label: 'fouls', count: stats.fouls, color: "#ccc", highlightColor: "#eee"}];
+
+                barChart("#ultimatefoulChart", fouldata, $("#ultimatefoulChart").parent().width()/4, 250);
+            }
+        });
     });
 
     $scope.addPlayer = function(){
@@ -128,23 +140,26 @@ team.controller('teamview', function($scope, Team, TeamStats, TeamAddPlayer, Tea
 });
 
 team.controller('teamedit', ['$scope', 'Team', 'Sports', '$routeParams', function($scope, Team, Sports, $routeParams) {
-    if($routeParams.teamId) {
-        Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
-            $scope.team = resp.team;
-            $scope.teamName = resp.team.name;
-            $scope.sport = resp.team.sport;
-        });
-    }
     Sports.get().$promise.then(function(resp){
         $scope.sports = resp.sports;
+        if($routeParams.teamId) {
+            Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+                $scope.team = resp.team;
+                $scope.teamName = resp.team.name;
+                angular.forEach($scope.sports, function(sport, value){
+                    if(sport.id == resp.team.sport)
+                        $scope.sport = sport;
+                });
+            });
+        }
     });
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.team)) {
-            Team.update({id: $scope.team.id, name: $scope.teamName, sport: $scope.sport}).$promise.then(function(){
+            Team.update({id: $scope.team.id, name: $scope.teamName, sport: $scope.sport.id}).$promise.then(function(){
                 $("#successHeader").show().find("#successMessage").text("Saved Team Changes");
             });
         } else {
-            Team.save({name: $scope.teamName, sport: $scope.sport}).$promise.then(function(){
+            Team.save({name: $scope.teamName, sport: $scope.sport.id}).$promise.then(function(){
                 $("#successHeader").show().find("#successMessage").text("Saved Team Changes");
             });
         }
