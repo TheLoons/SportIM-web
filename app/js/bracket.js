@@ -23,8 +23,9 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
     $scope.rightOutterMost = [];
     if($location.search().tournament){
         Tournament.get({id: $location.search().tournament}).$promise.then(function(resp) {
-            // SET TITLE MAKE UN EDITABLE
-            debugger
+            $('#tourn-title').val(resp.tournament.tournamentName).prop('readonly', true);
+            $('#tourn-desc').val(resp.tournament.desc).prop('readonly', true);
+            $('.league').hide();
             $scope.eventData = resp.tournament.events;
             var count = 0;
             while(count < resp.tournament.events.length){

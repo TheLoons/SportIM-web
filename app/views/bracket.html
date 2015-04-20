@@ -24,10 +24,10 @@
     <div ng-include src="'../partials/header.html'"></div>
     <div class="pure-g">
         <div class="pure-u-1-8">
-                <div>
+                <div class="league">
                     League
                 </div>
-            <select class="tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
+            <select class="league tourn-option" ng-model="leagueSelected" ng-options="league.name for league in leagueList" ng-change="changeLeague()"></select>
             <div id="teamList" ng-repeat="team in teamList">
                 <div class="pure-button match-item match-team teamDrag teamList" data-teamID="{{team.id}}">{{team.name}}</div>
             </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="pure-u-1-6">
                 </div>
-                <div class="pure-u-1-6">
+                <div class="league pure-u-1-6">
                     <div id="tourn-save" class="pure-button pure-button-primary" ng-click="saveTournament()">Save Tournament</div>
                 </div>
             </div>
