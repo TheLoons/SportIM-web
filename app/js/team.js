@@ -45,15 +45,21 @@ team.controller('teams', function($scope, TeamEdit) {
 });
 
 team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
+    Color.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+        colors = resp.colors;
+        loadColors($scope, colors);
+    });
+    
     playerAutocomplete("#playerAdd", UserView);
     $(".colorpicker").colorpicker({history: false});
 
     $scope.saveColors = function(){
+        debugger
         var primaryColor = $('#primary').val();
         var secondaryColor = $('#secondary').val();
         var tertiaryColor = $('#tertiary').val();
 
-        Color.save({id: $scope.teamSelected.id, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        Color.save({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
 
     };
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
