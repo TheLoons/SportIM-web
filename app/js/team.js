@@ -46,20 +46,32 @@ team.controller('teams', function($scope, TeamEdit) {
 
 team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
     Color.get({id: $routeParams.teamId}).$promise.then(function(resp) {
-        colors = resp.colors;
-        loadColors($scope, colors);
+        if(!resp.colors){
+            $scope.hasColors = false;
+        }
+        else{
+            colors = resp.colors;
+            loadColors($scope, colors);
+            var primaryColor = $('#primary').val(colors.primaryColor);
+            var secondaryColor = $('#secondary').val(colors.secondaryColor);
+            var tertiaryColor = $('#tertiary').val(colors.tertiaryColor);
+        }
+        
     });
     
     playerAutocomplete("#playerAdd", UserView);
     $(".colorpicker").colorpicker({history: false});
 
     $scope.saveColors = function(){
-        debugger
         var primaryColor = $('#primary').val();
         var secondaryColor = $('#secondary').val();
         var tertiaryColor = $('#tertiary').val();
-
-        Color.save({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        if(!$scope.hasColors){
+            Color.save({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        }
+        else{
+            Color.update({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        }
 
     };
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
