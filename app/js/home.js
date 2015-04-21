@@ -34,7 +34,7 @@ home.controller('feed', function($scope, Events, League, LeagueTables, TeamView,
         TeamView.get().$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 var teamviews = resp.teams
-                LeagueTableResult.get({id: leagueId, tableID: tableId}).$promise.then(function(resp){
+                LeagueTableResult.get({id: leagueId, tableID: tableId, showError: false}).$promise.then(function(resp){
                     var table = resp.tournamentResults;
 
                     angular.forEach(table, function(teamResults, key){

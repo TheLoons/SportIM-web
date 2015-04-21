@@ -45,7 +45,7 @@ team.controller('teams', function($scope, TeamEdit) {
 });
 
 team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
-    Color.get({id: $routeParams.teamId}).$promise.then(function(resp) {
+    Color.get({id: $routeParams.teamId, showError: false}).$promise.then(function(resp) {
         if(!resp.colors){
             $scope.hasColors = false;
         }

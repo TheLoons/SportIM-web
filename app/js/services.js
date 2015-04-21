@@ -5,10 +5,14 @@ var ultimateUrl = 'https://sportim.herokuapp.com/ultimate/';
 var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
+var ignoreUrl = [];
 
 services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {
     var sessionRecoverer = {
         request: function(request) {
+            if(request.params && request.params.showError === false)
+                ignoreUrl.push(request.url);
+
             request.headers['token'] = $cookies.session;
             request.headers['session'] = $cookies.soccersession;
             return request;
@@ -18,7 +22,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
             if (response.data.status && response.data.status.code != 200){
                 if(response.data.status.code == 401)
                     window.location.href = '../views/login.html#/?error=NotAuthorized';
-                else {
+                else if(ignoreUrl.indexOf(response.config.url) < 0) {
                     $("#errorHeader").show().find("#errorMessage").text(response.data.status.message);
                 }
             }
