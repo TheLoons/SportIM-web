@@ -45,7 +45,6 @@
                     }
                 }
                 $scope.eventSources[0] = resp;
-
             });
         };
         $scope.clearForm = function(){
@@ -101,8 +100,8 @@
             $scope.clearForm();
         };
         $scope.submitEvent = function(){
-            var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
-            var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
+            var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").utc().format(serviceDateFormat);
+            var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").utc().format(serviceDateFormat);
             if (!$scope.team1 || !$scope.team2) {
                 return;
             }
@@ -132,6 +131,7 @@
                 center: '',
                 right: 'title'
             },
+            allDayDefault: false,
             selectable: true,
             selectHelper: true,
             aspectRatio: 1.5,

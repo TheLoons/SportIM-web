@@ -105,7 +105,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     if($location.search().event) {
         Event.get({id: $location.search().event}).$promise.then(function(resp) {
             $scope.event = resp.event;
-            $scope.isSoccer = ($scope.event.sport == "soccer");
+            $scope.isSoccer = ($scope.event.sport == "SOCCER");
             if($scope.isSoccer) {
                 $(".soccer-field").css("background-image", "url('../images/soccerfield.png')");
                 $(".soccerball").attr("src", "../images/soccerball.png");
