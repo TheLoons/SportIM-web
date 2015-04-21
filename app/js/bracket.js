@@ -9,18 +9,10 @@ calendar.controller('header', function($scope) {
 calendar.controller('bracket', function($scope, $location, League, Events, Event, Tournament, TeamView) {
     $scope.isEdit = true;
     $scope.eventData = [];
-    $scope.teamIndex = {};
-    $scope.twoteamIndex = {};
-    $scope.teamData = [];
-    $scope.halfTeamLength = 0;
     $scope.currentIndex = -1;
+
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
-    $scope.final = {teams:[{name:"Final"},{name:"Final"}]};
-    $scope.leftSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
-    $scope.rightSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
-    $scope.leftOutterMost = [];
-    $scope.rightOutterMost = [];
     if($location.search().tournament){
         Tournament.get({id: $location.search().tournament}).$promise.then(function(resp) {
             $('#tourn-title').val(resp.tournament.tournamentName).prop('readonly', true);
@@ -40,42 +32,58 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
     });
 
     $scope.figureoutlayout = function(){
-        var count = 0;
-        while(count < $scope.eventData.length){
-            angular.forEach($scope.eventData, function(key){
+        //copy our event data
+        var events = $scope.eventData.slice(0);
+        $scope.leftOutterMost = [];
+        $scope.rightOutterMost = [];
+        $scope.final = {teams:[{name:"Final"},{name:"Final"}]};
+        $scope.leftSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
+        $scope.rightSemi = {teams:[{name:"Semi"},{name:"Semi"}]};
+
+        while(events.length > 0){
+            angular.forEach(events, function(key, index){
                 if(!key.nextEventID){
+                    if(!key.teams)
+                        key.teams = [{name: "Final"},{name: "Final"}];
+
                     $scope.final = key;
-                    count++;
+                    events.splice(index, 1);
                 }
                 else if($scope.final != undefined && key.nextEventID == $scope.final.id){
+                    if(!key.teams)
+                        key.teams = [{name: "Semi"},{name: "Semi"}];
+
                     if(!$scope.leftSemi.id)
                     {
-                        key.teams = [{name: "Semi"},{name: "Semi"}];
                         $scope.leftSemi = key;
-                        count++;
+                        events.splice(index, 1);
                     }
                     else
                     {
                         $scope.rightSemi = key;
-                        count++;
+                        events.splice(index, 1);
                     }
                 }
                 else if ($scope.leftSemi != undefined && key.nextEventID == $scope.leftSemi.id)
                 {
-                    key.teams = [{name: "Quarter"},{name: "Quarter"}];
+                    if(!key.teams)
+                        key.teams = [{name: "Quarter"},{name: "Quarter"}];
                     $scope.leftOutterMost.push(key);
-                    count++;
+                    events.splice(index, 1);
                 }
                 else if ($scope.rightSemi != undefined && key.nextEventID == $scope.rightSemi.id)
                 {
+                    if(!key.teams)
+                        key.teams = [{name: "Quarter"},{name: "Quarter"}];
                     $scope.rightOutterMost.push(key);
-                    count++;
-
+                    events.splice(index, 1);
                 }
-
             });
         }
     }
+
+    $scope.figureoutlayout();
+
     $scope.computeLayout = function(){
         if($scope.teamList && $scope.teamList.length > 0)
         {
@@ -84,17 +92,15 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
             {
                 if(i < numGames/2)
                 {
-                    $scope.eventData[i-1] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4), teams: [{name: "Quarter"},{name: "Quarter"}], dateLabel: "Select Date" };
-
+                    $scope.eventData[i-1] = {teamIDs: [], id: i, nextEventID: Math.ceil(i/2) + Math.ceil(numGames/4), dateLabel: "Select Date" };
                 }
                 else if(i == Math.ceil(numGames/2))
                 {
-                    $scope.eventData[i-1] = {teamIDs: [], id: i, dateLabel: "Select Date", teams: [{name: "Final"},{name: "Final"}]};
-
+                    $scope.eventData[i-1] = {teamIDs: [], id: i, dateLabel: "Select Date"};
                 }
                 else
                 {
-                    $scope.eventData[i-1] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4),  teams: [{name: "Quarter"},{name: "Quarter"}], dateLabel: "Select Date"};
+                    $scope.eventData[i-1] = {teamIDs: [], id: i, nextEventID: Math.floor(i/2) + Math.ceil(numGames/4), dateLabel: "Select Date"};
                 }
             }
             $scope.figureoutlayout();
@@ -119,7 +125,6 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
                 $scope.computeLayout();
             });
         }
-
     }
 
     $scope.validateBeforeSave = function () {
@@ -139,13 +144,6 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
             return false;
         }
         return true;
-
-    };
-    $scope.changeTeam = function () {
-        $scope.teamData = []
-        angular.forEach($scope.teamIndex[$scope.teamSelected.name], function(key){
-            $scope.teamData.push($scope.eventData[key]);
-        });
     };
 
     $scope.cancelEvent = function(evt){
@@ -233,8 +231,6 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
             }
             $scope.eventData[key] = eventObject;
         });
-
-        $scope.changeTeam();
     };
     $scope.saveTournament = function(){
         if(!$scope.validateBeforeSave())
