@@ -58,33 +58,33 @@
             <!-- Left Side -->
             <div class="pure-u-1-5">
                 <div id="event{{event.id}}" class="game-container" data-type="quarterFinal" data-eventid="{{event.id}}" ng-repeat="event in leftOutterMost ">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, event.id)">Select Date</div>
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, event.id)">{{event.dateLabel}}</div>
                     <div class="pure-button match-item teamDrop match-team" ng-repeat="team in event.teams">{{team.name}}</div>
                 </div>
             </div>
             <div class="pure-u-1-5">
                 <div class="game-container game-container-1-2">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, leftSemi.id)">{{event.dateLabel}}</div>
                     <div class="pure-button match-item match-team" ng-repeat="team in leftSemi.teams">{{team.name}}</div>
                 </div>
             </div>
             <!-- This is the final bracket -->
             <div class="pure-u-1-5">
                 <div class="game-container game-container-1-2">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, final.id)">{{event.dateLabel}}</div>
                     <div class="pure-button match-item match-team" ng-repeat="team in final.teams">{{team.name}}</div>
                 </div>
             </div>
             <!-- right Side -->
             <div class="pure-u-1-5">
             <div class="game-container game-container-1-2">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, eventObject)">Select Date</div>
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, rightSemi.id)">{{event.dateLabel}}</div>
                     <div class="pure-button match-item match-team" ng-repeat="team in rightSemi.teams">{{team.name}}</div>
                 </div>
             </div>
             <div class="pure-u-1-5">
                 <div id="event{{event.id}}" class="game-container" data-type="quarterFinal" data-eventid="{{event.id}}" ng-repeat="event in rightOutterMost ">
-                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, event.id)">Select Date</div>
+                    <div class="pure-button pure-button-primary match-item match-datetime" ng-click="selectDate($event, event.id)">{{event.dateLabel}}</div>
                     <div class="pure-button match-item teamDrop match-team" ng-repeat="team in event.teams">{{team.name}}</div>
                 </div>
             </div>
