@@ -17,7 +17,8 @@
     "jqueryui-timepicker-addon": "~1.5.x",
     "angular-timer": "~1.2.x",
     "d3pie": "x.x",
-    "jqueryui-touch-punch": "*"
+    "jqueryui-touch-punch": "*",
+    "evol.colorpicker": "~3.2.0"
   },
   "resolutions": {
     "angular": "~1.3.0",

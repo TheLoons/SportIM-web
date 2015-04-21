@@ -7,8 +7,13 @@ home.controller('header', function($scope) {
         {url: "league.html", label: "My Leagues"}
     ];
 });
+home.controller('color', function($scope) {
 
-home.controller('feed', function($scope, Events, League, LeagueTables, LeagueTableResult, TeamView) {
+});
+home.controller('feed', function($scope, Events, League, LeagueTables, TeamView, LeagueTableResult, TeamView) {
+    TeamView.get().$promise.then(function(resp){
+        $scope.teamList = resp.teams;
+    });
     var startDate = moment().format(serviceDateFormat);
     var endDate = moment().add(3,'M').format(serviceDateFormat);
     Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
@@ -29,7 +34,7 @@ home.controller('feed', function($scope, Events, League, LeagueTables, LeagueTab
         TeamView.get().$promise.then(function(resp) {
             if(resp.status.code == 200) {
                 var teamviews = resp.teams
-                LeagueTableResult.get({id: leagueId, tableID: tableId}).$promise.then(function(resp){
+                LeagueTableResult.get({id: leagueId, tableID: tableId, showError: false}).$promise.then(function(resp){
                     var table = resp.tournamentResults;
 
                     angular.forEach(table, function(teamResults, key){
@@ -44,6 +49,7 @@ home.controller('feed', function($scope, Events, League, LeagueTables, LeagueTab
             }
         });
     }
+
 
     // Get first league and league table we find, and display it.
     League.get().$promise.then(function(resp) {

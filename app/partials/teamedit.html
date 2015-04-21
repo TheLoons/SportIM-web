@@ -11,9 +11,7 @@
                 </div>
                 <div class="pure-u-1-2">
                     <label for="sport">Sport</label>
-                    <select ng-model="sport" type="text" placeholder="Sport">
-                        <option value="soccer">Soccer</option>
-                        <option value="other">Other</option>
+                    <select ng-model="sport" type="text" ng-options="sport.display for sport in sports" placeholder="Sport">
                     </select>
                 </div>
             </div>

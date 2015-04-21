@@ -91,21 +91,27 @@ league.controller('leagueview', function($scope, League, LeagueTeamAdd, LeagueTa
     };
 });
 
-league.controller('leagueedit', ['$scope', 'League', '$routeParams', function($scope, League, $routeParams) {
-    if($routeParams.leagueId) {
-        League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
-            $scope.league = resp.league;
-            $scope.leagueName = resp.league.name;
-            $scope.sport = resp.league.sport;
-        });
-    }
+league.controller('leagueedit', ['$scope', 'League', 'Sports', '$routeParams', function($scope, League, Sports, $routeParams) {
+    Sports.get().$promise.then(function(resp){
+        $scope.sports = resp.sports;
+        if($routeParams.leagueId) {
+            League.get({id: $routeParams.leagueId}).$promise.then(function(resp) {
+                $scope.league = resp.league;
+                $scope.leagueName = resp.league.name;
+                angular.forEach($scope.sports, function(sport, value){
+                    if(sport.id == resp.league.sport)
+                        $scope.sport = sport;
+                });
+            });
+        }
+    });
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.league)) {
-            League.update({id: $scope.league.id, name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){
+            League.update({id: $scope.league.id, name: $scope.leagueName, sport: $scope.sport.id}).$promise.then(function(){
                 $("#successHeader").show().find("#successMessage").text("Saved League Changes");
             });
         } else {
-            League.save({name: $scope.leagueName, sport: $scope.sport}).$promise.then(function(){
+            League.save({name: $scope.leagueName, sport: $scope.sport.id}).$promise.then(function(){
                 $("#successHeader").show().find("#successMessage").text("Saved League Changes");
             });
         }

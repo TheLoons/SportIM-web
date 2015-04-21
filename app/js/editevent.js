@@ -46,6 +46,9 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
     }
 
     Event.get({id:$location.search().event}).$promise.then(function(resp) {
+        if(resp.event.tournamentID){
+            $scope.tournamentID = resp.event.tournamentID
+        }
         $scope.event = resp.event;
         var event = resp.event;
         $scope.title = event.title;

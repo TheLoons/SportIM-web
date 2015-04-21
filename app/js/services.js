@@ -1,13 +1,18 @@
 var serviceUrl = 'https://sportim.herokuapp.com/rest/';
 var soccerUrl = 'https://sportim.herokuapp.com/soccer/';
+var ultimateUrl = 'https://sportim.herokuapp.com/ultimate/';
 
 var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
+var ignoreUrl = [];
 
 services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {
     var sessionRecoverer = {
         request: function(request) {
+            if(request.params && request.params.showError === false)
+                ignoreUrl.push(request.url);
+
             request.headers['token'] = $cookies.session;
             request.headers['session'] = $cookies.soccersession;
             return request;
@@ -17,7 +22,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
             if (response.data.status && response.data.status.code != 200){
                 if(response.data.status.code == 401)
                     window.location.href = '../views/login.html#/?error=NotAuthorized';
-                else {
+                else if(ignoreUrl.indexOf(response.config.url) < 0) {
                     $("#errorHeader").show().find("#errorMessage").text(response.data.status.message);
                 }
             }
@@ -54,6 +59,13 @@ services.factory('UserAlert', ['$resource',
     }]
 );
 
+services.factory('Color', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'team/:id/colors', {id:'@id'}, {
+            "update":{method:"PUT"}
+        });
+    }]
+);
 services.factory('Team', ['$resource',
     function($resource){
         return $resource(serviceUrl+'team/:id', {id:'@id'}, {
@@ -162,6 +174,49 @@ services.factory('Register', ['$resource',
     }]
 );
 
+services.factory('PlayerPassing', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'pass?player=:login', {login: '@login'}, {});
+    }]
+);
+
+services.factory('TeamPassing', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'pass?teamID=:id', {login: '@id'}, {});
+    }]
+);
+
+services.factory('EventPassing', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'pass?eventID=:id', {login: '@id'}, {});
+    }]
+);
+
+services.factory('EventStats', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'stats/event/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('TeamStats', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'stats/team/:id', {id:'@id'}, {});
+    }]
+);
+
+services.factory('PlayerStats', ['$resource',
+    function($resource){
+        return $resource(serviceUrl+'stats/player?login=:login', {login:'@login'}, {});
+    }]
+);
+
+// Sports API
+services.factory('Sports', ['$resource',
+    function($resource){
+            return $resource(serviceUrl + 'sports', {});
+    }]
+);
+
 // Soccer API
 services.factory('Session', ['$resource',
     function($resource){
@@ -199,24 +254,6 @@ services.factory('Pass', ['$resource',
     }]
 );
 
-services.factory('EventStats', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'stats/event/:id', {id:'@id'}, {});
-    }]
-);
-
-services.factory('TeamStats', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'stats/team/:id', {id:'@id'}, {});
-    }]
-);
-
-services.factory('PlayerStats', ['$resource',
-    function($resource){
-        return $resource(soccerUrl+'stats/player?login=:login', {login:'@login'}, {});
-    }]
-);
-
 services.factory('TimeStart', ['$resource',
     function($resource){
         return $resource(soccerUrl+'time/start/:id', {id: '@id'}, {});
@@ -247,20 +284,21 @@ services.factory('PlayerSub', ['$resource',
     }]
 );
 
-services.factory('PlayerPassing', ['$resource',
+// Ultimate Frisbee API
+services.factory('Finalize', ['$resource',
     function($resource){
-        return $resource(soccerUrl+'pass?player=:login', {login: '@login'}, {});
+        return $resource(ultimateUrl+'finalize/:id', {id: '@id'}, {});
     }]
 );
 
-services.factory('TeamPassing', ['$resource',
+services.factory('UltimateFoul', ['$resource',
     function($resource){
-        return $resource(soccerUrl+'pass?teamID=:id', {login: '@id'}, {});
+        return $resource(ultimateUrl+'foul/:id', {id:'@id'}, {});
     }]
 );
 
-services.factory('EventPassing', ['$resource',
+services.factory('UltimatePoint', ['$resource',
     function($resource){
-        return $resource(soccerUrl+'pass?eventID=:id', {login: '@id'}, {});
+        return $resource(ultimateUrl+'point/:id', {id:'@id'}, {});
     }]
 );

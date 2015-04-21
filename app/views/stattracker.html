@@ -45,7 +45,7 @@
                 <span id="team2-score" class="match-time">0</span>
                 <span class="match-period">{{team2.name}}</span>
             </div>
-            <img class="soccerball" src="../images/soccerball.png" />
+            <img class="soccerball" src="" />
         </div>
         <div class="pure-u-1-5">
             <div class="pure-button passing-button button-green" ng-hide="passingMode" ng-click="enablePassing()">Start Passing Mode</div>
@@ -113,8 +113,8 @@
     </div>
     <div id="player-modal">
         <div class="pure-button" ng-click="foul('foul')"><span>Foul</span></div>
-        <div class="pure-button button-yellow" ng-click="foul('yellow')"><span>Yellow</span></div>
-        <div class="pure-button button-red" ng-click="foul('red')"><span>Red</span></div>
+        <div class="pure-button button-yellow" ng-show="isSoccer" ng-click="foul('yellow')"><span>Yellow</span></div>
+        <div class="pure-button button-red" ng-show="isSoccer" ng-click="foul('red')"><span>Red</span></div>
     </div>
 </body>
 </html>

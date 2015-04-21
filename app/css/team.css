@@ -15,3 +15,7 @@
 .player-add-div {
     margin-top: 40px;
 }
+
+.selectize-control div.selectize-input {
+    width: 95%;
+}
