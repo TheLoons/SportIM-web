@@ -155,9 +155,14 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
                     if ($scope.tableList) {
                         LeagueTables.save({id: $scope.leagueSelected.id, desc: $scope.tournamentDesc, tournamentId: tournamentId}).$promise.then(function(resp) {
                             if(resp.status.code == 200) {
+                                $("#successHeader").show().find("#successMessage").text("Saved League Table");
                                 document.location = "calendar.html";
                             }
                         });
+                    }
+                    else{
+                        $("#successHeader").show().find("#successMessage").text("Saved Tournament");
+                        document.location = "calendar.html";
                     }
                 });
             }

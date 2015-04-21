@@ -81,6 +81,7 @@
                 $scope.startDate = moment(evtobj.start).format("MM/DD/YYYY");
                 $scope.endTime = moment(evtobj.end).format("h:mm A");
                 $scope.startTime = moment(evtobj.start).format("h:mm A");
+                $('#eventType').val(resp.event.type);
                 if (evtobj.teams && evtobj.teams[0]) {
                     $scope.team1 = evtobj.teams[0].id;
                     $("#team1").val(evtobj.teams[0].name);
@@ -112,12 +113,13 @@
                     $scope.team2 = parseInt($scope.team2);
 
                 if ($scope.selectedEvent != -1) {
-                    Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle, teamIDs: [$scope.team1, $scope.team2]});
+                    Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle, type: $('#eventType').val(),  teamIDs: [$scope.team1, $scope.team2]});
                 }
                 else{
-                    Event.save({start: startDate, end: endDate, title: $scope.eventTitle, teamIDs: [$scope.team1, $scope.team2]});
+                    Event.save({start: startDate, end: endDate, title: $scope.eventTitle, type: $('#eventType').val(),  teamIDs: [$scope.team1, $scope.team2]});
                 }
             }
+            $('#eventType').val("");
             $scope.inputModal = false;
             $scope.gameModal = false;
             setTimeout(function(){
