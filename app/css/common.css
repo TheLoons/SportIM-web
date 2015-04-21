@@ -173,3 +173,8 @@ div.selectize-input {
     border-bottom: 1px solid #ccc;
     text-align: center;
 }
+.hidden-clickable {
+    color: #000;
+    text-decoration: underline;
+    cursor: pointer;
+}
