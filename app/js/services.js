@@ -18,7 +18,8 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
                 nospinnerUrl.push(request.url);
             loading.push(request.url);
 
-            $("#spinner").show();
+            $("#loading-cover").show();
+            $(".spinner").show();
             request.headers['token'] = $cookies.session;
             request.headers['session'] = $cookies.soccersession;
             return request;
@@ -34,7 +35,8 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
             }
             loading.splice(response.config.url,1);
             if(loading.length == 0)
-                $("#spinner").hide();
+                $("#loading-cover").hide();
+                $(".spinner").hide();
 
             return response;
         }
