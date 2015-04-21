@@ -29,8 +29,15 @@
             $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
             $("#game-modal-eventname").text(calEvent.title);
             $scope.selectedEvent = calEvent.id;
+            $scope.selectedEventObj = calEvent;
             jsEvent.stopPropagation();
         };
+        $scope.statsClick = function(calEvent) {
+            if(moment($scope.selectedEventObj.end).isBefore(moment()))
+                window.location = "editevent.html#/?event="+$scope.selectedEvent;
+            else
+                window.location = "stattracker.html#/?event="+$scope.selectedEvent;
+        }
         $scope.viewChange = function(view, element) {
             var startDate = moment(view.start).format(serviceDateFormat);
             var endDate = moment(view.end).format(serviceDateFormat);
