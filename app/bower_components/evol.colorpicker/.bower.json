@@ -1,0 +1,15 @@
+{
+  "name": "evol.colorpicker",
+  "homepage": "https://github.com/evoluteur/colorpicker",
+  "version": "3.2.0",
+  "_release": "3.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.2.0",
+    "commit": "021f693fc70029413dd80126d37e772589805239"
+  },
+  "_source": "git://github.com/evoluteur/colorpicker.git",
+  "_target": "~3.2.0",
+  "_originalSource": "evol.colorpicker",
+  "_direct": true
+}
