@@ -59,7 +59,11 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
         } else if($scope.goalPick == 1) {
             $scope.playergoal = player;
             $scope.playergoalteam = team;
-            $("#selectMessage").text("Click/Tap the player who made the assist");
+            if($scope.isSoccer)
+                $("#selectMessage").text("Click/Tap the player who made the assist");
+            else
+                $("#selectMessage").text("Click/Tap the thrower");
+
             if($scope.isSoccer)
                 $scope.goalPick = 2;
             else
@@ -80,7 +84,10 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
                 $scope.score2 = $scope.score2 + 1;
                 $("#team2-score").text($scope.score2);
             }
-            $("#selectMessage").text("Saved the goal");
+            if($scope.isSoccer)
+                $("#selectMessage").text("Saved the goal");
+            else
+                $("#selectMessage").text("Saved the point");
             $scope.ontargetPick = 0;
         } else if($scope.passingMode && $scope.passingStep == 1) {
             $scope.passingPlayer = player;
@@ -341,7 +348,10 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             $(this).css("background-color", "transparent");
         },
         drop: function(event, ui) {
-            $("#selectMessage").text("Click/Tap player who scored");
+            if($scope.isSoccer)
+                $("#selectMessage").text("Click/Tap player who scored");
+            else
+                $("#selectMessage").text("Click/Tap the reciever");
             $scope.showSelectHeader();
             $scope.goalPick = 1;
         }
