@@ -21,6 +21,7 @@ settings.controller('settingsc', function($scope, UserAlert) {
         $scope.otherAlert = user.otherAlert;
       });
     $scope.submitEvent = function(){
-    	UserAlert.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email, gameAlert: $scope.gameAlert, practiceAlert: $scope.practiceAlert, meetingAlert: $scope.meetingAlert, otherAlert: $scope.otherAlert});
+        debugger
+    	UserAlert.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email, gameAlert: $scope.gameAlert, practiceAlert: $scope.practiceAlert, meetingAlert: $scope.meetingAlert, otherAlert: $scope.otherAlert });
     };
 });
