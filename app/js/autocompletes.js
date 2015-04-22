@@ -16,7 +16,7 @@ function teamAutocomplete(element, endpoint) {
             }
         },
         load: function(query, callback) {
-            endpoint.get().$promise.then(function(resp) {
+            endpoint.get({showSpinner: false}).$promise.then(function(resp) {
                 if(resp.status.code == 200)
                     callback(resp.teams);
             });
@@ -42,7 +42,7 @@ function playerAutocomplete(element, endpoint) {
             }
         },
         load: function(query, callback) {
-            endpoint.get().$promise.then(function(resp) {
+            endpoint.get({showSpinner: false}).$promise.then(function(resp) {
                 if(resp.status.code == 200)
                     callback(resp.users);
             });

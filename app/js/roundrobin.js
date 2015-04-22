@@ -4,7 +4,9 @@ var calendar = angular.module('roundrobin',['services']);
 calendar.controller('header', function($scope) {
     loadColors($scope);
     $scope.contextItems = [
-        //{url: "team.html", label: "My Teams"},
+        {url: "player.html#/players", label: "My Players"},
+        {url: "team.html", label: "My Teams"},
+        {url: "league.html", label: "My Leagues"}
     ];
 });
 
