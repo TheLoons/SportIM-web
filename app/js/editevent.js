@@ -59,6 +59,8 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
         $scope.title = event.title;
         $scope.startTime = moment(event.start).format("MM/DD/YYYY h:mm A");
         $scope.endTime = moment(event.end).format("MM/DD/YYYY h:mm A");
+        $scope.eventType = resp.event.type;
+        $scope.location = resp.event.location;
         if (event.teams && event.teams[0] && event.teams[1]) {
             $('#homeLabel').show()
             $('#awayLabel').show()
@@ -68,6 +70,7 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
             $("#awayTeam").val(event.teams[1].name);
             teamAutocomplete("#homeTeam", TeamView);
             teamAutocomplete("#awayTeam", TeamView);
+            $scope.eventType = resp.event.type;
         }
         if (!event.editable) {
             $("#homeTeam").prop("readonly",true);
@@ -76,6 +79,8 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
             $("#description").prop("readonly",true);
             $("#startTime").prop("readonly",true);
             $("#endTime").prop("readonly",true);
+            $("#eventType").prop("readonly",true);
+            $("#location").prop("readonly",true);
             $("#submit").hide();
         }
 
