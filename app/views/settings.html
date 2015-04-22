@@ -63,10 +63,10 @@
                 <input id="otherAlert" ng-model="otherAlert" type="text" name="focus" required class="settings-input" placeholder="Hours Before" value={{phonenumber}} />
             </div>
             <div class="pure-u-1-2">
-                <input id="recieveText" ng-model="recieveText" type="checkbox" name="recieveText">Recieve Text</input>
+                <input id="recieveText" ng-model="recieveText" ng-init="recieveText=false" type="checkbox" name="recieveText">Recieve Text</input>
             </div>
             <div class="pure-u-1-2">
-                <input id="recieveEmail" ng-model="recieveEmail" type="checkbox" name="recieveEmail">Recieve Email</input>
+                <input id="recieveEmail" ng-model="recieveEmail" ng-init="recieveEmail=false" type="checkbox" name="recieveEmail">Recieve Email</input>
             </div>
         </div>
         <input type="submit" value="Submit" ng-click="submitEvent()" class="pure-button pure-button-primary"/>
