@@ -33,12 +33,6 @@
             <div class="pure-u-1-3"><strong>Team Owner:</strong> {{team.owner}}</div>
             <div class="pure-u-1-3"><strong>Sport:</strong> {{team.sport.toLowerCase().replace("_"," ")}}</div>
         </div>
-        <div>
-            <div class="pure-u-1-4"><label>Primary</label><input id="primary" ng-model="primary" class="colorpicker"></div>
-            <div class="pure-u-1-4"><label>Secondary</label><input id= "secondary" ng-model="secondary" class="colorpicker"></div>
-            <div class="pure-u-1-4"><label>Tertiary</label><input id= "tertiary" ng-model="tertiary" class="colorpicker"></div>
-            <div class="pure-u-1-6"><div class="pure-button pure-button-primary calendar-button" ng-click="saveColors()">Save Colors</div></div>
-        </div>
         <div id="teamList" class="pure-u-1-3 ng-binding">
             <h2>Players</h2>
             <table class="pure-table pure-table-striped">
