@@ -69,17 +69,17 @@
                     <label for="endTime">End Time</label>
                     <input id="endTime" ng-model="endTime"/>
                 </div>
-                <div class="pure-control-group">
+                <div id="team1Div" style ="display: none;" class="pure-control-group">
                     <label for="team1" class="team">Team 1</label>
                     <div class="selectize-value"><input id="team1" ng-model="team1"/></div>
                 </div>
-                <div class="pure-control-group">
+                <div id="team2Div" style ="display: none;" class="pure-control-group">
                     <label for="team2" class="team">Team 2</label>
                     <div class="selectize-value"><input id="team2" ng-model="team2"/></div>
                 </div>
                 <div class="pure-control-group">
                     <label>Event Type</label>
-                    <select ng-model="eventType" class="form-control" name="eventType" id="eventType">
+                    <select ng-change="changeEvent()" ng-model="eventType" class="form-control" name="eventType" id="eventType">
                         <option></option>
                         <option value="Practice">Practice</option>
                         <option value="Game">Game</option>

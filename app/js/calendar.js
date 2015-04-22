@@ -40,6 +40,12 @@
             else
                 window.location = "stattracker.html#/?event="+$scope.selectedEvent;
         }
+        $scope.changeEvent = function(){
+            if($scope.eventType == "Game"){
+                $("#team2Div").show();
+                $("#team1Div").show();
+            }
+        }
         $scope.viewChange = function(view, element) {
             var startDate = moment(view.start).format(serviceDateFormat);
             var endDate = moment(view.end).format(serviceDateFormat);
@@ -113,8 +119,31 @@
         $scope.submitEvent = function(){
             var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").utc().format(serviceDateFormat);
             var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").utc().format(serviceDateFormat);
-            if (!$scope.team1 || !$scope.team2) {
+            if(!$scope.eventType || !startDate || !endDate || !$scope.eventTitle || !$scope.startDate || !$scope.endDate)
+            {
+                $("#errorHeader").show().find("#errorMessage").text("Fill Out All Information");
+                $('#eventType').val("");
+                $scope.inputModal = false;
+                $scope.gameModal = false;
                 return;
+            }
+            if($scope.eventType == "Game")
+            {
+                if(!$scope.team1 || !$scope.team2){
+                    $("#errorHeader").show().find("#errorMessage").text("Fill Out Teams");
+                    $('#eventType').val("");
+                    $scope.inputModal = false;
+                    $scope.gameModal = false;
+                    return;
+                }   
+            }
+            if (!$scope.team1 || !$scope.team2) {
+                if ($scope.selectedEvent != -1) {
+                    Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle, type: $('#eventType').val()});
+                }
+                else{
+                    Event.save({start: startDate, end: endDate, title: $scope.eventTitle, type: $('#eventType').val()});
+                }
             }
             else{
                 if($scope.team1.substring)

@@ -33,6 +33,8 @@ settings.controller('settingsc', function($scope, UserAlert) {
         }
       });
     $scope.submitEvent = function(){
-    	UserAlert.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email, gameAlert: $scope.gameAlert, practiceAlert: $scope.practiceAlert, meetingAlert: $scope.meetingAlert, otherAlert: $scope.otherAlert, receiveEmail: !!$scope.recieveEmail ? 1 : 0 ,receiveText: !!$scope.recieveText ? 1 : 0});
+    	UserAlert.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email, gameAlert: $scope.gameAlert, practiceAlert: $scope.practiceAlert, meetingAlert: $scope.meetingAlert, otherAlert: $scope.otherAlert, receiveEmail: !!$scope.recieveEmail ? 1 : 0 ,receiveText: !!$scope.recieveText ? 1 : 0}).$promise.then(function(resp){
+            document.location = "calendar.html";
+        });
     };
 });
