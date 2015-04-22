@@ -1,6 +1,11 @@
 var editevent = angular.module('editevent',['services']);
 
 editevent.controller('header', function($scope) {
+    $scope.contextItems = [
+        {url: "player.html#/players", label: "My Players"},
+        {url: "team.html", label: "My Teams"},
+        {url: "league.html", label: "My Leagues"}
+    ];
 });
 
 editevent.controller('editevent', function($scope, $location, UserView, TeamView, Event, EventStats, Team, EventPassing) {
