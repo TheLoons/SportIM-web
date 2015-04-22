@@ -11,6 +11,8 @@
     calendar.controller('maincalendar', function($scope, Events, Event, TeamView) {
         $scope.eventSources = [];
         $scope.selectedEvent = -1;
+        teamAutocomplete("#team1", TeamView);
+        teamAutocomplete("#team2", TeamView);
 
         $scope.selectDate = function(start, end) {
             $scope.inputModal = true;
@@ -91,11 +93,13 @@
                 if (evtobj.teams && evtobj.teams[0]) {
                     $scope.team1 = evtobj.teams[0].id;
                     $("#team1").val(evtobj.teams[0].name);
+                    $("#team1")[0].selectize.destroy();
                     teamAutocomplete("#team1", TeamView);
                 }
                 if (evtobj.teams && evtobj.teams[1]) {
                     $scope.team2 = evtobj.teams[1].id;
                     $("#team2").val(evtobj.teams[1].name);
+                    $("#team2")[0].selectize.destroy();
                     teamAutocomplete("#team2", TeamView);
                 }
                 $scope.inputModal = true;

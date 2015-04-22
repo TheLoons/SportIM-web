@@ -2,7 +2,9 @@ var calendar = angular.module('bracket',['services']);
 
 calendar.controller('header', function($scope) {
     $scope.contextItems = [
-        //{url: "team.html", label: "My Teams"},
+        {url: "player.html#/players", label: "My Players"},
+        {url: "team.html", label: "My Teams"},
+        {url: "league.html", label: "My Leagues"}
     ];
 });
 
@@ -19,6 +21,14 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
             $('#tourn-desc').val(resp.tournament.desc).prop('readonly', true);
             $('.league').hide();
             $scope.eventData = resp.tournament.events;
+
+            // determine date labels for events
+            angular.forEach($scope.eventData, function(key, index){
+                var startDate = moment(key.start);
+                var endDate = moment(key.end);
+                key.dateLabel = startDate.format("MM/DD/YYYY h:mm a") + " - " + endDate.format("h:mm a");
+            });
+
             $scope.figureoutlayout();
         });
     }
@@ -43,14 +53,14 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
         while(events.length > 0){
             angular.forEach(events, function(key, index){
                 if(!key.nextEventID){
-                    if(!key.teams)
+                    if(!key.teams || key.teams.length == 0)
                         key.teams = [{name: "Final"},{name: "Final"}];
 
                     $scope.final = key;
                     events.splice(index, 1);
                 }
                 else if($scope.final != undefined && key.nextEventID == $scope.final.id){
-                    if(!key.teams)
+                    if(!key.teams || key.teams.length == 0)
                         key.teams = [{name: "Semi"},{name: "Semi"}];
 
                     if(!$scope.leftSemi.id)
@@ -190,47 +200,17 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
         $scope.figureoutlayout();
     };
     $scope.updateEvents = function(teamID, eventID){
-        if($scope.eventData[eventID] != undefined)
+        if($scope.eventData[eventID-1] != undefined)
         {
-            $scope.eventData[eventID].teamIDs.push(teamID);
+            $scope.eventData[eventID-1].teamIDs.push(teamID);
         }
         else
         {
-            $scope.eventData[eventID] = {teamIDs: [teamID]};
+            $scope.eventData[eventID-1] = {teamIDs: [teamID]};
         }
     };
     $scope.removeTeam = function(teamID, eventID){
-        $scope.eventData[eventID].teamIDs.splice($scope.eventData[eventID].teamIDs.indexOf(teamID),1);
-    };
-    $scope.updateDefaultDates = function(){
-        if($scope.totalstartDate == "" || $scope.totalstartTime == "" || $scope.totalendDate == "" || $scope.totalendTime == "")
-            return;
-
-        var currentStartDate = moment($scope.totalstartDate + " " + $scope.totalstartTime, "MM/DD/YYYY h:mm A");
-        var currentEndDate = moment($scope.totalstartDate + " " + $scope.totalendTime, "MM/DD/YYYY h:mm A");
-        var endDate = moment($scope.totalendDate + " " + $scope.totalendTime, "MM/DD/YYYY h:mm A");
-
-        var currentDate = currentStartDate.clone();
-
-        angular.forEach($scope.eventData, function(eventObject, key) {
-            eventObject.startDate = currentDate.format("MM/DD/YYYY");
-            eventObject.startTime = currentDate.format("h:mm A");
-            eventObject.endDate = currentDate.format("MM/DD/YYYY");
-            eventObject.start = currentDate.format(serviceDateFormat);
-
-            currentDate.add(2, 'h');
-            eventObject.endTime = currentDate.format("h:mm A");
-            eventObject.end = currentDate.format(serviceDateFormat);
-            eventObject.dateLabel = eventObject.startDate + "  " + eventObject.startTime + " - " + eventObject.endTime;
-
-            if(currentDate.clone().add(2, 'h').isAfter(currentEndDate))
-            {
-                currentStartDate.add(1, 'd');
-                currentEndDate.add(1, 'd');
-                currentDate = currentStartDate.clone();
-            }
-            $scope.eventData[key] = eventObject;
-        });
+        $scope.eventData[eventID-1].teamIDs.splice($scope.eventData[eventID-1].teamIDs.indexOf(teamID),1);
     };
     $scope.saveTournament = function(){
         if(!$scope.validateBeforeSave())

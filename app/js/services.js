@@ -6,7 +6,6 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 var ignoreUrl = [];
-var nospinnerUrl = [];
 var loading = [];
 
 services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {
@@ -14,12 +13,11 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
         request: function(request) {
             if(request.params && request.params.showError === false)
                 ignoreUrl.push(request.url);
-            if(request.params && request.params.showSpinner === false)
-                nospinnerUrl.push(request.url);
-            loading.push(request.url);
-
-            $("#loading-cover").show();
-            $(".spinner").show();
+            if(request.params && request.params.showSpinner !== false) {
+                loading.push(request.url);
+                $("#loading-cover").show();
+                $(".spinner").show();
+            }
             request.headers['token'] = $cookies.session;
             request.headers['session'] = $cookies.soccersession;
             return request;
