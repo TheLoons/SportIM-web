@@ -6,13 +6,20 @@ var serviceDateFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
 
 var services = angular.module('services', ['ngResource', 'ngCookies']);
 var ignoreUrl = [];
+var nospinnerUrl = [];
+var loading = [];
 
 services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q, $injector, $cookies) {
     var sessionRecoverer = {
         request: function(request) {
             if(request.params && request.params.showError === false)
                 ignoreUrl.push(request.url);
+            if(request.params && request.params.showSpinner === false)
+                nospinnerUrl.push(request.url);
+            loading.push(request.url);
 
+            $("#loading-cover").show();
+            $(".spinner").show();
             request.headers['token'] = $cookies.session;
             request.headers['session'] = $cookies.soccersession;
             return request;
@@ -26,6 +33,11 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
                     $("#errorHeader").show().find("#errorMessage").text(response.data.status.message);
                 }
             }
+            loading.splice(response.config.url,1);
+            if(loading.length == 0)
+                $("#loading-cover").hide();
+                $(".spinner").hide();
+
             return response;
         }
     };

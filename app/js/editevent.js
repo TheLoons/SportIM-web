@@ -52,8 +52,8 @@ editevent.controller('editevent', function($scope, $location, UserView, TeamView
         $scope.event = resp.event;
         var event = resp.event;
         $scope.title = event.title;
-        $scope.startTime = event.start;
-        $scope.endTime = event.end;
+        $scope.startTime = moment(event.start).format("MM/DD/YYYY h:mm A");
+        $scope.endTime = moment(event.end).format("MM/DD/YYYY h:mm A");
         if (event.teams && event.teams[0] && event.teams[1]) {
             $('#homeLabel').show()
             $('#awayLabel').show()

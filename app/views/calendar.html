@@ -42,7 +42,7 @@
     </div>
     <div id="game-modal" ng-show="gameModal">
         <div id="game-modal-eventname"></div>
-        <a href="stattracker.html#/?event={{selectedEvent}}"><div class="pure-button" id="game-modal-stats"><span>Stats</span></div></a>
+        <div class="pure-button" id="game-modal-stats" ng-click="statsClick($event);"><span>Stats</span></div>
         <div class="pure-button" id="game-modal-edit" ng-click="loadEvent($event);"><span>Edit</span></div>
         <div class="pure-button button-red" id="game-modal-delete" ng-click="deleteEvent($event);"><span>Delete</span></div>
     </div>
@@ -70,12 +70,23 @@
                     <input id="endTime" ng-model="endTime"/>
                 </div>
                 <div class="pure-control-group">
-                    <label for="team1" class="selectize-label">Team 1</label>
+                    <label for="team1" class="team">Team 1</label>
                     <div class="selectize-value"><input id="team1" ng-model="team1"/></div>
                 </div>
                 <div class="pure-control-group">
-                    <label for="team2" class="selectize-label">Team 2</label>
+                    <label for="team2" class="team">Team 2</label>
                     <div class="selectize-value"><input id="team2" ng-model="team2"/></div>
+                </div>
+                <div class="pure-control-group">
+                    <label>Event Type</label>
+                    <select ng-model="eventType" class="form-control" name="eventType" id="eventType">
+                        <option></option>
+                        <option value="Practice">Practice</option>
+                        <option value="Game">Game</option>
+                        <option value="Fundraiser">Fundraiser</option>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
                 <a href="editevent.html#/?event={{selectedEvent}}" class="pure-button pure-u-1-5 button-moreOptions" ng-click="$event.stopPropagation();">More Options</a>
                 <div class="pure-u-1-4"></div>

@@ -29,8 +29,15 @@
             $("#game-modal").css({top: modaltop, left: modalleft, display: 'inherit'});
             $("#game-modal-eventname").text(calEvent.title);
             $scope.selectedEvent = calEvent.id;
+            $scope.selectedEventObj = calEvent;
             jsEvent.stopPropagation();
         };
+        $scope.statsClick = function(calEvent) {
+            if(moment($scope.selectedEventObj.end).isBefore(moment()))
+                window.location = "editevent.html#/?event="+$scope.selectedEvent;
+            else
+                window.location = "stattracker.html#/?event="+$scope.selectedEvent;
+        }
         $scope.viewChange = function(view, element) {
             var startDate = moment(view.start).format(serviceDateFormat);
             var endDate = moment(view.end).format(serviceDateFormat);
@@ -45,7 +52,6 @@
                     }
                 }
                 $scope.eventSources[0] = resp;
-
             });
         };
         $scope.clearForm = function(){
@@ -81,6 +87,7 @@
                 $scope.startDate = moment(evtobj.start).format("MM/DD/YYYY");
                 $scope.endTime = moment(evtobj.end).format("h:mm A");
                 $scope.startTime = moment(evtobj.start).format("h:mm A");
+                $('#eventType').val(resp.event.type);
                 if (evtobj.teams && evtobj.teams[0]) {
                     $scope.team1 = evtobj.teams[0].id;
                     $("#team1").val(evtobj.teams[0].name);
@@ -100,8 +107,8 @@
             $scope.clearForm();
         };
         $scope.submitEvent = function(){
-            var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
-            var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").format(serviceDateFormat);
+            var startDate = moment($scope.startDate + " " + $scope.startTime, "MM/DD/YYYY h:mm A").utc().format(serviceDateFormat);
+            var endDate = moment($scope.endDate + " " + $scope.endTime, "MM/DD/YYYY h:mm A").utc().format(serviceDateFormat);
             if (!$scope.team1 || !$scope.team2) {
                 return;
             }
@@ -112,12 +119,13 @@
                     $scope.team2 = parseInt($scope.team2);
 
                 if ($scope.selectedEvent != -1) {
-                    Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle, teamIDs: [$scope.team1, $scope.team2]});
+                    Event.update({id: $scope.selectedEvent, start: startDate, end: endDate, title: $scope.eventTitle, type: $('#eventType').val(),  teamIDs: [$scope.team1, $scope.team2]});
                 }
                 else{
-                    Event.save({start: startDate, end: endDate, title: $scope.eventTitle, teamIDs: [$scope.team1, $scope.team2]});
+                    Event.save({start: startDate, end: endDate, title: $scope.eventTitle, type: $('#eventType').val(),  teamIDs: [$scope.team1, $scope.team2]});
                 }
             }
+            $('#eventType').val("");
             $scope.inputModal = false;
             $scope.gameModal = false;
             setTimeout(function(){
@@ -130,6 +138,7 @@
                 center: '',
                 right: 'title'
             },
+            allDayDefault: false,
             selectable: true,
             selectHelper: true,
             aspectRatio: 1.5,

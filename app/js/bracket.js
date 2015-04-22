@@ -245,6 +245,7 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
                     $scope.eventData[key] = eventObject;
                 });
                 Events.save($scope.eventData);
+                $("#successHeader").show().find("#successMessage").text("Saved Bracket");
             }
         });
     };
