@@ -45,35 +45,9 @@ team.controller('teams', function($scope, TeamEdit) {
 });
 
 team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlayer, TeamRemovePlayer, UserView, TeamPassing, $routeParams) {
-    Color.get({id: $routeParams.teamId, showError: false}).$promise.then(function(resp) {
-        if(!resp.colors){
-            $scope.hasColors = false;
-        }
-        else{
-            colors = resp.colors;
-            loadColors($scope, colors);
-            var primaryColor = $('#primary').val(colors.primaryColor);
-            var secondaryColor = $('#secondary').val(colors.secondaryColor);
-            var tertiaryColor = $('#tertiary').val(colors.tertiaryColor);
-        }
-        
-    });
     
     playerAutocomplete("#playerAdd", UserView);
-    $(".colorpicker").colorpicker({history: false});
 
-    $scope.saveColors = function(){
-        var primaryColor = $('#primary').val();
-        var secondaryColor = $('#secondary').val();
-        var tertiaryColor = $('#tertiary').val();
-        if(!$scope.hasColors){
-            Color.save({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
-        }
-        else{
-            Color.update({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
-        }
-
-    };
     Team.get({id: $routeParams.teamId}).$promise.then(function(resp) {
         $scope.team = resp.team;
         $("#successHeader").hide();
@@ -167,7 +141,22 @@ team.controller('teamview', function($scope, Team, TeamStats, Color, TeamAddPlay
     };
 });
 
-team.controller('teamedit', ['$scope', 'Team', 'Sports', '$routeParams', function($scope, Team, Sports, $routeParams) {
+team.controller('teamedit', ['$scope', 'Team', 'Sports', 'Color', '$routeParams', function($scope, Team, Sports, Color, $routeParams) {
+    $(".colorpicker").colorpicker({history: false});
+    Color.get({id: $routeParams.teamId, showError: false}).$promise.then(function(resp) {
+        if(!resp.colors){
+            $scope.hasColors = false;
+        }
+        else{
+            colors = resp.colors;
+            loadColors($scope, colors);
+            var primaryColor = $('#primary').val(colors.primaryColor);
+            var secondaryColor = $('#secondary').val(colors.secondaryColor);
+            var tertiaryColor = $('#tertiary').val(colors.tertiaryColor);
+        }
+        
+    });
+
     Sports.get().$promise.then(function(resp){
         $scope.sports = resp.sports;
         if($routeParams.teamId) {
@@ -181,6 +170,19 @@ team.controller('teamedit', ['$scope', 'Team', 'Sports', '$routeParams', functio
             });
         }
     });
+    $scope.saveColors = function(){
+        debugger
+        var primaryColor = $('#primary').val();
+        var secondaryColor = $('#secondary').val();
+        var tertiaryColor = $('#tertiary').val();
+        if(!$scope.hasColors){
+            Color.save({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        }
+        else{
+            Color.update({id: $routeParams.teamId, primaryColor: primaryColor, secondaryColor: secondaryColor, tertiaryColor: tertiaryColor});
+        }
+
+    };
     $scope.submitEdit = function(id) {
         if(!angular.isUndefined($scope.team)) {
             Team.update({id: $scope.team.id, name: $scope.teamName, sport: $scope.sport.id}).$promise.then(function(){
