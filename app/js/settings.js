@@ -19,9 +19,20 @@ settings.controller('settingsc', function($scope, UserAlert) {
         $scope.practiceAlert = user.practiceAlert;
         $scope.meetingAlert = user.meetingAlert;
         $scope.otherAlert = user.otherAlert;
+        if (user.receiveText === 1){
+            $scope.recieveText = true;
+        }
+        else{
+            $scope.recieveText = false;   
+        }
+        if (user.receiveEmail == 1){
+            $scope.recieveEmail = true;
+        }
+        else{
+            $scope.recieveEmail = false;   
+        }
       });
     $scope.submitEvent = function(){
-        debugger
-    	UserAlert.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email, gameAlert: $scope.gameAlert, practiceAlert: $scope.practiceAlert, meetingAlert: $scope.meetingAlert, otherAlert: $scope.otherAlert });
+    	UserAlert.update({firstName: $scope.firstName, lastName: $scope.lastName, phone: $scope.phonenumber, email: $scope.email, gameAlert: $scope.gameAlert, practiceAlert: $scope.practiceAlert, meetingAlert: $scope.meetingAlert, otherAlert: $scope.otherAlert, receiveEmail: !!$scope.recieveEmail ? 1 : 0 ,receiveText: !!$scope.recieveText ? 1 : 0});
     };
 });
