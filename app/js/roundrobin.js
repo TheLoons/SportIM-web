@@ -21,9 +21,8 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
     $(".selectDate").datepicker()
     $(".selectTime").timepicker({timeFormat: "h:mm TT"});
 
-    TeamView.get().$promise.then(function(resp){
-            $scope.teamList = resp.teams;
-            angular.forEach($scope.teamList, function(firstTeam, firstTeamKey){
+    $scope.initTournament = function() {
+        angular.forEach($scope.teamList, function(firstTeam, firstTeamKey){
             var start = moment("01/01/2010 13:00:00", "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
             var end = moment("01/01/2010 13:00:00", "MM/DD/YYYY HH:mm:ss").format(serviceDateFormat);
 
@@ -50,7 +49,12 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
                     $scope.twoteamIndex[secondTeam.name][firstTeam.name] = index;
                 }
             });
-          });
+        });
+    }
+
+    TeamView.get().$promise.then(function(resp){
+        $scope.teamList = resp.teams;
+        $scope.initTournament();
     });
 
     League.get().$promise.then(function(resp) {
@@ -66,7 +70,12 @@ calendar.controller('roundrobinc', function($scope, League, LeagueTables, Events
 
     $scope.changeLeague = function() {
         League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
+            $scope.eventData = [];
+            $scope.teamIndex = {};
+            $scope.twoteamIndex = {};
+            $scope.teamData = [];
             $scope.teamList = resp.league.teams;
+            $scope.initTournament();
         });
     }
 

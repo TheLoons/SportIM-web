@@ -21,7 +21,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
     });
 
     $(".middle-area").width(function(){
-        return $(".soccer-field").width() - (2*$(".endline-area").width()) - (2*$(".goalfront-area").width()) - 12;
+        return $(".soccer-field").width() - (2*$(".endline-area").width()) - (2*$(".goalfront-area").width()) - 13;
     });
 
     $(window).resize(function() {
@@ -29,7 +29,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
             return $(this).width()*(1530/2048);
         });
         $(".middle-area").width(function(){
-            return $(".soccer-field").width() - (2*$(".endline-area").width()) - (2*$(".goalfront-area").width()) - 12;
+            return $(".soccer-field").width() - (2*$(".endline-area").width()) - (2*$(".goalfront-area").width()) - 13;
         });
     });
 
