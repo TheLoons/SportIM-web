@@ -17,7 +17,14 @@ home.controller('feed', function($scope, Events, League, LeagueTables, TeamView,
     var startDate = moment().format(serviceDateFormat);
     var endDate = moment().add(3,'M').format(serviceDateFormat);
     Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
-        var events = resp.events.slice(0,10);
+        var sortevents = resp.events.slice(0);
+        sortevents.sort(function(a,b){
+            if(moment(a.start).isBefore(moment(b.start)))
+                return -1;
+            else
+                return 1;
+        });
+        var events = sortevents.slice(0,10);
         angular.forEach(events, function(value, key){
             events[key].startday = moment(value.start).format("D");
             events[key].startmonth = moment(value.start).format("MMM");
