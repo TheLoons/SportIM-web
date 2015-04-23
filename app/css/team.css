@@ -19,3 +19,6 @@
 .selectize-control div.selectize-input {
     width: 95%;
 }
+.pure-form input.colorpicker {
+    padding: .5em .0em .5em .0em;
+}

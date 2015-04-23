@@ -171,7 +171,6 @@ team.controller('teamedit', ['$scope', 'Team', 'Sports', 'Color', '$routeParams'
         }
     });
     $scope.saveColors = function(){
-        debugger
         var primaryColor = $('#primary').val();
         var secondaryColor = $('#secondary').val();
         var tertiaryColor = $('#tertiary').val();
