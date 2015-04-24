@@ -29,6 +29,7 @@ services.factory('sessionRecoverer', ['$q', '$injector', '$cookies', function($q
                     window.location.href = '../views/login.html#/?error=NotAuthorized';
                 else if(ignoreUrl.indexOf(response.config.url) < 0) {
                     $("#errorHeader").show().find("#errorMessage").text(response.data.status.message);
+                    setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
                 }
             }
             loading.splice(response.config.url,1);
