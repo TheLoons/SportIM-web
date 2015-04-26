@@ -191,6 +191,7 @@ calendar.controller('stattrackerc', function($scope, Team, Event, Session, Sessi
 
     $scope.showSelectHeader = function(){
         $("#selectHeader").css("background-color", "#777");
+        setTimeout(function(){ $scope.hideSelectHeader(); }, 4000);
     };
 
     $scope.startFirstHalf = function(){
