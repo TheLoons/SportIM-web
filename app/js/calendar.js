@@ -52,6 +52,8 @@
             Events.get({start: startDate, end: endDate}).$promise.then(function(resp) {
                 for(var i = 0; i < resp.events.length; i++)
                 {
+                    resp.events[i].start = moment(resp.events[i].start).local().toDate();
+                    resp.events[i].end = moment(resp.events[i].end).local().toDate();
                     if (resp.events[i].tournamentID) {
                         resp.events[i].color = "#FF4444";
                     }
@@ -122,6 +124,7 @@
             if(!$scope.eventType || !startDate || !endDate || !$scope.eventTitle || !$scope.startDate || !$scope.endDate)
             {
                 $("#errorHeader").show().find("#errorMessage").text("Fill Out All Information");
+                setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
                 $('#eventType').val("");
                 $scope.inputModal = false;
                 $scope.gameModal = false;
@@ -131,6 +134,7 @@
             {
                 if(!$scope.team1 || !$scope.team2){
                     $("#errorHeader").show().find("#errorMessage").text("Fill Out Teams");
+                    setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
                     $('#eventType').val("");
                     $scope.inputModal = false;
                     $scope.gameModal = false;

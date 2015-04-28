@@ -132,6 +132,9 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
         if(!$scope.isEdit){
             League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
                 $scope.teamList = resp.league.teams;
+                $scope.teamList = $scope.teamList.slice(0,8);
+                if($scope.teamList.length == 7)
+                    $scope.teamList = $scope.teamList.slice(0,6);
                 $scope.computeLayout();
             });
         }
@@ -140,18 +143,36 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
     $scope.validateBeforeSave = function () {
         if(!$scope.tournamentDesc)
         {
-            console.log("error message for tournament description");
+            $("#errorHeader").show().find("#errorMessage").text("Must Enter Tournament Description");
+            setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
             return false;
         }
         if(!$scope.tournamentName)
         {
-            console.log("error message for tournament name");
+            $("#errorHeader").show().find("#errorMessage").text("Must Enter A Tournament Name");
+            setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
             return false;
         }
         if(!$scope.leagueSelected)
         {
-            console.log("error message for tournament leagueSelected");
+            $("#errorHeader").show().find("#errorMessage").text("Must Select A League");
+            setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
             return false;
+        }
+        for(var i = 0; i < $scope.eventData.length; i++) {
+            var eventObject = $scope.eventData[i];
+            if(!eventObject.start || !eventObject.end)
+            {
+                $("#errorHeader").show().find("#errorMessage").text("Must Enter Start And End Date/Time For Each Game");
+                setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
+                return false;
+            }
+            if(!eventObject.title)
+            {
+                $("#errorHeader").show().find("#errorMessage").text("Must Enter A Title For Each Game");
+                setTimeout(function(){ $("#errorHeader").hide(); }, 4000);
+                return false;
+            }
         }
         return true;
     };
