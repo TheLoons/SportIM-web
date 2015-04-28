@@ -132,6 +132,9 @@ calendar.controller('bracket', function($scope, $location, League, Events, Event
         if(!$scope.isEdit){
             League.get({id: $scope.leagueSelected.id}).$promise.then(function(resp){
                 $scope.teamList = resp.league.teams;
+                $scope.teamList = $scope.teamList.slice(0,8);
+                if($scope.teamList.length == 7)
+                    $scope.teamList = $scope.teamList.slice(0,6);
                 $scope.computeLayout();
             });
         }
