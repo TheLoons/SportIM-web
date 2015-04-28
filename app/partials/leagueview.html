@@ -20,11 +20,12 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pure-u-1-24"></div>
-            <div class="pure-u-11-24">
-                <div><input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/></div>
-                <div id="addButton" class="pure-button pure-button-primary" ng-click="addTeam()">Add</div>
-            </div>
+        </div>
+        <br>
+        <br>
+        <div class="pure-g">
+            <div class="pure-u-1-2"><input id="teamAdd" ng-model="teamAdd" placeholder="Add Team"/></div>
+            <div id="addButton" class="pure-u-1-6 pure-button pure-button-primary" ng-click="addTeam()">Add</div>
         </div>
         <br/>
         <a class="pure-button" href="#/league/{{league.id}}/edit">Edit league</a>

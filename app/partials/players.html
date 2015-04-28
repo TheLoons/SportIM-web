@@ -5,15 +5,15 @@
         <h2>Players</h2>
         <a class="pure-button pure-button-primary" href="#/player/create">Create player</a>
         <div class="pure-g table-header">
-            <div class="pure-u-1-4">First Name</div>
-            <div class="pure-u-1-4">Last Name</div>
-            <div class="pure-u-1-4">Email</div>
+            <div class="pure-u-1-6">First Name</div>
+            <div class="pure-u-1-6">Last Name</div>
+            <div class="pure-u-1-3">Email</div>
         </div>
         <div ng-repeat="player in players">
             <div class="pure-g table-row" ng-class-odd="'odd'">
-                <div class="pure-u-1-4">{{player.firstName}}</div>
-                <div class="pure-u-1-4">{{player.lastName}}</div>
-                <div class="pure-u-1-4">{{player.login}}</div>
+                <div class="pure-u-1-6">{{player.firstName}}</div>
+                <div class="pure-u-1-6">{{player.lastName}}</div>
+                <div style="overflow: hidden;" class="pure-u-1-3">{{player.login}}</div>
                 <a class="pure-u-1-12" href ng-href="#/player/{{player.login}}">View</a>
                 <a class="pure-u-1-12" href ng-href="#/player/{{player.login}}/edit">Edit</a>
                 <a class="pure-u-1-12" href ng-href="#/player/{{player.login}}/delete">Delete</a>

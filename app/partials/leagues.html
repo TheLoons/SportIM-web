@@ -10,8 +10,8 @@
         </div>
         <div ng-repeat="league in leagues">
             <div class="pure-g table-row" ng-class-odd="'odd'">
-                <div class="pure-u-1-4">{{league.name}}</div>
-                <div class="pure-u-1-4">{{league.owner}}</div>
+                <div class="pure-u-1-6">{{league.name}}</div>
+                <div style="overflow: hidden;" class="pure-u-1-3">{{league.owner}}</div>
                 <a class="pure-u-1-6" href ng-href="#/league/{{league.id}}">View</a>
                 <a class="pure-u-1-6" href ng-href="#/league/{{league.id}}/edit">Edit</a>
                 <a class="pure-u-1-6" href ng-href="#/league/{{league.id}}/delete">Delete</a>

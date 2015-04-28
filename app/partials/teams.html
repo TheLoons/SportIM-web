@@ -11,7 +11,7 @@
         <div ng-repeat="team in teams">
             <div class="pure-g table-row" ng-class-odd="'odd'">
                 <div class="pure-u-1-4">{{team.name}}</div>
-                <div class="pure-u-1-4">{{team.owner}}</div>
+                <div class="pure-u-1-4" style="overflow: hidden;">{{team.owner}}</div>
                 <a class="pure-u-1-6" href ng-href="#/team/{{team.id}}">View</a>
                 <a class="pure-u-1-6" href ng-href="#/team/{{team.id}}/edit">Edit</a>
                 <a class="pure-u-1-6" href ng-href="#/team/{{team.id}}/delete">Delete</a>
